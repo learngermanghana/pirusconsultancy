@@ -84,6 +84,21 @@ export default function Help() {
         </div>
       </section>
 
+      <section className="rounded-3xl border p-6 md:flex md:items-center md:justify-between">
+        <div className="space-y-2">
+          <h2 className="text-xl font-bold">Still have a quick question?</h2>
+          <p className="text-sm text-gray-600">
+            Ask StudyBuddy for a concise response and official-source reminders.
+          </p>
+        </div>
+        <a
+          href="/studybuddy"
+          className="mt-4 inline-flex rounded-2xl bg-black px-6 py-3 text-sm font-semibold text-white hover:opacity-90 md:mt-0"
+        >
+          Ask StudyBuddy
+        </a>
+      </section>
+
       <section className="grid gap-6 md:grid-cols-2">
         <div className="rounded-3xl border p-6">
           <h2 className="text-xl font-bold">Cost of living snapshot</h2>
