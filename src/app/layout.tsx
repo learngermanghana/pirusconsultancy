@@ -27,12 +27,14 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
-        className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100 text-slate-900"
+        className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100 text-slate-900 antialiased"
         suppressHydrationWarning
       >
         <LocaleProvider initialLocale={locale}>
           <Nav />
-          <main className="mx-auto max-w-6xl px-4 py-10">{children}</main>
+          <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 md:py-10">
+            {children}
+          </main>
           <Footer />
         </LocaleProvider>
       </body>
