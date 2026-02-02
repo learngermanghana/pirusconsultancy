@@ -497,7 +497,7 @@ export default function LearnGerman() {
       <section className="rounded-3xl border p-6 space-y-3">
         <h2 className="text-xl font-bold">Pricing</h2>
         <ul className="list-disc pl-5 text-gray-700 text-sm">
-          <li>A1 = 2800</li>
+          <li>A1 Dortmund Klasse Hybrid Class 2026</li>
           <li>A2–C1 = 3000</li>
           <li>B2/C1 self-learning plan (6 months)</li>
         </ul>
