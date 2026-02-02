@@ -8,9 +8,7 @@ const messages = {
     nav: {
       links: [
         { href: "/", label: "Home" },
-        { href: "/ausbildung-germany", label: "Ausbildung" },
-        { href: "/study-germany", label: "Study" },
-        { href: "/work-in-germany", label: "Work" },
+        { href: "/guidance", label: "Ausbildung / Study / Work" },
         { href: "/help", label: "Help & FAQ" },
         { href: "/learn-german", label: "Learn German" },
         { href: "/about", label: "About & Founder" },
@@ -46,9 +44,7 @@ const messages = {
     nav: {
       links: [
         { href: "/", label: "Startseite" },
-        { href: "/ausbildung-germany", label: "Ausbildung" },
-        { href: "/study-germany", label: "Studium" },
-        { href: "/work-in-germany", label: "Arbeit" },
+        { href: "/guidance", label: "Ausbildung / Studium / Arbeit" },
         { href: "/help", label: "Hilfe & FAQ" },
         { href: "/learn-german", label: "Deutsch lernen" },
         { href: "/about", label: "Über uns & Gründerin" },
