@@ -5,6 +5,7 @@ const routes = [
   "",
   "/about",
   "/ausbildung-germany",
+  "/booking",
   "/contact",
   "/founder",
   "/germany-partner",
