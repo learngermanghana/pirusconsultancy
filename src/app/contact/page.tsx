@@ -1,28 +1,5 @@
 import Link from "next/link";
 
-const faqs = [
-  {
-    question: "What services do you offer?",
-    answer:
-      "We support study, work, Ausbildung, and visa applications with clear documentation guidance and readiness coaching.",
-  },
-  {
-    question: "Do you guarantee visas?",
-    answer:
-      "No. We focus on preparation, transparency, and realistic plans so you can submit strong, compliant applications.",
-  },
-  {
-    question: "How long does the process take?",
-    answer:
-      "Timelines vary by destination and intake. We help you map milestones, deadlines, and document preparation windows.",
-  },
-  {
-    question: "Can you review my documents?",
-    answer:
-      "Yes. We review CVs, motivation letters, and application files and offer feedback before submission.",
-  },
-];
-
 export default function Contact() {
   return (
     <div className="space-y-8">
@@ -72,18 +49,6 @@ export default function Contact() {
         >
           Start visa assessment
         </Link>
-      </section>
-
-      <section id="faq" className="rounded-3xl border bg-gray-50 p-6">
-        <h2 className="text-xl font-bold text-gray-900">Help &amp; FAQ</h2>
-        <div className="mt-6 space-y-4">
-          {faqs.map((item) => (
-            <div key={item.question} className="rounded-2xl border bg-white p-4">
-              <p className="text-sm font-semibold text-gray-900">{item.question}</p>
-              <p className="mt-2 text-sm text-gray-600">{item.answer}</p>
-            </div>
-          ))}
-        </div>
       </section>
     </div>
   );
