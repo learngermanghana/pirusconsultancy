@@ -8,8 +8,9 @@ const messages = {
     nav: {
       links: [
         { href: "/", label: "Home" },
-        { href: "/work-in-germany", label: "Work in Germany" },
+        { href: "/guidance", label: "Travel & Visa Services" },
         { href: "/contact#faq", label: "Help & FAQ" },
+        { href: "/study-abroad-admissions", label: "Study Abroad" },
         { href: "/learn-german", label: "Learn German" },
         { href: "/about", label: "About & Founder" },
         { href: "/contact", label: "Contact" },
@@ -26,7 +27,7 @@ const messages = {
     footer: {
       links: [
         { href: "/about", label: "About & Founder" },
-        { href: "/tours", label: "Tours" },
+        { href: "/tours", label: "Ausbildung" },
         { href: "/success", label: "Success" },
         { href: "/contact#faq", label: "Help & FAQ" },
         { href: "/contact", label: "Contact" },
@@ -45,8 +46,9 @@ const messages = {
     nav: {
       links: [
         { href: "/", label: "Startseite" },
-        { href: "/work-in-germany", label: "Arbeiten in Deutschland" },
+        { href: "/guidance", label: "Reise- & Visa-Services" },
         { href: "/contact#faq", label: "Hilfe & FAQ" },
+        { href: "/study-abroad-admissions", label: "Studium im Ausland" },
         { href: "/learn-german", label: "Deutsch lernen" },
         { href: "/about", label: "Über uns & Gründerin" },
         { href: "/contact", label: "Kontakt" },
@@ -63,7 +65,7 @@ const messages = {
     footer: {
       links: [
         { href: "/about", label: "Über uns & Gründerin" },
-        { href: "/tours", label: "Touren" },
+        { href: "/tours", label: "Ausbildung" },
         { href: "/success", label: "Erfolgsgeschichten" },
         { href: "/contact#faq", label: "Hilfe & FAQ" },
         { href: "/contact", label: "Kontakt" },
