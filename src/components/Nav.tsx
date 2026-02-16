@@ -5,6 +5,30 @@ import { useState } from "react";
 import { useLocale } from "@/components/LocaleProvider";
 import { getMessages, Locale } from "@/lib/i18n";
 
+function NavLink({ href, label, onClick }: { href: string; label: string; onClick?: () => void }) {
+  const isExternal = href.startsWith("http://") || href.startsWith("https://");
+
+  if (isExternal) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-sm text-slate-600 transition hover:text-slate-900"
+        onClick={onClick}
+      >
+        {label}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={href} className="text-sm text-slate-600 transition hover:text-slate-900" onClick={onClick}>
+      {label}
+    </Link>
+  );
+}
+
 export default function Nav() {
   const { locale, setLocale } = useLocale();
   const messages = getMessages(locale);
@@ -19,13 +43,7 @@ export default function Nav() {
 
         <nav className="hidden gap-5 md:flex">
           {messages.nav.links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="text-sm text-slate-600 transition hover:text-slate-900"
-            >
-              {l.label}
-            </Link>
+            <NavLink key={`${l.href}-${l.label}`} href={l.href} label={l.label} />
           ))}
         </nav>
 
@@ -83,20 +101,10 @@ export default function Nav() {
         </button>
       </div>
       {isOpen ? (
-        <div
-          id="mobile-menu"
-          className="border-t border-slate-200/80 bg-white/95 px-4 py-4 md:hidden"
-        >
+        <div id="mobile-menu" className="border-t border-slate-200/80 bg-white/95 px-4 py-4 md:hidden">
           <nav className="flex flex-col gap-3">
             {messages.nav.links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="text-sm font-medium text-slate-700 transition hover:text-slate-900"
-                onClick={() => setIsOpen(false)}
-              >
-                {l.label}
-              </Link>
+              <NavLink key={`${l.href}-${l.label}`} href={l.href} label={l.label} onClick={() => setIsOpen(false)} />
             ))}
           </nav>
           <div className="mt-4 flex flex-col gap-3">
