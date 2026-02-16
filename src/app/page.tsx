@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
@@ -100,6 +101,15 @@ export default function Home() {
     <div className="space-y-8 md:space-y-10">
       {/* HERO */}
       <section className="rounded-3xl border border-white/60 bg-white/80 p-6 shadow-sm backdrop-blur md:p-12">
+        <div className="relative mb-6 h-52 overflow-hidden rounded-2xl sm:h-64 md:h-72">
+          <Image
+            src="/images/pexels-tima-miroshnichenko-7010095.jpg"
+            alt="Traveler in an airport walkway preparing for an international journey"
+            fill
+            priority
+            className="object-cover"
+          />
+        </div>
         <h1 className="text-3xl font-bold leading-tight text-slate-900 md:text-5xl">
           Plan your visa journey with clarity and confidence
           <span className="mt-3 block text-base font-medium text-slate-600 sm:text-lg md:text-xl">
