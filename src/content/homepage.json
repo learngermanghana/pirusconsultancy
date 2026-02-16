@@ -1,26 +1,26 @@
 {
   "featureCards": [
     {
-      "title": "Study Abroad Admissions",
-      "description": "Admissions planning and school selection across global destinations.",
+      "title": "Travel Planning & Consultation",
+      "description": "Destination guidance, trip purpose review, and advisory support before you travel.",
       "href": "/study-abroad-admissions",
       "imageSrc": "/images/study.jpg"
     },
     {
-      "title": "Student Visa Support",
-      "description": "Document-ready visa applications for student pathways.",
+      "title": "Visa Documentation Support",
+      "description": "Complete document checks and submission-ready visa application support.",
       "href": "/student-visa-support",
       "imageSrc": "/images/ausbildung.jpg"
     },
     {
-      "title": "Business & Trade Visas (Schengen)",
-      "description": "Short-stay business travel strategy for Europe (Schengen).",
+      "title": "Schengen Travel Consultancy",
+      "description": "Short-stay Europe travel strategy for tourism, meetings, and events.",
       "href": "/business-trade-visas",
       "imageSrc": "/images/jobs.jpg"
     },
     {
-      "title": "Australia Business Visa",
-      "description": "Guidance for business travel and documentation to Australia.",
+      "title": "Australia Travel Support",
+      "description": "Guidance for business, visitor, and family travel documentation to Australia.",
       "href": "/australia-business-visa",
       "imageSrc": "/images/pexels-tima-miroshnichenko-7010095.jpg"
     }
