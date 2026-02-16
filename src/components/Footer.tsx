@@ -5,6 +5,24 @@ import { site } from "@/lib/site";
 import { useLocale } from "@/components/LocaleProvider";
 import { getMessages } from "@/lib/i18n";
 
+function FooterLink({ href, label }: { href: string; label: string }) {
+  const isExternal = href.startsWith("http://") || href.startsWith("https://");
+
+  if (isExternal) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className="transition hover:text-slate-900">
+        {label}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={href} className="transition hover:text-slate-900">
+      {label}
+    </Link>
+  );
+}
+
 export default function Footer() {
   const { locale } = useLocale();
   const messages = getMessages(locale);
@@ -20,20 +38,12 @@ export default function Footer() {
           </div>
           <div className="flex flex-wrap gap-4 text-sm text-slate-600">
             {messages.footer.links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="transition hover:text-slate-900"
-              >
-                {link.label}
-              </Link>
+              <FooterLink key={`${link.href}-${link.label}`} href={link.href} label={link.label} />
             ))}
           </div>
         </div>
 
-        <div className="mt-6 text-xs text-slate-500">
-          {messages.footer.transparency}
-        </div>
+        <div className="mt-6 text-xs text-slate-500">{messages.footer.transparency}</div>
       </div>
     </footer>
   );
