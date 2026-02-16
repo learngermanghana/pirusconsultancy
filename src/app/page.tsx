@@ -1,6 +1,7 @@
 ﻿import Link from "next/link";
 import FeatureCard from "@/components/cards/FeatureCard";
 import homeContent from "@/content/homepage.json";
+import CaseStudiesSection from "@/components/CaseStudiesSection";
 
 export default function Home() {
   return (
@@ -135,6 +136,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+
+      <CaseStudiesSection />
 
       {/* HELP */}
       <section className="rounded-3xl border border-slate-800 bg-slate-900 p-6 text-white shadow-sm md:p-8">
