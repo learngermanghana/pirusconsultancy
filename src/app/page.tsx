@@ -84,32 +84,32 @@ export default function Home() {
   };
 
   return (
-    <div className="space-y-8 md:space-y-12">
+    <div className="space-y-8 md:space-y-10">
       {/* HERO */}
       <section className="rounded-3xl border border-white/60 bg-white/80 p-6 shadow-sm backdrop-blur md:p-12">
         <h1 className="text-3xl font-bold leading-tight text-slate-900 md:text-5xl">
-          Travel Consultancy for Europe &amp; Beyond
+          Plan your visa journey with clarity and confidence
           <span className="mt-3 block text-base font-medium text-slate-600 sm:text-lg md:text-xl">
-            Study abroad • Work visas • Business travel • Tourism
+            Trusted support for study, work, tourism, and business travel applications
           </span>
         </h1>
         <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-base">
-          Pirus Consultancy helps individuals, families, and business travelers plan smart, stress-free trips with
-          proper visa and documentation support.
+          Start with a quick assessment and receive a practical roadmap tailored to your destination, timeline, and
+          travel purpose.
         </p>
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <Link
-            href="/contact"
+            href="/assessment"
             className="w-full rounded-2xl bg-slate-900 px-6 py-3 text-center text-sm font-semibold text-white hover:opacity-90 sm:w-auto"
           >
-            Book a consultation
+            Start visa assessment
           </Link>
           <Link
             href="/blog"
             className="w-full rounded-2xl border border-slate-200 bg-white px-6 py-3 text-center text-sm font-semibold text-slate-900 hover:bg-slate-50 sm:w-auto"
           >
-            Explore travel resources
+            Book consultation
           </Link>
         </div>
       </section>
@@ -214,21 +214,14 @@ export default function Home() {
         ))}
       </section>
 
-      {/* SERVICE CARDS */}
-      <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {homeContent.featureCards.map((card) => (
-          <FeatureCard key={card.title} {...card} priority />
-        ))}
-      </section>
-
       <section className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-sm md:p-8">
         <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">Visa Support Services</p>
-            <h2 className="mt-2 text-2xl font-bold text-slate-900">Affordable Flights, Tours &amp; Visa Support</h2>
+            <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">Our Visa Services</p>
+            <h2 className="mt-2 text-2xl font-bold text-slate-900">Most requested pathways at a glance</h2>
             <p className="mt-3 text-sm leading-relaxed text-slate-600">
-              Book affordable international flights, explore carefully curated tour experiences, and receive
-              professional visa guidance and application support.
+              Explore our top travel and visa support routes, then open the full destinations page for complete service
+              details.
             </p>
           </div>
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
@@ -259,7 +252,7 @@ export default function Home() {
         </div>
 
         <div className="mt-4 grid gap-4 md:grid-cols-2">
-          {filteredDestinations.map((destinationOption) => (
+          {filteredDestinations.slice(0, 3).map((destinationOption) => (
             <article key={destinationOption.title} className="rounded-2xl border border-slate-200 bg-slate-50/90 p-5">
               <p className="text-xs font-semibold uppercase tracking-wide text-sky-700">{destinationOption.subtitle}</p>
               <h3 className="mt-2 text-lg font-bold text-slate-900">{destinationOption.title}</h3>
@@ -273,6 +266,13 @@ export default function Home() {
         <Link href="/guidance" className="mt-5 inline-block text-sm font-semibold text-sky-700 hover:text-sky-800">
           Browse all destinations & services →
         </Link>
+      </section>
+
+      {/* SERVICE CARDS */}
+      <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {homeContent.featureCards.map((card) => (
+          <FeatureCard key={card.title} {...card} priority />
+        ))}
       </section>
 
       {/* TOURS SHOWCASE */}
@@ -367,18 +367,15 @@ export default function Home() {
       </section>
 
       <section className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-sm md:p-8">
-        <h2 className="text-2xl font-bold text-slate-900">Popular packages at a glance</h2>
-        <p className="mt-2 text-sm text-slate-600">Compare transparent service tiers and optional add-ons before you book.</p>
-        <Link
-          href="/pricing"
-          className="mt-5 inline-flex rounded-2xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white hover:opacity-90"
-        >
-          View pricing & packages
-        </Link>
-      </section>
-
-      <section className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-sm md:p-8">
-        <h2 className="text-2xl font-bold text-slate-900">Testimonials from past clients</h2>
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">Success Stories</p>
+            <h2 className="text-2xl font-bold text-slate-900">Real outcomes from recent clients</h2>
+          </div>
+          <Link href="/success" className="text-sm font-semibold text-sky-700 hover:text-sky-800">
+            Read all success stories →
+          </Link>
+        </div>
         <div className="mt-4 grid gap-3 md:grid-cols-3">
           {[
             {
@@ -405,16 +402,13 @@ export default function Home() {
             </blockquote>
           ))}
         </div>
-        <Link href="/success" className="mt-4 inline-block text-sm font-semibold text-sky-700 hover:text-sky-800">
-          Read more success stories
-        </Link>
       </section>
 
       <section className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-sm md:p-8">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">Latest Insights</p>
-            <h2 className="mt-1 text-2xl font-bold text-slate-900">Visa guides, checklists & travel updates</h2>
+            <h2 className="mt-1 text-2xl font-bold text-slate-900">Visa guides, checklists &amp; travel updates</h2>
           </div>
           <Link href="/blog" className="text-sm font-semibold text-sky-700 hover:text-sky-800">
             Visit blog →
@@ -469,14 +463,19 @@ export default function Home() {
       <section className="rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-black p-6 text-white shadow-sm md:p-8">
         <h2 className="text-2xl font-bold">Start your next journey with confidence</h2>
         <p className="mt-2 text-sm leading-relaxed text-white/80">
-          Get a clear travel and visa plan based on your purpose, profile, and destination.
+          Begin with a focused assessment, then book a consultation when you are ready for document-level support.
         </p>
-        <Link
-          href="/contact"
-          className="mt-5 inline-block rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-black hover:opacity-90"
-        >
-          Contact us
-        </Link>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <Link
+            href="/assessment"
+            className="inline-block rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-black hover:opacity-90"
+          >
+            Start visa assessment
+          </Link>
+          <Link href="/help" className="inline-block px-2 py-3 text-sm font-semibold text-white/90 hover:text-white">
+            Explore FAQs &amp; resources
+          </Link>
+        </div>
       </section>
     </div>
   );
