@@ -103,8 +103,8 @@ export default function Home() {
       <section className="rounded-3xl border border-white/60 bg-white/80 p-6 shadow-sm backdrop-blur md:p-12">
         <div className="relative mb-6 h-52 overflow-hidden rounded-2xl sm:h-64 md:h-72">
           <Image
-            src="/images/study.jpg"
-            alt="Students reviewing travel study plans together"
+            src="/images/pexels-tima-miroshnichenko-7010095.jpg"
+            alt="Traveler in an airport walkway preparing for an international journey"
             fill
             priority
             className="object-cover"
