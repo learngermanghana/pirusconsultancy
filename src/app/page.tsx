@@ -106,7 +106,7 @@ export default function Home() {
             Book a consultation
           </Link>
           <Link
-            href="/help"
+            href="/blog"
             className="w-full rounded-2xl border border-slate-200 bg-white px-6 py-3 text-center text-sm font-semibold text-slate-900 hover:bg-slate-50 sm:w-auto"
           >
             Explore travel resources
@@ -425,17 +425,17 @@ export default function Home() {
             {
               title: "How to prepare a stronger visitor visa file",
               description: "Avoid common refusal triggers and present your travel purpose clearly.",
-              href: "/help",
+              href: "/blog",
             },
             {
               title: "Student visa interview prep checklist",
               description: "Structure your story, funding evidence, and timelines before interview day.",
-              href: "/help",
+              href: "/blog",
             },
             {
               title: "Business travel documentation essentials",
               description: "Keep invitation letters, bookings, and financial documents submission-ready.",
-              href: "/help",
+              href: "/blog",
             },
           ].map((resource) => (
             <article key={resource.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
@@ -455,14 +455,13 @@ export default function Home() {
       <section className="rounded-3xl border border-slate-800 bg-slate-900 p-6 text-white shadow-sm md:p-8">
         <h2 className="text-2xl font-bold">Need quick answers?</h2>
         <p className="mt-2 text-sm leading-relaxed text-white/80">
-          Visit the Help & FAQ hub for visa procedures, travel checklists, and official resource links before your
-          trip.
+          Visit our resource hub for visa procedures, travel checklists, and official resource links before your trip.
         </p>
         <Link
-          href="/help"
+          href="/blog"
           className="mt-5 inline-block rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-slate-900 hover:opacity-90"
         >
-          Go to Help & FAQ
+          Go to Resource Hub
         </Link>
       </section>
 
