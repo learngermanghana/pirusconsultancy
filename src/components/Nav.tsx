@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocale } from "@/components/LocaleProvider";
 import { getMessages, Locale } from "@/lib/i18n";
 
@@ -34,15 +34,31 @@ export default function Nav() {
   const messages = getMessages(locale);
   const [isOpen, setIsOpen] = useState(false);
 
+  // When the mobile navigation menu is open, prevent the body from scrolling
+  // to improve the user experience on small screens. When the menu closes or
+  // the component unmounts, restore the body scroll. The guard for
+  // `document` ensures this runs only in the browser.
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.body.style.overflow = isOpen ? "hidden" : "";
+    }
+    return () => {
+      if (typeof document !== "undefined") {
+        document.body.style.overflow = "";
+      }
+    };
+  }, [isOpen]);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/80 backdrop-blur">
+    <header className="relative sticky top-0 z-50 border-b border-slate-200/80 bg-white/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <Link href="/" className="text-lg font-bold text-slate-900">
           MyGermanyPath
         </Link>
 
+        {/* Desktop navigation: horizontally scrollable if there are many links. */}
         <nav
-          className="hidden min-w-0 flex-1 items-center gap-4 overflow-x-auto px-6 md:flex lg:gap-5"
+          className="hidden flex-auto items-center gap-4 overflow-x-auto whitespace-nowrap px-6 md:flex lg:gap-5"
           aria-label="Primary"
         >
           {messages.nav.links.map((l) => (
@@ -104,7 +120,10 @@ export default function Nav() {
         </button>
       </div>
       {isOpen ? (
-        <div id="mobile-menu" className="border-t border-slate-200/80 bg-white/95 px-4 py-4 md:hidden">
+        <div
+          id="mobile-menu"
+          className="absolute left-0 right-0 top-full z-40 border-t border-slate-200/80 bg-white/95 px-4 py-4 md:hidden"
+        >
           <nav className="flex flex-col gap-3">
             {messages.nav.links.map((l) => (
               <NavLink key={`${l.href}-${l.label}`} href={l.href} label={l.label} onClick={() => setIsOpen(false)} />
