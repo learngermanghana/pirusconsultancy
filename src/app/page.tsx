@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 import { FormEvent, useState } from "react";
-import FeatureCard from "@/components/cards/FeatureCard";
-import homeContent from "@/content/homepage.json";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
 import { createWhatsAppLeadUrl } from "@/lib/whatsapp";
 
@@ -262,58 +260,6 @@ export default function Home() {
               </Link>
             </article>
           ))}
-        </div>
-        <Link href="/guidance" className="mt-5 inline-block text-sm font-semibold text-sky-700 hover:text-sky-800">
-          Browse all destinations & services →
-        </Link>
-      </section>
-
-      {/* SERVICE CARDS */}
-      <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {homeContent.featureCards.map((card) => (
-          <FeatureCard key={card.title} {...card} priority />
-        ))}
-      </section>
-
-      {/* TOURS SHOWCASE */}
-      <section className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-sm md:p-8">
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">Ausbildung Guidance</p>
-            <h2 className="mt-2 text-2xl font-bold">Explore Ausbildung pathways with practical support</h2>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
-              Review top Ausbildung fields, requirements, and timelines before you begin your application journey.
-            </p>
-          </div>
-          <Link
-            href="/tours"
-            className="inline-flex rounded-2xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:opacity-90"
-          >
-            Open Ausbildung page
-          </Link>
-        </div>
-      </section>
-
-      {/* WHO WE HELP */}
-      <section className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-sm md:p-8">
-        <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          <div>
-            <h2 className="text-2xl font-bold">Who we help</h2>
-            <p className="mt-3 text-sm leading-relaxed text-slate-600">
-              We are a travel consultancy supporting tourists, students, and professionals with travel planning, visa
-              strategy, and application preparation for Europe (Schengen), Germany, and Australia. Our process focuses
-              on clear routes, accurate documents, and practical guidance from first consultation to submission-ready
-              files.
-            </p>
-          </div>
-          <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-6">
-            <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">Primary audiences</p>
-            <ul className="mt-4 space-y-3 text-sm text-slate-700">
-              <li>Tourists &amp; Families</li>
-              <li>Students &amp; Young Professionals</li>
-              <li>Business Travelers &amp; Entrepreneurs</li>
-            </ul>
-          </div>
         </div>
       </section>
 

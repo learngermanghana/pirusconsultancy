@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useLocale } from "@/components/LocaleProvider";
 import { getMessages, Locale } from "@/lib/i18n";
+import { site } from "@/lib/site";
 
 function NavLink({ href, label, onClick }: { href: string; label: string; onClick?: () => void }) {
   const isExternal = href.startsWith("http://") || href.startsWith("https://");
@@ -52,7 +53,7 @@ export default function Nav() {
     <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3">
         <Link href="/" className="shrink-0 text-lg font-black tracking-tight text-slate-900">
-          MyGermanyPath
+          {site.name}
         </Link>
 
         <nav
