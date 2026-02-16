@@ -1,9 +1,9 @@
 {
   "featureCards": [
     {
-      "title": "Tour Packages",
-      "description": "Explore curated travel packages by destination, budget, and duration.",
-      "href": "/tours",
+      "title": "Travel Planning & Consultation",
+      "description": "Destination guidance, trip purpose review, and advisory support before you travel.",
+      "href": "/study-abroad-admissions",
       "imageSrc": "/images/study.jpg"
     },
     {

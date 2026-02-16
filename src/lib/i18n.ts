@@ -8,7 +8,6 @@ const messages = {
     nav: {
       links: [
         { href: "/", label: "Home" },
-        { href: "/tours", label: "Tours & Travel" },
         { href: "/guidance", label: "Travel & Visa Services" },
         { href: "/help", label: "Help & FAQ" },
         { href: "/learn-german", label: "Learn German" },
@@ -46,7 +45,6 @@ const messages = {
     nav: {
       links: [
         { href: "/", label: "Startseite" },
-        { href: "/tours", label: "Touren & Reisen" },
         { href: "/guidance", label: "Reise- & Visa-Services" },
         { href: "/help", label: "Hilfe & FAQ" },
         { href: "/learn-german", label: "Deutsch lernen" },
