@@ -1,16 +1,26 @@
 {
   "title": "Tours & Travel Packages",
-  "subtitle": "Explore curated experiences and request pricing & availability.",
+  "subtitle": "Explore curated experiences with clear pricing, inclusions, and visa-friendly support.",
   "packages": [
     {
-      "name": "Dubai (5 Days)",
+      "name": "Dubai Highlights",
       "summary": "City tour • Desert safari • Shopping • Optional cruise",
       "destination": "Dubai",
       "duration": "5 days",
       "dates": "Flexible dates",
       "budget": "Mid-range",
-      "price": "Contact for quote",
+      "category": "Holiday & beach tours",
+      "price": "From $850 per person",
+      "visaSupport": "UAE visa support",
+      "bestTime": "November – March",
+      "weather": "Mild and comfortable",
+      "urgency": "Limited seats available • Next group departure: 12 May",
       "image": "https://raw.githubusercontent.com/learngermanghana/jonhrega-travel-site/main/public/images/dubai.jpeg",
+      "highlights": [
+        "Guided city tours",
+        "Hotel + breakfast",
+        "Airport transfers"
+      ],
       "features": [
         "Hotel reservation support",
         "Airport transfers",
@@ -23,11 +33,21 @@
       "name": "Germany Cultural Getaway",
       "summary": "Berlin • Munich • Historical landmarks • Food tour",
       "destination": "Germany",
-      "duration": "6–8 days",
+      "duration": "7 days",
       "dates": "Flexible dates",
       "budget": "Mid-range",
-      "price": "Contact for quote",
+      "category": "Europe city tours",
+      "price": "From €1,200 for 7-day package",
+      "visaSupport": "Schengen visa support",
+      "bestTime": "April – October",
+      "weather": "Cool to pleasant",
+      "urgency": "Early-bird discount ends in 5 days",
       "image": "https://raw.githubusercontent.com/learngermanghana/jonhrega-travel-site/main/public/images/germany.jpeg",
+      "highlights": [
+        "Berlin and Munich guided walks",
+        "Hotel + breakfast",
+        "Museum pass planning"
+      ],
       "features": [
         "Hotel reservation support",
         "City tour planning",
@@ -37,14 +57,24 @@
       ]
     },
     {
-      "name": "France City Escape",
-      "summary": "Paris • Museums • River cruise • Shopping",
+      "name": "Paris & Amsterdam Explorer",
+      "summary": "Paris • Amsterdam • River cruise • Shopping",
       "destination": "France",
-      "duration": "5–7 days",
+      "duration": "7 days",
       "dates": "Flexible dates",
       "budget": "Premium",
-      "price": "Contact for quote",
+      "category": "Europe city tours",
+      "price": "From €1,150",
+      "visaSupport": "Schengen visa support",
+      "bestTime": "May – September",
+      "weather": "Warm and lively",
+      "urgency": "Next group departure: 20 June",
       "image": "https://raw.githubusercontent.com/learngermanghana/jonhrega-travel-site/main/public/images/france.jpeg",
+      "highlights": [
+        "Guided city tours",
+        "Hotel + breakfast",
+        "Airport transfers"
+      ],
       "features": [
         "Hotel reservation support",
         "City tour planning",
@@ -54,14 +84,24 @@
       ]
     },
     {
-      "name": "Belgium Cultural Weekend",
+      "name": "Belgium Family Weekend",
       "summary": "Brussels • Bruges • Ghent highlights",
       "destination": "Belgium",
-      "duration": "4–6 days",
+      "duration": "5 days",
       "dates": "Flexible dates",
       "budget": "Mid-range",
-      "price": "Contact for quote",
+      "category": "Family packages",
+      "price": "From €980 per family member",
+      "visaSupport": "Schengen visa support",
+      "bestTime": "April – September",
+      "weather": "Cool and pleasant",
+      "urgency": "Limited group seats remaining",
       "image": "https://raw.githubusercontent.com/learngermanghana/jonhrega-travel-site/main/public/images/belgium.jpeg",
+      "highlights": [
+        "Family-friendly city stops",
+        "Comfort hotels",
+        "Airport transfers"
+      ],
       "features": [
         "Hotel reservation support",
         "City tour planning",
@@ -71,14 +111,24 @@
       ]
     },
     {
-      "name": "Poland Heritage Tour",
+      "name": "Poland Short Break",
       "summary": "Krakow • Warsaw • Old Town walks",
       "destination": "Poland",
-      "duration": "4–6 days",
+      "duration": "4 days",
       "dates": "Flexible dates",
       "budget": "Budget-friendly",
-      "price": "Contact for quote",
+      "category": "Short visa-friendly trips",
+      "price": "From €690 per person",
+      "visaSupport": "Fast-track Schengen documentation help",
+      "bestTime": "May – October",
+      "weather": "Comfortable and mild",
+      "urgency": "Early-bird fares available this week",
       "image": "https://raw.githubusercontent.com/learngermanghana/jonhrega-travel-site/main/public/images/poland.jpeg",
+      "highlights": [
+        "Old Town guided walks",
+        "Hotel + breakfast",
+        "Airport transfers"
+      ],
       "features": [
         "Hotel booking options",
         "City tour planning",
@@ -88,14 +138,24 @@
       ]
     },
     {
-      "name": "Singapore City Escape",
+      "name": "Singapore Business Plus",
       "summary": "Marina Bay • Gardens • Hawker food tour",
       "destination": "Singapore",
-      "duration": "4–7 days",
+      "duration": "6 days",
       "dates": "Flexible dates",
-      "budget": "Budget-friendly",
-      "price": "Contact for quote",
+      "budget": "Premium",
+      "category": "Business travel packages",
+      "price": "From $1,450 per traveler",
+      "visaSupport": "Business visa document guidance",
+      "bestTime": "February – April",
+      "weather": "Warm and tropical",
+      "urgency": "Corporate slots close in 4 days",
       "image": "https://raw.githubusercontent.com/learngermanghana/jonhrega-travel-site/main/public/images/schengen.jpeg",
+      "highlights": [
+        "Business-ready hotel options",
+        "Airport & meeting transfers",
+        "After-hours city tour"
+      ],
       "features": [
         "Hotel booking options",
         "Airport transfers",
@@ -108,11 +168,21 @@
       "name": "Japan Cultural Tour",
       "summary": "Tokyo • Kyoto • Temples & street food",
       "destination": "Japan",
-      "duration": "5–10 days",
+      "duration": "8 days",
       "dates": "Seasonal / flexible",
       "budget": "Premium",
-      "price": "Contact for quote",
+      "category": "Holiday & beach tours",
+      "price": "From $1,900 per person",
+      "visaSupport": "Visa/travel documentation guidance",
+      "bestTime": "March – May",
+      "weather": "Pleasant with cherry blossom season",
+      "urgency": "Next departure filling fast",
       "image": "https://raw.githubusercontent.com/learngermanghana/jonhrega-travel-site/main/public/images/japan.jpeg",
+      "highlights": [
+        "Tokyo and Kyoto city tours",
+        "Rail pass support",
+        "Airport transfers"
+      ],
       "features": [
         "Hotel booking options",
         "Airport transfers",
@@ -122,14 +192,24 @@
       ]
     },
     {
-      "name": "South Africa Tour",
+      "name": "South Africa Coastline Tour",
       "summary": "Cape Town • Attractions",
       "destination": "South Africa",
-      "duration": "5–8 days",
+      "duration": "6 days",
       "dates": "Flexible dates",
       "budget": "Mid-range",
-      "price": "Contact for quote",
+      "category": "Holiday & beach tours",
+      "price": "From $1,050 per person",
+      "visaSupport": "Visa guidance (if applicable)",
+      "bestTime": "October – April",
+      "weather": "Sunny and pleasant",
+      "urgency": "Limited seats available",
       "image": "https://raw.githubusercontent.com/learngermanghana/jonhrega-travel-site/main/public/images/south%20africa.jpeg",
+      "highlights": [
+        "Coastal day tours",
+        "Hotel + breakfast",
+        "Airport transfers"
+      ],
       "features": [
         "Hotel reservation support",
         "Airport transfers",
