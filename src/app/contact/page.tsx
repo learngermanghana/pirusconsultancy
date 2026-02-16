@@ -1,14 +1,36 @@
-﻿export default function Contact() {
+import Link from "next/link";
+
+const faqs = [
+  {
+    question: "What services do you offer?",
+    answer:
+      "We support study, work, Ausbildung, and visa applications with clear documentation guidance and readiness coaching.",
+  },
+  {
+    question: "Do you guarantee visas?",
+    answer:
+      "No. We focus on preparation, transparency, and realistic plans so you can submit strong, compliant applications.",
+  },
+  {
+    question: "How long does the process take?",
+    answer:
+      "Timelines vary by destination and intake. We help you map milestones, deadlines, and document preparation windows.",
+  },
+  {
+    question: "Can you review my documents?",
+    answer:
+      "Yes. We review CVs, motivation letters, and application files and offer feedback before submission.",
+  },
+];
+
+export default function Contact() {
   return (
     <div className="space-y-8">
       <header className="space-y-3">
-        <p className="text-sm font-semibold uppercase tracking-wide text-emerald-600">
-          Get in touch
-        </p>
+        <p className="text-sm font-semibold uppercase tracking-wide text-emerald-600">Get in touch</p>
         <h1 className="text-3xl font-bold text-gray-900">Contact</h1>
-        <p className="text-gray-600 max-w-xl">
-          Reach us directly on WhatsApp or email for guidance, next steps, and
-          personalized support.
+        <p className="max-w-xl text-gray-600">
+          Reach us directly on WhatsApp or email for guidance, next steps, and personalized support.
         </p>
       </header>
 
@@ -30,25 +52,38 @@
 
         <div className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
           <p className="text-sm font-semibold text-gray-800">Email</p>
-          <p className="mt-2 text-lg font-semibold text-gray-900">
-            hana@pirusconsultancy.com
-          </p>
+          <p className="mt-2 text-lg font-semibold text-gray-900">hana@pirusconsultancy.com</p>
           <p className="mt-3 text-sm text-gray-600">
-            Prefer email? Send your details and we will get back to you with
-            guidance.
+            Prefer email? Send your details and we will get back to you with guidance.
           </p>
         </div>
       </section>
 
       <section className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
-        <h2 className="text-lg font-semibold text-gray-900">
-          What to include in your message
-        </h2>
+        <h2 className="text-lg font-semibold text-gray-900">What to include in your message</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-gray-600">
           <li>Your current location and desired destination.</li>
           <li>The service you are interested in (study, work, visa, etc.).</li>
           <li>A short summary of your timeline and any key questions.</li>
         </ul>
+        <Link
+          href="/assessment"
+          className="mt-5 inline-flex rounded-2xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:opacity-90"
+        >
+          Start visa assessment
+        </Link>
+      </section>
+
+      <section id="faq" className="rounded-3xl border bg-gray-50 p-6">
+        <h2 className="text-xl font-bold text-gray-900">Help &amp; FAQ</h2>
+        <div className="mt-6 space-y-4">
+          {faqs.map((item) => (
+            <div key={item.question} className="rounded-2xl border bg-white p-4">
+              <p className="text-sm font-semibold text-gray-900">{item.question}</p>
+              <p className="mt-2 text-sm text-gray-600">{item.answer}</p>
+            </div>
+          ))}
+        </div>
       </section>
     </div>
   );

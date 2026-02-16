@@ -9,7 +9,7 @@ const messages = {
       links: [
         { href: "/", label: "Home" },
         { href: "/guidance", label: "Travel & Visa Services" },
-        { href: "/help", label: "Help & FAQ" },
+        { href: "/contact#faq", label: "Help & FAQ" },
         { href: "/learn-german", label: "Learn German" },
         { href: "/about", label: "About & Founder" },
         { href: "/contact", label: "Contact" },
@@ -26,9 +26,9 @@ const messages = {
     footer: {
       links: [
         { href: "/about", label: "About & Founder" },
-        { href: "/tours", label: "Tours & Travel" },
+        { href: "/tours", label: "Ausbildung" },
         { href: "/success", label: "Success" },
-        { href: "/help", label: "Help & FAQ" },
+        { href: "/contact#faq", label: "Help & FAQ" },
         { href: "/contact", label: "Contact" },
         { href: "/germany-partner", label: "Germany Partner" },
       ],
@@ -46,7 +46,7 @@ const messages = {
       links: [
         { href: "/", label: "Startseite" },
         { href: "/guidance", label: "Reise- & Visa-Services" },
-        { href: "/help", label: "Hilfe & FAQ" },
+        { href: "/contact#faq", label: "Hilfe & FAQ" },
         { href: "/learn-german", label: "Deutsch lernen" },
         { href: "/about", label: "Über uns & Gründerin" },
         { href: "/contact", label: "Kontakt" },
@@ -63,9 +63,9 @@ const messages = {
     footer: {
       links: [
         { href: "/about", label: "Über uns & Gründerin" },
-        { href: "/tours", label: "Touren & Reisen" },
+        { href: "/tours", label: "Ausbildung" },
         { href: "/success", label: "Erfolgsgeschichten" },
-        { href: "/help", label: "Hilfe & FAQ" },
+        { href: "/contact#faq", label: "Hilfe & FAQ" },
         { href: "/contact", label: "Kontakt" },
         { href: "/germany-partner", label: "Partner in Deutschland" },
       ],
