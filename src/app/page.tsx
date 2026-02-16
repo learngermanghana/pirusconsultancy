@@ -21,6 +21,8 @@ export default function Home() {
       subtitle: "Canada visa from Ghana (Study • Work • PR)",
       description:
         "Apply for Canada student visa, Express Entry permanent residency, visitor visa or work permit with expert documentation support.",
+      imageUrl: "https://github.com/learngermanghana/jonhrega-travel-site/blob/main/public/images/canada.jpeg?raw=1",
+      imageAlt: "Canada skyline with a red maple leaf flag",
       tags: ["Study", "Work", "Tourism"] as ConsultationPurpose[],
     },
     {
@@ -28,6 +30,8 @@ export default function Home() {
       subtitle: "UK visa application from Ghana",
       description:
         "Professional assistance for UK visitor visa, business travel, short-term study and family visit applications.",
+      imageUrl: "https://github.com/learngermanghana/jonhrega-travel-site/blob/main/public/images/Uk.jpeg?raw=1",
+      imageAlt: "United Kingdom travel destination with iconic city architecture",
       tags: ["Tourism", "Study", "Business"] as ConsultationPurpose[],
     },
     {
@@ -35,6 +39,8 @@ export default function Home() {
       subtitle: "USA B1/B2 visitor visa from Ghana",
       description:
         "Guidance for US tourist and business visa applications including DS-160 review and interview preparation.",
+      imageUrl: "https://github.com/learngermanghana/jonhrega-travel-site/blob/main/public/images/usa.jpeg?raw=1",
+      imageAlt: "United States city skyline with American flag colors",
       tags: ["Tourism", "Business"] as ConsultationPurpose[],
     },
     {
@@ -251,13 +257,25 @@ export default function Home() {
 
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           {filteredDestinations.slice(0, 3).map((destinationOption) => (
-            <article key={destinationOption.title} className="rounded-2xl border border-slate-200 bg-slate-50/90 p-5">
+            <article key={destinationOption.title} className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50/90">
+              {destinationOption.imageUrl ? (
+                <div className="h-44 w-full overflow-hidden border-b border-slate-200 bg-slate-100">
+                  <img
+                    src={destinationOption.imageUrl}
+                    alt={destinationOption.imageAlt ?? destinationOption.title}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              ) : null}
+              <div className="p-5">
               <p className="text-xs font-semibold uppercase tracking-wide text-sky-700">{destinationOption.subtitle}</p>
               <h3 className="mt-2 text-lg font-bold text-slate-900">{destinationOption.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-slate-600">{destinationOption.description}</p>
               <Link href="/contact" className="mt-4 inline-block text-sm font-semibold text-sky-700 hover:text-sky-800">
                 Apply Now →
               </Link>
+              </div>
             </article>
           ))}
         </div>
