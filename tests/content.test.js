@@ -43,3 +43,33 @@ test("ausbildung content has categories and guidance", () => {
     assert.ok(item.points.length > 0);
   }
 });
+
+test("tours content includes complete packages and trust points", () => {
+  const tours = loadJson("src/content/tours.json");
+
+  assert.ok(tours.title);
+  assert.ok(tours.subtitle);
+  assert.ok(Array.isArray(tours.packages));
+  assert.ok(tours.packages.length > 0);
+
+  for (const item of tours.packages) {
+    assert.ok(item.name);
+    assert.ok(item.summary);
+    assert.ok(item.destination);
+    assert.ok(item.duration);
+    assert.ok(item.budget);
+    assert.ok(item.price);
+    assert.ok(Array.isArray(item.features));
+    assert.ok(item.features.length > 0);
+  }
+
+  assert.ok(tours.whyChoose?.title);
+  assert.ok(tours.whyChoose?.subtitle);
+  assert.ok(Array.isArray(tours.whyChoose?.points));
+  assert.ok(tours.whyChoose.points.length > 0);
+
+  for (const point of tours.whyChoose.points) {
+    assert.ok(point.title);
+    assert.ok(point.description);
+  }
+});

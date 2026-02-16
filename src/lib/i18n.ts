@@ -8,7 +8,8 @@ const messages = {
     nav: {
       links: [
         { href: "/", label: "Home" },
-        { href: "/guidance", label: "Ausbildung / Study / Work" },
+        { href: "/tours", label: "Tours & Travel" },
+        { href: "/guidance", label: "Travel & Visa Services" },
         { href: "/help", label: "Help & FAQ" },
         { href: "/learn-german", label: "Learn German" },
         { href: "/about", label: "About & Founder" },
@@ -26,6 +27,7 @@ const messages = {
     footer: {
       links: [
         { href: "/about", label: "About & Founder" },
+        { href: "/tours", label: "Tours & Travel" },
         { href: "/success", label: "Success" },
         { href: "/help", label: "Help & FAQ" },
         { href: "/contact", label: "Contact" },
@@ -35,16 +37,17 @@ const messages = {
         "⚠️ Transparency: We provide guidance & preparation support. We do not promise visas or guaranteed jobs.",
     },
     metadata: {
-      title: "MyGermanyPath — Study, Ausbildung, and Work Guidance",
+      title: "MyGermanyPath — Travel & Visa Consultancy",
       description:
-        "Study, Ausbildung, and Work guidance for Germany — with real steps, not false promises.",
+        "Travel and visa consultancy for Germany, Schengen, and Australia — with real guidance, not false promises.",
     },
   },
   de: {
     nav: {
       links: [
         { href: "/", label: "Startseite" },
-        { href: "/guidance", label: "Ausbildung / Studium / Arbeit" },
+        { href: "/tours", label: "Touren & Reisen" },
+        { href: "/guidance", label: "Reise- & Visa-Services" },
         { href: "/help", label: "Hilfe & FAQ" },
         { href: "/learn-german", label: "Deutsch lernen" },
         { href: "/about", label: "Über uns & Gründerin" },
@@ -62,6 +65,7 @@ const messages = {
     footer: {
       links: [
         { href: "/about", label: "Über uns & Gründerin" },
+        { href: "/tours", label: "Touren & Reisen" },
         { href: "/success", label: "Erfolgsgeschichten" },
         { href: "/help", label: "Hilfe & FAQ" },
         { href: "/contact", label: "Kontakt" },
@@ -71,9 +75,9 @@ const messages = {
         "⚠️ Transparenz: Wir bieten Beratung und Vorbereitung. Wir versprechen keine Visa oder garantierten Jobs.",
     },
     metadata: {
-      title: "MyGermanyPath — Beratung zu Studium, Ausbildung und Arbeit",
+      title: "MyGermanyPath — Reise- und Visa-Beratung",
       description:
-        "Beratung zu Studium, Ausbildung und Arbeit in Deutschland — mit echten Schritten statt leeren Versprechen.",
+        "Reise- und Visa-Beratung für Deutschland, Schengen und Australien — mit echten Schritten statt leeren Versprechen.",
     },
   },
 } satisfies Record<Locale, unknown>;
