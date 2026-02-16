@@ -38,6 +38,28 @@ export default function Home() {
         ))}
       </section>
 
+      {/* TOURS SHOWCASE */}
+      <section className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-sm md:p-8">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">
+              Tours &amp; Travel Packages
+            </p>
+            <h2 className="mt-2 text-2xl font-bold">Explore our curated tour experiences</h2>
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
+              Browse destination-based packages, compare budget levels, and request a personalized
+              quote in euros based on your preferred travel dates.
+            </p>
+          </div>
+          <Link
+            href="/tours"
+            className="inline-flex rounded-2xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:opacity-90"
+          >
+            View all tours
+          </Link>
+        </div>
+      </section>
+
       {/* WHO WE HELP */}
       <section className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-sm md:p-8">
         <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">

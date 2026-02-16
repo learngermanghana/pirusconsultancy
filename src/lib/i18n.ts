@@ -26,6 +26,7 @@ const messages = {
     footer: {
       links: [
         { href: "/about", label: "About & Founder" },
+        { href: "/tours", label: "Tours & Travel" },
         { href: "/success", label: "Success" },
         { href: "/help", label: "Help & FAQ" },
         { href: "/contact", label: "Contact" },
@@ -62,6 +63,7 @@ const messages = {
     footer: {
       links: [
         { href: "/about", label: "Über uns & Gründerin" },
+        { href: "/tours", label: "Touren & Reisen" },
         { href: "/success", label: "Erfolgsgeschichten" },
         { href: "/help", label: "Hilfe & FAQ" },
         { href: "/contact", label: "Kontakt" },
