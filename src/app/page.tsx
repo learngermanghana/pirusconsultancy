@@ -23,6 +23,7 @@ export default function Home() {
       subtitle: "Canada visa from Ghana (Study • Work • PR)",
       description:
         "Apply for Canada student visa, Express Entry permanent residency, visitor visa or work permit with expert documentation support.",
+      image: "https://raw.githubusercontent.com/learngermanghana/jonhrega-travel-site/main/public/images/canada.jpeg",
       tags: ["Study", "Work", "Tourism"] as ConsultationPurpose[],
     },
     {
@@ -30,6 +31,7 @@ export default function Home() {
       subtitle: "UK visa application from Ghana",
       description:
         "Professional assistance for UK visitor visa, business travel, short-term study and family visit applications.",
+      image: "https://raw.githubusercontent.com/learngermanghana/jonhrega-travel-site/main/public/images/Uk.jpeg",
       tags: ["Tourism", "Study", "Business"] as ConsultationPurpose[],
     },
     {
@@ -37,6 +39,7 @@ export default function Home() {
       subtitle: "USA B1/B2 visitor visa from Ghana",
       description:
         "Guidance for US tourist and business visa applications including DS-160 review and interview preparation.",
+      image: "https://raw.githubusercontent.com/learngermanghana/jonhrega-travel-site/main/public/images/usa.jpeg",
       tags: ["Tourism", "Business"] as ConsultationPurpose[],
     },
     {
@@ -44,6 +47,7 @@ export default function Home() {
       subtitle: "Schengen visa application from Ghana",
       description:
         "Support for Schengen short-stay, business, and family visit visas with document checks and appointment guidance.",
+      image: "https://raw.githubusercontent.com/learngermanghana/jonhrega-travel-site/main/public/images/schengen.jpeg",
       tags: ["Tourism", "Business"] as ConsultationPurpose[],
     },
     {
@@ -51,6 +55,7 @@ export default function Home() {
       subtitle: "Australia visa application support",
       description:
         "Step-by-step guidance for Australian visitor and student visa applications, including documentation support.",
+      image: "https://raw.githubusercontent.com/learngermanghana/jonhrega-travel-site/main/public/images/Australia.jpeg",
       tags: ["Tourism", "Study"] as ConsultationPurpose[],
     },
     {
@@ -58,6 +63,7 @@ export default function Home() {
       subtitle: "New Zealand visa services from Ghana",
       description:
         "Personalized help for New Zealand visitor and study visas, from document review to submission readiness.",
+      image: "https://raw.githubusercontent.com/learngermanghana/jonhrega-travel-site/main/public/images/new%20zealand.jpeg",
       tags: ["Tourism", "Study"] as ConsultationPurpose[],
     },
   ];
@@ -260,13 +266,21 @@ export default function Home() {
 
         <div className="mt-4 grid gap-4 md:grid-cols-2">
           {filteredDestinations.map((destinationOption) => (
-            <article key={destinationOption.title} className="rounded-2xl border border-slate-200 bg-slate-50/90 p-5">
+            <article key={destinationOption.title} className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50/90">
+              <img
+                src={destinationOption.image}
+                alt={destinationOption.title}
+                className="h-44 w-full object-cover"
+                loading="lazy"
+              />
+              <div className="p-5">
               <p className="text-xs font-semibold uppercase tracking-wide text-sky-700">{destinationOption.subtitle}</p>
               <h3 className="mt-2 text-lg font-bold text-slate-900">{destinationOption.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-slate-600">{destinationOption.description}</p>
               <Link href="/contact" className="mt-4 inline-block text-sm font-semibold text-sky-700 hover:text-sky-800">
                 Apply Now →
               </Link>
+              </div>
             </article>
           ))}
         </div>
