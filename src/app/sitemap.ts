@@ -4,7 +4,9 @@ import { site } from "@/lib/site";
 const routes = [
   "",
   "/about",
+  "/assessment",
   "/ausbildung-germany",
+  "/blog",
   "/booking",
   "/contact",
   "/founder",
@@ -12,6 +14,7 @@ const routes = [
   "/help",
   "/learn-german",
   "/study-germany",
+  "/tours",
   "/success",
   "/work-in-germany",
 ];
