@@ -1,4 +1,7 @@
 import Link from "next/link";
+import PathwayComparisonCalculator from "@/components/PathwayComparisonCalculator";
+import CaseStudiesSection from "@/components/CaseStudiesSection";
+import { createWhatsAppLeadUrl } from "@/lib/whatsapp";
 
 const guidance = [
   {
@@ -44,6 +47,12 @@ const supportServices = [
 ];
 
 export default function WorkInGermanyPage() {
+  const workWhatsAppUrl = createWhatsAppLeadUrl({
+    page: "/work-in-germany",
+    pathway: "work",
+    intent: "Work visa eligibility, recognition process, and document planning",
+  });
+
   return (
     <div className="space-y-10">
       <header className="space-y-3">
@@ -54,6 +63,8 @@ export default function WorkInGermanyPage() {
           timelines, and what to prepare before applying.
         </p>
       </header>
+
+      <PathwayComparisonCalculator highlightedPathway="Work" />
 
       <section className="grid gap-4 md:grid-cols-2">
         {guidance.map((item) => (
@@ -77,6 +88,8 @@ export default function WorkInGermanyPage() {
         </ul>
       </section>
 
+      <CaseStudiesSection />
+
       <section className="rounded-3xl border border-slate-200 bg-white p-6">
         <h2 className="text-xl font-bold text-slate-900">Next Step</h2>
         <p className="mt-2 text-sm text-slate-600">
@@ -91,10 +104,12 @@ export default function WorkInGermanyPage() {
             Start visa assessment
           </Link>
           <Link
-            href="/contact"
+            href={workWhatsAppUrl}
+            target="_blank"
+            rel="noreferrer"
             className="inline-flex rounded-2xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50"
           >
-            Contact us
+            Talk to us on WhatsApp
           </Link>
         </div>
       </section>

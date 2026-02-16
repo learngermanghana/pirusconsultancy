@@ -1,4 +1,7 @@
 ﻿import Link from "next/link";
+import PathwayComparisonCalculator from "@/components/PathwayComparisonCalculator";
+import CaseStudiesSection from "@/components/CaseStudiesSection";
+import { createWhatsAppLeadUrl } from "@/lib/whatsapp";
 
 export default function Page() {
   const studyGuidance = [
@@ -70,6 +73,12 @@ export default function Page() {
     },
   ];
 
+  const studyWhatsAppUrl = createWhatsAppLeadUrl({
+    page: "/study-germany",
+    pathway: "study",
+    intent: "Study in Germany pathway review and document planning",
+  });
+
   return (
     <div className="space-y-8">
       <header className="space-y-2">
@@ -78,6 +87,8 @@ export default function Page() {
           A combined overview of university study requirements and Studienkolleg preparation.
         </p>
       </header>
+
+      <PathwayComparisonCalculator highlightedPathway="Study" />
 
       <section className="space-y-4">
         <div>
@@ -122,20 +133,30 @@ export default function Page() {
         </div>
       </section>
 
+      <CaseStudiesSection />
+
       <section className="rounded-3xl border p-8">
         <h2 className="text-xl font-bold">Next Step</h2>
         <p className="mt-2 text-sm text-gray-600">
           Want help verifying your entry route or Studienkolleg track? Reach out for a quick
           review.
         </p>
-        <Link
-          href="https://wa.me/4917620721491"
-          target="_blank"
-          rel="noreferrer"
-          className="mt-4 inline-block rounded-2xl bg-black px-6 py-3 text-white font-semibold hover:opacity-90"
-        >
-          Talk to us on WhatsApp
-        </Link>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Link
+            href={studyWhatsAppUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block rounded-2xl bg-black px-6 py-3 font-semibold text-white hover:opacity-90"
+          >
+            Talk to us on WhatsApp
+          </Link>
+          <Link
+            href="/assessment"
+            className="inline-block rounded-2xl border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-900 hover:bg-slate-50"
+          >
+            Start assessment
+          </Link>
+        </div>
       </section>
     </div>
   );

@@ -2,9 +2,18 @@
 import GuidanceCard from "@/components/cards/GuidanceCard";
 import RoleCategoryCard from "@/components/cards/RoleCategoryCard";
 import ausbildungContent from "@/content/ausbildung.json";
+import PathwayComparisonCalculator from "@/components/PathwayComparisonCalculator";
+import CaseStudiesSection from "@/components/CaseStudiesSection";
+import { createWhatsAppLeadUrl } from "@/lib/whatsapp";
 
 export default function Page() {
   const { categories, guidance } = ausbildungContent;
+
+  const ausbildungWhatsAppUrl = createWhatsAppLeadUrl({
+    page: "/ausbildung-germany",
+    pathway: "ausbildung",
+    intent: "Ausbildung pathway eligibility and interview preparation",
+  });
 
   return (
     <div className="space-y-8">
@@ -14,6 +23,8 @@ export default function Page() {
           Clear requirements, timeline, common mistakes, and the next step you should take.
         </p>
       </header>
+
+      <PathwayComparisonCalculator highlightedPathway="Ausbildung" />
 
       <section className="space-y-4">
         <div>
@@ -35,17 +46,30 @@ export default function Page() {
         ))}
       </section>
 
+      <CaseStudiesSection />
+
       <section className="rounded-3xl border p-8">
         <h2 className="text-xl font-bold">Next Step</h2>
         <p className="mt-2 text-sm text-gray-600">
-          Want help confirming your match or preparing the right documents? We can review your case.
+          Want help confirming your match or preparing the right documents? We can review your
+          case.
         </p>
-        <Link
-          href="/contact"
-          className="mt-4 inline-block rounded-2xl bg-black px-6 py-3 text-white font-semibold hover:opacity-90"
-        >
-          Contact us
-        </Link>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Link
+            href={ausbildungWhatsAppUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block rounded-2xl bg-black px-6 py-3 font-semibold text-white hover:opacity-90"
+          >
+            Talk to us on WhatsApp
+          </Link>
+          <Link
+            href="/contact"
+            className="inline-block rounded-2xl border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-900 hover:bg-slate-50"
+          >
+            Contact us
+          </Link>
+        </div>
       </section>
     </div>
   );
