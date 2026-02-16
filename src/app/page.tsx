@@ -43,12 +43,11 @@ export default function Home() {
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">
-              Tours &amp; Travel Packages
+              Tours & Travel Packages
             </p>
-            <h2 className="mt-2 text-2xl font-bold">Explore our curated tour experiences</h2>
+            <h2 className="mt-2 text-2xl font-bold">Explore curated tour experiences</h2>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
-              Browse destination-based packages, compare budget levels, and request a personalized
-              quote in euros based on your preferred travel dates.
+              Browse destination-based packages, compare budget levels, and request pricing in euros.
             </p>
           </div>
           <Link
