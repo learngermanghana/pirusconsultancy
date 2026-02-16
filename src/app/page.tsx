@@ -106,7 +106,7 @@ export default function Home() {
             Start visa assessment
           </Link>
           <Link
-            href="/contact"
+            href="/blog"
             className="w-full rounded-2xl border border-slate-200 bg-white px-6 py-3 text-center text-sm font-semibold text-slate-900 hover:bg-slate-50 sm:w-auto"
           >
             Book consultation
@@ -414,42 +414,50 @@ export default function Home() {
             Visit blog →
           </Link>
         </div>
-        <details className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-4" open>
-          <summary className="cursor-pointer text-sm font-semibold text-slate-800">Browse recent topics</summary>
-          <div className="mt-4 grid gap-3 md:grid-cols-3">
-            {[
-              {
-                title: "How to prepare a stronger visitor visa file",
-                description: "Avoid common refusal triggers and present your travel purpose clearly.",
-                href: "/help",
-              },
-              {
-                title: "Student visa interview prep checklist",
-                description: "Structure your story, funding evidence, and timelines before interview day.",
-                href: "/help",
-              },
-              {
-                title: "Business travel documentation essentials",
-                description: "Keep invitation letters, bookings, and financial documents submission-ready.",
-                href: "/help",
-              },
-            ].map((resource) => (
-              <article key={resource.title} className="rounded-2xl border border-slate-200 bg-white p-4">
-                <h3 className="text-sm font-bold text-slate-900">{resource.title}</h3>
-                <p className="mt-2 text-sm text-slate-600">{resource.description}</p>
-                <Link
-                  href={resource.href}
-                  className="mt-3 inline-block text-sm font-semibold text-sky-700 hover:text-sky-800"
-                >
-                  Read guide →
-                </Link>
-              </article>
-            ))}
-          </div>
-        </details>
+        <div className="mt-4 grid gap-3 md:grid-cols-3">
+          {[
+            {
+              title: "How to prepare a stronger visitor visa file",
+              description: "Avoid common refusal triggers and present your travel purpose clearly.",
+              href: "/blog",
+            },
+            {
+              title: "Student visa interview prep checklist",
+              description: "Structure your story, funding evidence, and timelines before interview day.",
+              href: "/blog",
+            },
+            {
+              title: "Business travel documentation essentials",
+              description: "Keep invitation letters, bookings, and financial documents submission-ready.",
+              href: "/blog",
+            },
+          ].map((resource) => (
+            <article key={resource.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <h3 className="text-sm font-bold text-slate-900">{resource.title}</h3>
+              <p className="mt-2 text-sm text-slate-600">{resource.description}</p>
+              <Link href={resource.href} className="mt-3 inline-block text-sm font-semibold text-sky-700 hover:text-sky-800">
+                Read guide →
+              </Link>
+            </article>
+          ))}
+        </div>
       </section>
 
       <CaseStudiesSection />
+
+      {/* HELP */}
+      <section className="rounded-3xl border border-slate-800 bg-slate-900 p-6 text-white shadow-sm md:p-8">
+        <h2 className="text-2xl font-bold">Need quick answers?</h2>
+        <p className="mt-2 text-sm leading-relaxed text-white/80">
+          Visit our resource hub for visa procedures, travel checklists, and official resource links before your trip.
+        </p>
+        <Link
+          href="/blog"
+          className="mt-5 inline-block rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-slate-900 hover:opacity-90"
+        >
+          Go to Resource Hub
+        </Link>
+      </section>
 
       {/* CTA */}
       <section className="rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-black p-6 text-white shadow-sm md:p-8">
