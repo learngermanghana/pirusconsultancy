@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { FormEvent, useState } from "react";
 
 const contactMethods = [
   {
@@ -37,6 +40,32 @@ const trustSignals = [
 ];
 
 export default function Contact() {
+  const [fullName, setFullName] = useState("");
+  const [destination, setDestination] = useState("");
+  const [travelPurpose, setTravelPurpose] = useState("");
+  const [travelDate, setTravelDate] = useState("");
+  const [contactInfo, setContactInfo] = useState("");
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const message = [
+      "Hello Pirus Consultancy,",
+      "I want to submit an inquiry.",
+      "",
+      `Full name: ${fullName}`,
+      `Destination: ${destination}`,
+      `Purpose of travel: ${travelPurpose}`,
+      `Planned travel date: ${travelDate}`,
+      `Email or WhatsApp number: ${contactInfo}`,
+      "",
+      "Source page: /contact",
+    ].join("\n");
+
+    const whatsappUrl = `https://wa.me/4917620721491?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+  }
+
   return (
     <div className="space-y-10">
       <header className="space-y-3">
@@ -85,12 +114,15 @@ export default function Contact() {
           <h2 className="text-xl font-semibold text-gray-900">Submit inquiry</h2>
           <p className="mt-2 text-sm text-gray-600">Share a few details so we can guide you with the right next step.</p>
 
-          <form className="mt-5 grid gap-4">
+          <form className="mt-5 grid gap-4" onSubmit={handleSubmit}>
             <label className="grid gap-2 text-sm font-medium text-gray-800">
               Full name
               <input
                 type="text"
                 name="fullName"
+                required
+                value={fullName}
+                onChange={(event) => setFullName(event.target.value)}
                 className="rounded-xl border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-emerald-500 focus:outline-none"
                 placeholder="Your full name"
               />
@@ -101,6 +133,9 @@ export default function Contact() {
               <input
                 type="text"
                 name="destination"
+                required
+                value={destination}
+                onChange={(event) => setDestination(event.target.value)}
                 className="rounded-xl border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-emerald-500 focus:outline-none"
                 placeholder="e.g., Germany"
               />
@@ -110,16 +145,18 @@ export default function Contact() {
               Purpose of travel
               <select
                 name="travelPurpose"
-                defaultValue=""
+                required
+                value={travelPurpose}
+                onChange={(event) => setTravelPurpose(event.target.value)}
                 className="rounded-xl border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-emerald-500 focus:outline-none"
               >
                 <option value="" disabled>
                   Select one
                 </option>
-                <option value="study">Study</option>
-                <option value="work">Work</option>
-                <option value="tourism">Tourism</option>
-                <option value="business">Business</option>
+                <option value="Study">Study</option>
+                <option value="Work">Work</option>
+                <option value="Tourism">Tourism</option>
+                <option value="Business">Business</option>
               </select>
             </label>
 
@@ -128,6 +165,9 @@ export default function Contact() {
               <input
                 type="date"
                 name="travelDate"
+                required
+                value={travelDate}
+                onChange={(event) => setTravelDate(event.target.value)}
                 className="rounded-xl border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-emerald-500 focus:outline-none"
               />
             </label>
@@ -137,6 +177,9 @@ export default function Contact() {
               <input
                 type="text"
                 name="contactInfo"
+                required
+                value={contactInfo}
+                onChange={(event) => setContactInfo(event.target.value)}
                 className="rounded-xl border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-emerald-500 focus:outline-none"
                 placeholder="you@example.com or +233..."
               />
