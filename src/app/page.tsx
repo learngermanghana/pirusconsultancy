@@ -4,6 +4,45 @@ import homeContent from "@/content/homepage.json";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
 
 export default function Home() {
+  const visaDestinations = [
+    {
+      title: "Canada – Study, Work Permit & PR",
+      subtitle: "Canada visa from Ghana (Study • Work • PR)",
+      description:
+        "Apply for Canada student visa, Express Entry permanent residency, visitor visa or work permit with expert documentation support.",
+    },
+    {
+      title: "United Kingdom – Tourist & Student Visa",
+      subtitle: "UK visa application from Ghana",
+      description:
+        "Professional assistance for UK visitor visa, business travel, short-term study and family visit applications.",
+    },
+    {
+      title: "United States – B1/B2 Visitor Visa",
+      subtitle: "USA B1/B2 visitor visa from Ghana",
+      description:
+        "Guidance for US tourist and business visa applications including DS-160 review and interview preparation.",
+    },
+    {
+      title: "Schengen – Tourist & Business Visa",
+      subtitle: "Schengen visa application from Ghana",
+      description:
+        "Support for Schengen short-stay, business, and family visit visas with document checks and appointment guidance.",
+    },
+    {
+      title: "Australia – Visitor & Student Visa",
+      subtitle: "Australia visa application support",
+      description:
+        "Step-by-step guidance for Australian visitor and student visa applications, including documentation support.",
+    },
+    {
+      title: "New Zealand – Visitor & Study Visa",
+      subtitle: "New Zealand visa services from Ghana",
+      description:
+        "Personalized help for New Zealand visitor and study visas, from document review to submission readiness.",
+    },
+  ];
+
   return (
     <div className="space-y-8 md:space-y-12">
       {/* HERO */}
@@ -37,6 +76,39 @@ export default function Home() {
         {homeContent.featureCards.map((card) => (
           <FeatureCard key={card.title} {...card} priority />
         ))}
+      </section>
+
+      <section className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-sm md:p-8">
+        <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">Visa Support Services</p>
+            <h2 className="mt-2 text-2xl font-bold text-slate-900">Affordable Flights, Tours &amp; Visa Support</h2>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600">
+              Book affordable international flights, explore carefully curated tour experiences, and receive
+              professional visa guidance and application support.
+            </p>
+          </div>
+          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
+            <img
+              src="/images/pexels-tima-miroshnichenko-7010095.jpg"
+              alt="Travel consultant discussing international visa application documents"
+              className="h-full w-full object-cover"
+            />
+          </div>
+        </div>
+
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
+          {visaDestinations.map((destination) => (
+            <article key={destination.title} className="rounded-2xl border border-slate-200 bg-slate-50/90 p-5">
+              <p className="text-xs font-semibold uppercase tracking-wide text-sky-700">{destination.subtitle}</p>
+              <h3 className="mt-2 text-lg font-bold text-slate-900">{destination.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600">{destination.description}</p>
+              <Link href="/contact" className="mt-4 inline-block text-sm font-semibold text-sky-700 hover:text-sky-800">
+                Apply Now →
+              </Link>
+            </article>
+          ))}
+        </div>
       </section>
 
       {/* TOURS SHOWCASE */}
