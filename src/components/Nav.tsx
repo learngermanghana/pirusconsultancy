@@ -14,7 +14,7 @@ function NavLink({ href, label, onClick }: { href: string; label: string; onClic
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-sm text-slate-600 transition hover:text-slate-900"
+        className="whitespace-nowrap text-sm text-slate-600 transition hover:text-slate-900"
         onClick={onClick}
       >
         {label}
@@ -23,7 +23,7 @@ function NavLink({ href, label, onClick }: { href: string; label: string; onClic
   }
 
   return (
-    <Link href={href} className="text-sm text-slate-600 transition hover:text-slate-900" onClick={onClick}>
+    <Link href={href} className="whitespace-nowrap text-sm text-slate-600 transition hover:text-slate-900" onClick={onClick}>
       {label}
     </Link>
   );
@@ -41,7 +41,10 @@ export default function Nav() {
           MyGermanyPath
         </Link>
 
-        <nav className="hidden gap-5 md:flex">
+        <nav
+          className="hidden min-w-0 flex-1 items-center gap-4 overflow-x-auto px-6 md:flex lg:gap-5"
+          aria-label="Primary"
+        >
           {messages.nav.links.map((l) => (
             <NavLink key={`${l.href}-${l.label}`} href={l.href} label={l.label} />
           ))}
