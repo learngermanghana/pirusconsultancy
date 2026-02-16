@@ -137,6 +137,35 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-sm md:p-8">
+        <h2 className="text-2xl font-bold text-slate-900">Popular packages at a glance</h2>
+        <p className="mt-2 text-sm text-slate-600">Compare transparent service tiers and optional add-ons before you book.</p>
+        <Link
+          href="/pricing"
+          className="mt-5 inline-flex rounded-2xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white hover:opacity-90"
+        >
+          View pricing & packages
+        </Link>
+      </section>
+
+      <section className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-sm md:p-8">
+        <h2 className="text-2xl font-bold text-slate-900">Testimonials from past clients</h2>
+        <div className="mt-4 grid gap-3 md:grid-cols-3">
+          {[
+            "\"Our visa checklist was perfectly organized and approved quickly.\" — Family traveler",
+            "\"Clear and honest support from assessment to interview prep.\" — Student applicant",
+            "\"Excellent planning for our business trip and documentation.\" — SME founder",
+          ].map((item) => (
+            <blockquote key={item} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+              {item}
+            </blockquote>
+          ))}
+        </div>
+        <Link href="/success" className="mt-4 inline-block text-sm font-semibold text-sky-700 hover:text-sky-800">
+          Read more success stories
+        </Link>
+      </section>
+
 
       <CaseStudiesSection />
 
