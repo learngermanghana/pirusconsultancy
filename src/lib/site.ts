@@ -1,8 +1,8 @@
 export const site = {
-  name: "MyGermanyPath",
+  name: "Your Path to Global Travel",
   domain: "www.pirusconsultancy.com",
   tagline: {
-    en: "Your trusted travel consultancy for visas, documentation, and guided international trips.",
-    de: "Ihre zuverlässige Reiseberatung für Visa, Unterlagen und international geplante Reisen.",
+    en: "Your path to global travel",
+    de: "Ihr Weg zu globalem Reisen",
   },
 };
