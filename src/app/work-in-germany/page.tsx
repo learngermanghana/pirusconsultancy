@@ -5,35 +5,33 @@ import { createWhatsAppLeadUrl } from "@/lib/whatsapp";
 
 const guidance = [
   {
-    title: "Who qualifies",
+    title: "Who qualifies? (quick checklist)",
     points: [
-      "Skilled workers need a recognized degree or vocational qualification and a job offer that matches it.",
-      "EU Blue Card applicants must meet salary thresholds and have a recognized university degree (or an equivalent in-demand IT path).",
-      "Regulated professions (healthcare, teaching, engineering) require formal recognition before a visa is issued.",
+      "Have a relevant qualification or practical work experience in your target role.",
+      "Are willing to learn German and commit to language goals during preparation.",
+      "Can support yourself initially for relocation, housing, and settlement costs.",
+      "Have a clean record and can provide required police/background documents.",
+      "Are ready for interviews and can present your profile for German employers.",
     ],
   },
   {
-    title: "German level needed",
+    title: "Expected timeline (example)",
     points: [
-      "English-speaking tech roles can be possible, but most employers still expect at least B1 for daily work.",
-      "Regulated professions usually require B2 or higher German for licensing and patient/client communication.",
-      "For long-term integration, plan for B1/B2 even if the job ad is in English.",
+      "Profile assessment and route matching: about 1 week.",
+      "Language preparation: usually 3–6 months depending on your starting level.",
+      "Job search and interviews: around 1–4 months based on sector demand.",
+      "Visa processing after submission: typically 2–4 months.",
+      "Total average journey: 6–12 months (varies by profile and embassy queues).",
     ],
   },
   {
-    title: "Timeline",
+    title: "Common mistakes applicants make",
     points: [
-      "4–8 months: get qualification recognition (ZAB or the relevant chamber) and collect work experience proofs.",
-      "3–6 months: job search, interviews, and contract negotiation; ensure salary meets visa requirements.",
-      "2–3 months: visa appointment and processing, then prepare relocation (housing, Anmeldung, insurance).",
-    ],
-  },
-  {
-    title: "Common mistakes",
-    points: [
-      "Applying without recognition documents or with a job offer that does not match the qualification.",
-      "Assuming any salary qualifies for a Blue Card—thresholds change yearly and vary by shortage occupations.",
-      "Skipping language planning and later struggling with probation periods, paperwork, or client contact.",
+      "Applying without recognized qualifications or missing recognition documents.",
+      "Submitting incomplete documents and delaying visa appointments.",
+      "Choosing the wrong visa category for your profile and salary.",
+      "Paying illegal placement fees or trusting non-transparent recruiters.",
+      "Ignoring German language preparation and struggling after arrival.",
     ],
   },
 ];
@@ -44,6 +42,53 @@ const supportServices = [
   "CV and motivation review for German employers",
   "Interview preparation and relocation readiness",
   "Visa file review before submission",
+];
+
+const pathways = [
+  {
+    title: "Skilled Worker Visa",
+    description: "For degree holders or vocational graduates with a matching job offer.",
+  },
+  {
+    title: "EU Blue Card",
+    description: "For high-salary professionals meeting degree and salary requirements.",
+  },
+  {
+    title: "Ausbildung (Vocational Training)",
+    description: "For younger applicants building practical career skills and long-term work options.",
+  },
+];
+
+const processSteps = [
+  "Eligibility assessment",
+  "German language preparation",
+  "Job or Ausbildung placement",
+  "Visa file preparation",
+  "Embassy application",
+  "Departure and arrival support",
+];
+
+const inDemandFields = [
+  "Nursing and healthcare",
+  "Construction trades",
+  "Electrical and mechanical technicians",
+  "IT professionals",
+  "Logistics and drivers",
+];
+
+const germanySuccessStories = [
+  {
+    profile: "Kofi A. – Electrical technician",
+    outcome: "Work visa to Hamburg",
+  },
+  {
+    profile: "Mariam B. – Care assistant",
+    outcome: "Ausbildung placement in Bavaria",
+  },
+  {
+    profile: "Daniel O. – IT technician",
+    outcome: "EU Blue Card track to Berlin",
+  },
 ];
 
 export default function WorkInGermanyPage() {
@@ -64,7 +109,34 @@ export default function WorkInGermanyPage() {
         </p>
       </header>
 
+      <section className="rounded-3xl border border-indigo-100 bg-indigo-50 p-6">
+        <h2 className="text-xl font-bold text-slate-900">Your main work pathways to Germany</h2>
+        <div className="mt-4 grid gap-4 md:grid-cols-3">
+          {pathways.map((pathway) => (
+            <article key={pathway.title} className="rounded-2xl border border-indigo-200 bg-white p-4">
+              <h3 className="text-sm font-bold text-slate-900">{pathway.title}</h3>
+              <p className="mt-2 text-sm text-slate-600">{pathway.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <PathwayComparisonCalculator highlightedPathway="Work" />
+
+      <section className="rounded-3xl border border-slate-200 bg-white p-6">
+        <h2 className="text-xl font-bold text-slate-900">How our Germany work process works</h2>
+        <ol className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-6">
+          {processSteps.map((step, index) => (
+            <li
+              key={step}
+              className="flex min-h-24 flex-col rounded-2xl border border-slate-200 bg-slate-50 p-3"
+            >
+              <span className="text-xs font-semibold uppercase tracking-wide text-indigo-700">Step {index + 1}</span>
+              <span className="mt-2 text-sm font-medium text-slate-800">{step}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
 
       <section className="grid gap-4 md:grid-cols-2">
         {guidance.map((item) => (
@@ -86,6 +158,44 @@ export default function WorkInGermanyPage() {
             <li key={service}>{service}</li>
           ))}
         </ul>
+      </section>
+
+      <section className="grid gap-4 lg:grid-cols-2">
+        <article className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h2 className="text-xl font-bold text-slate-900">Example in-demand job fields</h2>
+          <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-slate-700">
+            {inDemandFields.map((field) => (
+              <li key={field}>{field}</li>
+            ))}
+          </ul>
+        </article>
+        <article className="rounded-3xl border border-emerald-200 bg-emerald-50 p-6 shadow-sm">
+          <h2 className="text-xl font-bold text-slate-900">Our approach</h2>
+          <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-slate-700">
+            <li>No fake job promises.</li>
+            <li>No guaranteed visas.</li>
+            <li>Transparent service fees.</li>
+            <li>Step-by-step support throughout your process.</li>
+          </ul>
+          <p className="mt-3 text-xs text-slate-600">
+            Visa outcomes are always decided case-by-case by German authorities.
+          </p>
+        </article>
+      </section>
+
+      <section className="rounded-3xl border border-slate-200 bg-white p-6">
+        <h2 className="text-xl font-bold text-slate-900">Recent Germany success stories</h2>
+        <p className="mt-2 text-sm text-slate-600">
+          Snapshot examples from recent profiles we have supported in Germany pathways.
+        </p>
+        <div className="mt-4 grid gap-4 md:grid-cols-3">
+          {germanySuccessStories.map((story) => (
+            <article key={story.profile} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <h3 className="text-sm font-semibold text-slate-900">{story.profile}</h3>
+              <p className="mt-2 text-sm text-slate-600">{story.outcome}</p>
+            </article>
+          ))}
+        </div>
       </section>
 
       <CaseStudiesSection />
