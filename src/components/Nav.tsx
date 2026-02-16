@@ -8,13 +8,16 @@ import { getMessages, Locale } from "@/lib/i18n";
 function NavLink({ href, label, onClick }: { href: string; label: string; onClick?: () => void }) {
   const isExternal = href.startsWith("http://") || href.startsWith("https://");
 
+  const sharedClassName =
+    "rounded-full border border-transparent px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-700";
+
   if (isExternal) {
     return (
       <a
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="whitespace-nowrap text-sm text-slate-600 transition hover:text-slate-900"
+        className={sharedClassName}
         onClick={onClick}
       >
         {label}
@@ -23,7 +26,7 @@ function NavLink({ href, label, onClick }: { href: string; label: string; onClic
   }
 
   return (
-    <Link href={href} className="whitespace-nowrap text-sm text-slate-600 transition hover:text-slate-900" onClick={onClick}>
+    <Link href={href} className={sharedClassName} onClick={onClick}>
       {label}
     </Link>
   );
@@ -34,10 +37,6 @@ export default function Nav() {
   const messages = getMessages(locale);
   const [isOpen, setIsOpen] = useState(false);
 
-  // When the mobile navigation menu is open, prevent the body from scrolling
-  // to improve the user experience on small screens. When the menu closes or
-  // the component unmounts, restore the body scroll. The guard for
-  // `document` ensures this runs only in the browser.
   useEffect(() => {
     if (typeof document !== "undefined") {
       document.body.style.overflow = isOpen ? "hidden" : "";
@@ -50,15 +49,14 @@ export default function Nav() {
   }, [isOpen]);
 
   return (
-    <header className="relative sticky top-0 z-50 border-b border-slate-200/80 bg-white/80 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <Link href="/" className="text-lg font-bold text-slate-900">
+    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur">
+      <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3">
+        <Link href="/" className="shrink-0 text-lg font-black tracking-tight text-slate-900">
           MyGermanyPath
         </Link>
 
-        {/* Desktop navigation: horizontally scrollable if there are many links. */}
         <nav
-          className="hidden flex-auto items-center gap-4 overflow-x-auto whitespace-nowrap px-6 md:flex lg:gap-5"
+          className="hidden flex-1 items-center justify-center gap-1 rounded-full border border-slate-200 bg-slate-50/70 p-1 md:flex"
           aria-label="Primary"
         >
           {messages.nav.links.map((l) => (
@@ -66,13 +64,13 @@ export default function Nav() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden shrink-0 items-center gap-2 md:flex">
           <label className="sr-only" htmlFor="locale-select">
             {messages.nav.languageLabel}
           </label>
           <select
             id="locale-select"
-            className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-sm text-slate-700 shadow-sm"
+            className="rounded-full border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm"
             value={locale}
             onChange={(event) => setLocale(event.target.value as Locale)}
           >
@@ -84,7 +82,7 @@ export default function Nav() {
           </select>
           <Link
             href="/contact"
-            className="rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-700"
+            className="rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-700"
           >
             {messages.nav.cta}
           </Link>
@@ -92,25 +90,19 @@ export default function Nav() {
 
         <button
           type="button"
-          className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white/80 p-2 text-slate-700 shadow-sm transition hover:text-slate-900 md:hidden"
+          className="ml-auto inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white/80 p-2 text-slate-700 shadow-sm transition hover:text-slate-900 md:hidden"
           aria-expanded={isOpen}
           aria-controls="mobile-menu"
           onClick={() => setIsOpen((open) => !open)}
         >
-          <span className="sr-only">
-            {isOpen ? messages.nav.closeMenuLabel : messages.nav.openMenuLabel}
-          </span>
+          <span className="sr-only">{isOpen ? messages.nav.closeMenuLabel : messages.nav.openMenuLabel}</span>
           <div className="flex h-5 w-5 flex-col items-center justify-center gap-1">
             <span
               className={`block h-0.5 w-5 rounded-full bg-current transition ${
                 isOpen ? "translate-y-1.5 rotate-45" : ""
               }`}
             />
-            <span
-              className={`block h-0.5 w-5 rounded-full bg-current transition ${
-                isOpen ? "opacity-0" : ""
-              }`}
-            />
+            <span className={`block h-0.5 w-5 rounded-full bg-current transition ${isOpen ? "opacity-0" : ""}`} />
             <span
               className={`block h-0.5 w-5 rounded-full bg-current transition ${
                 isOpen ? "-translate-y-1.5 -rotate-45" : ""
@@ -119,12 +111,13 @@ export default function Nav() {
           </div>
         </button>
       </div>
+
       {isOpen ? (
         <div
           id="mobile-menu"
           className="absolute left-0 right-0 top-full z-40 border-t border-slate-200/80 bg-white/95 px-4 py-4 md:hidden"
         >
-          <nav className="flex flex-col gap-3">
+          <nav className="flex flex-col gap-2">
             {messages.nav.links.map((l) => (
               <NavLink key={`${l.href}-${l.label}`} href={l.href} label={l.label} onClick={() => setIsOpen(false)} />
             ))}
@@ -147,7 +140,7 @@ export default function Nav() {
             </select>
             <Link
               href="/contact"
-              className="rounded-xl bg-sky-600 px-4 py-2 text-center text-sm font-semibold text-white shadow-sm transition hover:bg-sky-700"
+              className="rounded-xl bg-slate-900 px-4 py-2 text-center text-sm font-semibold text-white shadow-sm transition hover:bg-slate-700"
               onClick={() => setIsOpen(false)}
             >
               {messages.nav.cta}
