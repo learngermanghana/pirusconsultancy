@@ -230,8 +230,8 @@ export default function Home() {
           </div>
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
             <img
-              src="/images/pexels-tima-miroshnichenko-7010095.jpg"
-              alt="Travel consultant discussing international visa application documents"
+              src="/images/study.jpg"
+              alt="Client reviewing study and visa documents with a consultant"
               className="h-full w-full object-cover"
             />
           </div>
