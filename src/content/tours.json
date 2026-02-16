@@ -8,7 +8,7 @@
       "destination": "Dubai",
       "duration": "5 days",
       "budget": "Mid-range",
-      "price": "From €950 per person (estimate)",
+      "price": "Contact for quote (EUR)",
       "features": [
         "Hotel reservation support",
         "Airport transfers",
@@ -23,7 +23,7 @@
       "destination": "Germany",
       "duration": "6-8 days",
       "budget": "Mid-range",
-      "price": "From €1,150 per person (estimate)",
+      "price": "Contact for quote (EUR)",
       "features": [
         "Hotel reservation support",
         "City tour planning",
@@ -38,7 +38,7 @@
       "destination": "France",
       "duration": "5-7 days",
       "budget": "Premium",
-      "price": "From €1,350 per person (estimate)",
+      "price": "Contact for quote (EUR)",
       "features": [
         "Hotel reservation support",
         "City tour planning",
@@ -53,7 +53,7 @@
       "destination": "Belgium",
       "duration": "4-6 days",
       "budget": "Mid-range",
-      "price": "From €850 per person (estimate)",
+      "price": "Contact for quote (EUR)",
       "features": [
         "Hotel reservation support",
         "City tour planning",
@@ -68,7 +68,7 @@
       "destination": "Italy",
       "duration": "6-8 days",
       "budget": "Premium",
-      "price": "From €1,450 per person (estimate)",
+      "price": "Contact for quote (EUR)",
       "features": [
         "Hotel reservation support",
         "City tour planning",
@@ -83,7 +83,7 @@
       "destination": "Turkey",
       "duration": "6-8 days",
       "budget": "Mid-range",
-      "price": "From €1,050 per person (estimate)",
+      "price": "Contact for quote (EUR)",
       "features": [
         "Hotel reservation support",
         "City tour planning",
@@ -98,7 +98,7 @@
       "destination": "Poland",
       "duration": "4-6 days",
       "budget": "Budget-friendly",
-      "price": "From €720 per person (estimate)",
+      "price": "Contact for quote (EUR)",
       "features": [
         "Hotel booking options",
         "City tour planning",
@@ -113,7 +113,7 @@
       "destination": "Singapore",
       "duration": "4-7 days",
       "budget": "Budget-friendly",
-      "price": "From €1,100 per person (estimate)",
+      "price": "Contact for quote (EUR)",
       "features": [
         "Hotel booking options",
         "Airport transfers",
@@ -128,7 +128,7 @@
       "destination": "Japan",
       "duration": "5-10 days",
       "budget": "Premium",
-      "price": "From €1,850 per person (estimate)",
+      "price": "Contact for quote (EUR)",
       "features": [
         "Hotel booking options",
         "Airport transfers",
@@ -143,7 +143,7 @@
       "destination": "South Africa",
       "duration": "5-8 days",
       "budget": "Mid-range",
-      "price": "From €980 per person (estimate)",
+      "price": "Contact for quote (EUR)",
       "features": [
         "Hotel reservation support",
         "Airport transfers",
@@ -154,7 +154,7 @@
     }
   ],
   "whyChoose": {
-    "title": "Why Choose Pirus Consultancy",
+    "title": "Why Choose Jonhrega",
     "subtitle": "Practical guidance, transparent communication, and travel expertise you can trust.",
     "points": [
       {

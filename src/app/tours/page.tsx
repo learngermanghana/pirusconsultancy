@@ -58,6 +58,51 @@ export default function AusbildungPage() {
           </Link>
         </div>
       </section>
+
+      <section className="rounded-3xl border border-slate-200 bg-white p-6">
+        <h2 className="text-2xl font-bold text-slate-900">Testimonials</h2>
+        <p className="mt-2 text-sm text-slate-600">What clients say about our support and service.</p>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          {testimonials.map((quote) => (
+            <blockquote key={quote} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+              “{quote}”
+            </blockquote>
+          ))}
+        </div>
+        <p className="mt-3 text-xs text-slate-500">(Replace these with real client reviews anytime.)</p>
+      </section>
+
+      <section className="rounded-3xl border border-slate-200 bg-white p-6">
+        <h2 className="text-2xl font-bold text-slate-900">Planning a custom itinerary?</h2>
+        <p className="mt-2 text-sm text-slate-600">
+          Tell us your destination, dates, and goals. We&apos;ll follow up with a clear plan and pricing.
+        </p>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <Link href="/contact" className="rounded-2xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:opacity-90">
+            Book a Consultation
+          </Link>
+          <a
+            href="https://wa.me/4917620721491"
+            className="rounded-2xl border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-900 hover:bg-slate-50"
+          >
+            Request a Callback
+          </a>
+        </div>
+      </section>
+
+      <section className="rounded-3xl border border-slate-200 bg-slate-900 p-6 text-white">
+        <h2 className="text-lg font-semibold">Jonhrega Travel and Tours</h2>
+        <p className="mt-1 text-sm text-white/80">Licensed by Ghana Tourism Authority • License No.: AWTT00006525</p>
+        <p className="text-sm text-white/80">© 2026 Jonhrega Travel and Tours. All rights reserved.</p>
+        <div className="mt-4 flex flex-wrap gap-4 text-sm">
+          <a href="mailto:hana@pirusconsultancy.com">Email</a>
+          <a href="tel:+4917620721491">Call</a>
+          <Link href="/tours">Tours</Link>
+          <Link href="/blog">Blog</Link>
+          <Link href="/assessment">Assessment</Link>
+          <a href="https://wa.me/4917620721491">Chat</a>
+        </div>
+      </section>
     </div>
   );
 }
