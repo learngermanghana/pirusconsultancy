@@ -8,6 +8,15 @@ import { createWhatsAppLeadUrl } from "@/lib/whatsapp";
 type ConsultationPurpose = "Tourism" | "Study" | "Work" | "Business";
 type Timeline = "Within 1 month" | "1 - 3 months" | "3 - 6 months" | "6+ months";
 
+type VisaDestination = {
+  title: string;
+  subtitle: string;
+  description: string;
+  imageUrl?: string;
+  imageAlt?: string;
+  tags: ConsultationPurpose[];
+};
+
 export default function Home() {
   const [selectedTag, setSelectedTag] = useState<"All" | ConsultationPurpose>("All");
   const [step, setStep] = useState(1);
@@ -15,7 +24,7 @@ export default function Home() {
   const [purpose, setPurpose] = useState<ConsultationPurpose>("Study");
   const [timeline, setTimeline] = useState<Timeline>("1 - 3 months");
 
-  const visaDestinations = [
+  const visaDestinations: VisaDestination[] = [
     {
       title: "Canada – Study, Work Permit & PR",
       subtitle: "Canada visa from Ghana (Study • Work • PR)",
