@@ -363,18 +363,18 @@ export default function Home() {
           {[
             {
               quote: "Our visa checklist was perfectly organized and approved quickly.",
-              person: "Ama K.",
-              role: "Family traveler",
+              person: "Sofia R.",
+              role: "Germany family traveler",
             },
             {
               quote: "Clear and honest support from assessment to interview prep.",
-              person: "Kwame D.",
-              role: "Student applicant",
+              person: "Daniel K.",
+              role: "UK student applicant",
             },
             {
               quote: "Excellent planning for our business trip and documentation.",
-              person: "Esi B.",
-              role: "SME founder",
+              person: "Isabella T.",
+              role: "France SME founder",
             },
           ].map((item) => (
             <blockquote key={item.person} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">

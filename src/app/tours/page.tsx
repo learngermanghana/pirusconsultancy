@@ -37,21 +37,21 @@ const bookingSteps = [
 
 const tourReviews = [
   {
-    name: "Ama",
-    destination: "Dubai",
-    quote: "Our Dubai tour was perfectly organized.",
+    name: "Lena M.",
+    destination: "Germany",
+    quote: "Our Munich city break was well-planned, and every booking detail was accurate.",
     photo: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=300&q=80",
   },
   {
-    name: "Kwame",
-    destination: "Germany",
-    quote: "Smooth visa process and great hotel.",
+    name: "Paul N.",
+    destination: "France",
+    quote: "The Paris itinerary was smooth, and the hotel location was perfect for sightseeing.",
     photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80",
   },
   {
-    name: "Esi",
-    destination: "France",
-    quote: "Best group trip experience.",
+    name: "Marta K.",
+    destination: "Italy",
+    quote: "Our Rome group tour was organized professionally from airport pickup to daily plans.",
     photo: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=300&q=80",
   },
 ];

@@ -63,7 +63,7 @@ const destinations = [
 
 const successStories = [
   {
-    student: "Ama K. – Nursing pathway to Germany",
+    student: "Hannah M. – Nursing pathway to Germany",
     story: "Completed B1 German → Studienkolleg → University admission.",
   },
   {
