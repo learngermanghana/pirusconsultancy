@@ -46,7 +46,7 @@ export default function CVBuilderPage() {
   const [template, setTemplate] = useState<Template>("Classic");
 
   const [data, setData] = useState<CVData>({
-    fullName: "Felix Asadu",
+    fullName: "Hana",
     title: "German Teacher / Applicant (Germany)",
     location: "Accra, Ghana",
     phone: "+233 XXX XXX XXX",

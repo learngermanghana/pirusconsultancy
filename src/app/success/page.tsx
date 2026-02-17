@@ -1,19 +1,19 @@
 const testimonials = [
   {
-    name: "Ama O.",
-    outcome: "Schengen family visit visa approved",
+    name: "Sofia R.",
+    outcome: "Germany family visit visa approved",
     quote:
       "They helped us organize every supporting document clearly. Our appointment was smooth and the visa was approved in two weeks.",
   },
   {
-    name: "Kwame B.",
-    outcome: "Germany study route planning",
+    name: "Daniel K.",
+    outcome: "UK study route planning",
     quote:
       "The counselor explained realistic timelines and fixed gaps in my financial documents before submission.",
   },
   {
-    name: "Esi A.",
-    outcome: "Business travel package",
+    name: "Isabella T.",
+    outcome: "France business travel package",
     quote:
       "From invitation letter review to itinerary planning, the process felt professional and transparent.",
   },

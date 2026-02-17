@@ -107,13 +107,13 @@ export default function About() {
         <div className="overflow-hidden rounded-2xl border bg-white shadow-sm">
           <img
             src="/images/WhatsApp%20Image%202026-01-29%20at%2019.52.04.jpeg"
-            alt="Felix Asadu, Founder of Pirus Consultancy"
+            alt="Hana, Founder of Pirus Consultancy"
             className="h-full w-full object-cover"
           />
         </div>
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-teal-600">Founder profile</p>
-          <h2 className="mt-3 text-2xl font-bold text-gray-900">Felix Asadu</h2>
+          <h2 className="mt-3 text-2xl font-bold text-gray-900">Hana</h2>
           <p className="mt-1 text-sm font-semibold text-gray-700">Founder, Pirus Consultancy</p>
           <ul className="mt-4 space-y-2 text-sm text-gray-600">
             <li>Travel and visa documentation specialist</li>
