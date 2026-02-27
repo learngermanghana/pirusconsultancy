@@ -34,12 +34,12 @@ type ReceiptFormState = {
 };
 
 const stages: PipelineStage[] = ["Enquiry", "Qualified", "Documents", "Embassy", "Visa Granted", "Closed"];
-const adminTabs: AdminTab[] = ["Overview", "Messaging", "Billing", "Leads"];
+const adminTabs: AdminTab[] = ["Dashboard", "Email", "Receipts", "Clients"];
 const tabLabels: Record<AdminTab, string> = {
-  Overview: "Overview",
-  Messaging: "Messaging",
-  Billing: "Billing",
-  Leads: "Leads / CRM",
+  Dashboard: "Overview",
+  Email: "Messaging",
+  Receipts: "Billing",
+  Clients: "Leads / CRM",
 };
 const tabStorageKey = "admin_active_tab";
 
@@ -98,10 +98,10 @@ export default function AdminPage() {
   const [updatingClientId, setUpdatingClientId] = useState<string | null>(null);
 
   const tabButtonRefs = useRef<Record<AdminTab, HTMLButtonElement | null>>({
-    Overview: null,
-    Messaging: null,
-    Billing: null,
-    Leads: null,
+    Dashboard: null,
+    Email: null,
+    Receipts: null,
+    Clients: null,
   });
 
   useEffect(() => {
