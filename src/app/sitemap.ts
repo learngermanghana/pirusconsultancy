@@ -22,12 +22,10 @@ const ROUTES: RouteConfig[] = [
   { path: "/student-visa-support", changeFrequency: "monthly", priority: 0.85 },
   { path: "/study-abroad-admissions", changeFrequency: "weekly", priority: 0.9 },
   { path: "/study-germany", changeFrequency: "weekly", priority: 0.95 },
-  { path: "/tours", changeFrequency: "monthly", priority: 0.7 },
   { path: "/tools/cv-builder", changeFrequency: "weekly", priority: 0.7 },
   { path: "/tools/document-checklist", changeFrequency: "weekly", priority: 0.7 },
   { path: "/tools/motivation-builder", changeFrequency: "weekly", priority: 0.7 },
   { path: "/tools/pathway-planner", changeFrequency: "weekly", priority: 0.7 },
-  { path: "/work-in-germany", changeFrequency: "weekly", priority: 0.9 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

@@ -8,8 +8,6 @@ const messages = {
     nav: {
       links: [
         { href: "/", label: "Home" },
-        { href: "/guidance", label: "Work Abroad" },
-        { href: "/tours", label: "Tours" },
         { href: "/blog", label: "Resources" },
         { href: "/study-abroad-admissions", label: "Study Abroad" },
         { href: "/learn-german", label: "Learn German" },
@@ -29,7 +27,6 @@ const messages = {
     footer: {
       links: [
         { href: "/about", label: "About & Founder" },
-        { href: "/tours", label: "Work Abroad Tours" },
         { href: "/success", label: "Success stories" },
         { href: "/blog", label: "Resource hub" },
         { href: "/contact", label: "Contact" },
@@ -49,8 +46,6 @@ const messages = {
     nav: {
       links: [
         { href: "/", label: "Startseite" },
-        { href: "/guidance", label: "Work Abroad" },
-        { href: "/tours", label: "Touren" },
         { href: "/blog", label: "Ressourcen" },
         { href: "/study-abroad-admissions", label: "Study Abroad" },
         { href: "/learn-german", label: "Deutsch lernen" },
@@ -70,7 +65,6 @@ const messages = {
     footer: {
       links: [
         { href: "/about", label: "Über uns & Gründerin" },
-        { href: "/tours", label: "Work Abroad Touren" },
         { href: "/success", label: "Erfolgsgeschichten" },
         { href: "/blog", label: "Ressourcen" },
         { href: "/contact", label: "Kontakt" },
