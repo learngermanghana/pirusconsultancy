@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, KeyboardEvent, MutableRefObject, useEffect, useMemo, useRef, useState } from "react";
 
 type PipelineStage = "Enquiry" | "Qualified" | "Documents" | "Embassy" | "Visa Granted" | "Closed";
 type AdminTab = "Dashboard" | "Email" | "Receipts" | "Clients";
@@ -16,10 +16,36 @@ type ClientRecord = {
   notes: string;
 };
 
+type EmailFormState = {
+  recipient: string;
+  subject: string;
+  message: string;
+  campaignTag: string;
+};
+
+type ReceiptFormState = {
+  clientName: string;
+  serviceName: string;
+  amount: string;
+  currency: string;
+  issuedDate: string;
+  dueDate: string;
+  notes: string;
+};
+
 const stages: PipelineStage[] = ["Enquiry", "Qualified", "Documents", "Embassy", "Visa Granted", "Closed"];
+const adminTabs: AdminTab[] = ["Overview", "Messaging", "Billing", "Leads"];
+const tabLabels: Record<AdminTab, string> = {
+  Overview: "Overview",
+  Messaging: "Messaging",
+  Billing: "Billing",
+  Leads: "Leads / CRM",
+};
+const tabStorageKey = "admin_active_tab";
 
 const createClientId = () => `CL-${Math.floor(100000 + Math.random() * 900000)}`;
 const createReceiptId = () => `RC-${Math.floor(100000 + Math.random() * 900000)}`;
+const isAdminTab = (value: string | null): value is AdminTab => value !== null && adminTabs.includes(value as AdminTab);
 
 export default function AdminPage() {
   const [isCheckingSession, setIsCheckingSession] = useState(true);
@@ -31,14 +57,14 @@ export default function AdminPage() {
   const [email, setEmail] = useState("123@example.com");
   const [password, setPassword] = useState("123456");
 
-  const [emailForm, setEmailForm] = useState({
+  const [emailForm, setEmailForm] = useState<EmailFormState>({
     recipient: "",
     subject: "",
     message: "",
     campaignTag: "General",
   });
 
-  const [receiptForm, setReceiptForm] = useState({
+  const [receiptForm, setReceiptForm] = useState<ReceiptFormState>({
     clientName: "",
     serviceName: "",
     amount: "",
@@ -61,10 +87,36 @@ export default function AdminPage() {
 
   const [clients, setClients] = useState<ClientRecord[]>([]);
 
+  const [emailError, setEmailError] = useState("");
+  const [receiptError, setReceiptError] = useState("");
+  const [clientError, setClientError] = useState("");
+  const [pipelineError, setPipelineError] = useState("");
+
+  const [isSendingEmail, setIsSendingEmail] = useState(false);
+  const [isSavingReceipt, setIsSavingReceipt] = useState(false);
+  const [isSavingClient, setIsSavingClient] = useState(false);
+  const [updatingClientId, setUpdatingClientId] = useState<string | null>(null);
+
+  const tabButtonRefs = useRef<Record<AdminTab, HTMLButtonElement | null>>({
+    Overview: null,
+    Messaging: null,
+    Billing: null,
+    Leads: null,
+  });
+
   useEffect(() => {
     const storedClients = window.localStorage.getItem("admin_clients");
     if (storedClients) {
       setClients(JSON.parse(storedClients) as ClientRecord[]);
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const tabFromQuery = params.get("tab");
+    const tabFromStorage = window.localStorage.getItem(tabStorageKey);
+    if (isAdminTab(tabFromQuery)) {
+      setActiveTab(tabFromQuery);
+    } else if (isAdminTab(tabFromStorage)) {
+      setActiveTab(tabFromStorage);
     }
 
     fetch("/api/admin/auth", { cache: "no-store" })
@@ -75,6 +127,13 @@ export default function AdminPage() {
       .finally(() => setIsCheckingSession(false));
   }, []);
 
+  useEffect(() => {
+    window.localStorage.setItem(tabStorageKey, activeTab);
+    const url = new URL(window.location.href);
+    url.searchParams.set("tab", activeTab);
+    window.history.replaceState({}, "", url);
+  }, [activeTab]);
+
   const stageStats = useMemo(
     () =>
       stages.map((stage) => ({
@@ -83,6 +142,8 @@ export default function AdminPage() {
       })),
     [clients],
   );
+
+  const recentClients = useMemo(() => clients.slice(0, 4), [clients]);
 
   const persistClients = (nextClients: ClientRecord[]) => {
     setClients(nextClients);
@@ -103,11 +164,10 @@ export default function AdminPage() {
     }
 
     if (json?.warning) {
-      setActivityMessage(json.warning);
-      return;
+      return json.warning as string;
     }
 
-    setActivityMessage("Saved to dashboard and forwarded to Google Sheets.");
+    return "Saved to dashboard and forwarded to Google Sheets.";
   };
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
@@ -135,57 +195,128 @@ export default function AdminPage() {
 
   const submitEmail = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await postToSheet("email_messages", emailForm);
-    setEmailForm({ recipient: "", subject: "", message: "", campaignTag: "General" });
+    setEmailError("");
+    setIsSendingEmail(true);
+
+    try {
+      const nextMessage = await postToSheet("email_messages", emailForm);
+      setActivityMessage(nextMessage);
+      setEmailForm({ recipient: "", subject: "", message: "", campaignTag: "General" });
+    } catch (error) {
+      setEmailError(error instanceof Error ? error.message : "Unable to queue email message.");
+    } finally {
+      setIsSendingEmail(false);
+    }
   };
 
   const submitClient = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const nextClients = [clientForm, ...clients];
-    persistClients(nextClients);
-    await postToSheet("clients", clientForm);
-    setClientForm({
-      id: createClientId(),
-      fullName: "",
-      email: "",
-      phone: "",
-      service: "Study Visa",
-      destination: "Germany",
-      stage: "Enquiry",
-      notes: "",
-    });
+    setClientError("");
+    setIsSavingClient(true);
+
+    try {
+      const nextClients = [clientForm, ...clients];
+      persistClients(nextClients);
+      const nextMessage = await postToSheet("clients", clientForm);
+      setActivityMessage(nextMessage);
+      setClientForm({
+        id: createClientId(),
+        fullName: "",
+        email: "",
+        phone: "",
+        service: "Study Visa",
+        destination: "Germany",
+        stage: "Enquiry",
+        notes: "",
+      });
+    } catch (error) {
+      setClientError(error instanceof Error ? error.message : "Unable to save client record.");
+    } finally {
+      setIsSavingClient(false);
+    }
   };
 
   const submitReceipt = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const receipt = {
-      receiptId: createReceiptId(),
-      ...receiptForm,
-      amount: Number(receiptForm.amount),
-    };
-    await postToSheet("receipts", receipt);
-    setReceiptForm({
-      clientName: "",
-      serviceName: "",
-      amount: "",
-      currency: "USD",
-      issuedDate: new Date().toISOString().slice(0, 10),
-      dueDate: "",
-      notes: "",
-    });
+    setReceiptError("");
+    setIsSavingReceipt(true);
+
+    try {
+      const receipt = {
+        receiptId: createReceiptId(),
+        ...receiptForm,
+        amount: Number(receiptForm.amount),
+      };
+      const nextMessage = await postToSheet("receipts", receipt);
+      setActivityMessage(nextMessage);
+      setReceiptForm({
+        clientName: "",
+        serviceName: "",
+        amount: "",
+        currency: "USD",
+        issuedDate: new Date().toISOString().slice(0, 10),
+        dueDate: "",
+        notes: "",
+      });
+    } catch (error) {
+      setReceiptError(error instanceof Error ? error.message : "Unable to save receipt.");
+    } finally {
+      setIsSavingReceipt(false);
+    }
   };
 
   const updateClientStage = async (id: string, stage: PipelineStage) => {
-    const nextClients = clients.map((client) => (client.id === id ? { ...client, stage } : client));
-    persistClients(nextClients);
+    setPipelineError("");
+    setUpdatingClientId(id);
 
-    const updatedClient = nextClients.find((client) => client.id === id);
-    await postToSheet("status_updates", {
-      clientId: id,
-      stage,
-      fullName: updatedClient?.fullName,
-      email: updatedClient?.email,
-    });
+    try {
+      const nextClients = clients.map((client) => (client.id === id ? { ...client, stage } : client));
+      persistClients(nextClients);
+
+      const updatedClient = nextClients.find((client) => client.id === id);
+      const nextMessage = await postToSheet("status_updates", {
+        clientId: id,
+        stage,
+        fullName: updatedClient?.fullName,
+        email: updatedClient?.email,
+      });
+      setActivityMessage(nextMessage);
+    } catch (error) {
+      setPipelineError(error instanceof Error ? error.message : "Unable to update client stage.");
+    } finally {
+      setUpdatingClientId(null);
+    }
+  };
+
+  const handleTabKeyboardNavigation = (event: KeyboardEvent<HTMLButtonElement>, currentTab: AdminTab) => {
+    const currentIndex = adminTabs.indexOf(currentTab);
+
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      const nextTab = adminTabs[(currentIndex + 1) % adminTabs.length];
+      setActiveTab(nextTab);
+      tabButtonRefs.current[nextTab]?.focus();
+    }
+
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      const previousTab = adminTabs[(currentIndex - 1 + adminTabs.length) % adminTabs.length];
+      setActiveTab(previousTab);
+      tabButtonRefs.current[previousTab]?.focus();
+    }
+
+    if (event.key === "Home") {
+      event.preventDefault();
+      setActiveTab(adminTabs[0]);
+      tabButtonRefs.current[adminTabs[0]]?.focus();
+    }
+
+    if (event.key === "End") {
+      event.preventDefault();
+      const lastTab = adminTabs[adminTabs.length - 1];
+      setActiveTab(lastTab);
+      tabButtonRefs.current[lastTab]?.focus();
+    }
   };
 
   if (isCheckingSession) {
