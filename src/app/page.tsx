@@ -36,31 +36,6 @@ export default function Home() {
       tags: ["Study", "Work", "Tourism"] as ConsultationPurpose[],
     },
     {
-      title: "United Kingdom – Tourist & Student Visa",
-      subtitle: "UK visa application from Ghana",
-      description:
-        "Professional assistance for UK visitor visa, business travel, short-term study and family visit applications.",
-      imageUrl: "https://github.com/learngermanghana/jonhrega-travel-site/blob/main/public/images/Uk.jpeg?raw=1",
-      imageAlt: "United Kingdom travel destination with iconic city architecture",
-      tags: ["Tourism", "Study", "Business"] as ConsultationPurpose[],
-    },
-    {
-      title: "United States – B1/B2 Visitor Visa",
-      subtitle: "USA B1/B2 visitor visa from Ghana",
-      description:
-        "Guidance for US tourist and business visa applications including DS-160 review and interview preparation.",
-      imageUrl: "https://github.com/learngermanghana/jonhrega-travel-site/blob/main/public/images/usa.jpeg?raw=1",
-      imageAlt: "United States city skyline with American flag colors",
-      tags: ["Tourism", "Business"] as ConsultationPurpose[],
-    },
-    {
-      title: "Schengen – Tourist & Business Visa",
-      subtitle: "Schengen visa application from Ghana",
-      description:
-        "Support for Schengen short-stay, business, and family visit visas with document checks and appointment guidance.",
-      tags: ["Tourism", "Business"] as ConsultationPurpose[],
-    },
-    {
       title: "Australia – Visitor & Student Visa",
       subtitle: "Australia visa application support",
       description:
@@ -173,7 +148,7 @@ export default function Home() {
                 value={destination}
                 onChange={(event) => setDestination(event.target.value)}
               >
-                {["Canada", "United Kingdom", "United States", "Schengen", "Australia", "New Zealand"].map((option) => (
+                {["Canada", "Australia", "New Zealand"].map((option) => (
                   <option key={option} value={option}>
                     {option}
                   </option>
