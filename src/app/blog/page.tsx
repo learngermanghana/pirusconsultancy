@@ -3,16 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-
-type ResourcePost = {
-  title: string;
-  category: string;
-  blurb: string;
-  readTime: string;
-  image: string;
-  href: string;
-  relatedGuides: string[];
-};
+import { blogStories } from "@/lib/blogStories";
 
 const categories = [
   "Visitor visa guides",
@@ -22,63 +13,6 @@ const categories = [
   "Travel checklists",
   "Refusal prevention",
 ] as const;
-
-const posts: ResourcePost[] = [
-  {
-    title: "How to prepare a stronger visitor visa file",
-    category: "Visitor visa guides",
-    blurb: "Avoid common refusal triggers and present your travel purpose clearly.",
-    readTime: "3-min read",
-    image: "/images/pexels-tima-miroshnichenko-7010095.jpg",
-    href: "https://www.pirusconsultancy.com/blog",
-    relatedGuides: ["Travel itinerary tips", "Proof of funds explained"],
-  },
-  {
-    title: "Student visa interview guide",
-    category: "Interview preparation",
-    blurb: "Practice high-impact answers and structure your interview narrative with confidence.",
-    readTime: "4-min read",
-    image: "/images/study.jpg",
-    href: "https://www.pirusconsultancy.com/blog",
-    relatedGuides: ["Student visa document checklist", "How to explain study gaps"],
-  },
-  {
-    title: "Germany work visa document list",
-    category: "Work visa preparation",
-    blurb: "Use this practical list to avoid missed documents and delayed processing.",
-    readTime: "5-min read",
-    image: "/images/jobs.jpg",
-    href: "https://www.pirusconsultancy.com/blog",
-    relatedGuides: ["Employment contract checklist", "Salary threshold basics"],
-  },
-  {
-    title: "Visitor visa checklist for first-time applicants",
-    category: "Travel checklists",
-    blurb: "Follow a timeline-based checklist that keeps your entire file application-ready.",
-    readTime: "3-min read",
-    image: "/images/WhatsApp Image 2026-01-29 at 19.52.04.jpeg",
-    href: "https://www.pirusconsultancy.com/blog",
-    relatedGuides: ["Cover letter examples", "Travel history presentation tips"],
-  },
-  {
-    title: "Common refusal reasons and how to prevent them",
-    category: "Refusal prevention",
-    blurb: "Learn what visa officers flag most often and how to proactively address each risk.",
-    readTime: "4-min read",
-    image: "/images/ausbildung.jpg",
-    href: "https://www.pirusconsultancy.com/blog",
-    relatedGuides: ["Strong return-plan examples", "Financial evidence dos and don'ts"],
-  },
-  {
-    title: "Proof of funds for student visa applications",
-    category: "Student visa resources",
-    blurb: "Understand acceptable financial documents and how to show stable sponsorship evidence.",
-    readTime: "4-min read",
-    image: "/images/study.jpg",
-    href: "https://www.pirusconsultancy.com/blog",
-    relatedGuides: ["Blocked account explained", "Tuition + living costs planning"],
-  },
-];
 
 const popularGuides = [
   "Visitor visa checklist",
@@ -100,7 +34,7 @@ export default function BlogPage() {
 
   const filteredPosts = useMemo(() => {
     const normalized = query.trim().toLowerCase();
-    return posts.filter((post) => {
+    return blogStories.filter((post) => {
       const matchesCategory = activeCategory === "All" || post.category === activeCategory;
       const matchesQuery = `${post.title} ${post.category} ${post.blurb}`.toLowerCase().includes(normalized);
       return matchesCategory && matchesQuery;
@@ -174,14 +108,9 @@ export default function BlogPage() {
               </p>
               <h2 className="text-base font-semibold text-slate-900">{post.title}</h2>
               <p className="text-sm text-slate-600">{post.blurb}</p>
-              <a
-                href={post.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block text-sm font-semibold text-sky-700 hover:text-sky-800"
-              >
-                Open article ↗
-              </a>
+              <Link href={`/blog/${post.slug}`} className="inline-block text-sm font-semibold text-sky-700 hover:text-sky-800">
+                Read story →
+              </Link>
 
               <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3">
                 <p className="text-sm font-semibold text-emerald-900">Ready to apply?</p>
