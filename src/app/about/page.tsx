@@ -134,7 +134,7 @@ export default function About() {
       <section className="grid gap-8 rounded-3xl border bg-gray-50 p-6 lg:grid-cols-[1fr_2fr] lg:items-center">
         <div className="overflow-hidden rounded-2xl border bg-white shadow-sm">
           <img
-            src="/images/WhatsApp%20Image%202026-01-29%20at%2019.52.04.jpeg"
+            src="/images/profile%20pic.jpg.jpeg"
             alt="Hana, Founder of Pirus Consultancy"
             className="h-full w-full object-cover"
           />
