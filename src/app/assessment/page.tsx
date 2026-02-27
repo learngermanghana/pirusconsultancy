@@ -228,6 +228,17 @@ export default function AssessmentPage() {
           </div>
         )}
       </section>
+
+      <section className="rounded-3xl border border-sky-200 bg-sky-50 p-6 text-sm text-slate-700">
+        <h2 className="text-lg font-semibold text-slate-900">Next steps after your assessment</h2>
+        <p className="mt-2">Use our tools and resource center to improve your documentation quality before submission.</p>
+        <div className="mt-4 flex flex-wrap gap-4">
+          <Link href="/tools" className="font-semibold text-sky-700 hover:text-sky-800">Open tools</Link>
+          <Link href="/blog" className="font-semibold text-sky-700 hover:text-sky-800">Read guides</Link>
+          <Link href="/comparisons" className="font-semibold text-sky-700 hover:text-sky-800">Compare pathways</Link>
+        </div>
+      </section>
+
     </div>
   );
 }

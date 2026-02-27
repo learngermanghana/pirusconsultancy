@@ -12,7 +12,63 @@ export type BlogStory = {
   }>;
 };
 
-export const blogStories: BlogStory[] = [
+type CountryGuide = {
+  country: string;
+  countrySlug: string;
+  visaType: "study visa" | "visitor visa" | "work visa" | "business visa";
+  category: string;
+};
+
+const programmaticGuides: CountryGuide[] = [
+  { country: "Germany", countrySlug: "germany", visaType: "study visa", category: "Student visa resources" },
+  { country: "Germany", countrySlug: "germany", visaType: "visitor visa", category: "Visitor visa guides" },
+  { country: "Germany", countrySlug: "germany", visaType: "work visa", category: "Work visa preparation" },
+  { country: "Germany", countrySlug: "germany", visaType: "business visa", category: "Travel checklists" },
+  { country: "Canada", countrySlug: "canada", visaType: "study visa", category: "Student visa resources" },
+  { country: "Canada", countrySlug: "canada", visaType: "visitor visa", category: "Visitor visa guides" },
+  { country: "Canada", countrySlug: "canada", visaType: "work visa", category: "Work visa preparation" },
+  { country: "Canada", countrySlug: "canada", visaType: "business visa", category: "Travel checklists" },
+  { country: "Australia", countrySlug: "australia", visaType: "study visa", category: "Student visa resources" },
+  { country: "Australia", countrySlug: "australia", visaType: "visitor visa", category: "Visitor visa guides" },
+  { country: "Australia", countrySlug: "australia", visaType: "work visa", category: "Work visa preparation" },
+  { country: "Australia", countrySlug: "australia", visaType: "business visa", category: "Travel checklists" },
+  { country: "New Zealand", countrySlug: "new-zealand", visaType: "study visa", category: "Student visa resources" },
+  { country: "New Zealand", countrySlug: "new-zealand", visaType: "visitor visa", category: "Visitor visa guides" },
+  { country: "New Zealand", countrySlug: "new-zealand", visaType: "work visa", category: "Work visa preparation" },
+  { country: "New Zealand", countrySlug: "new-zealand", visaType: "business visa", category: "Travel checklists" },
+  { country: "United Kingdom", countrySlug: "uk", visaType: "study visa", category: "Student visa resources" },
+  { country: "United Kingdom", countrySlug: "uk", visaType: "visitor visa", category: "Visitor visa guides" },
+  { country: "United Kingdom", countrySlug: "uk", visaType: "work visa", category: "Work visa preparation" },
+  { country: "United Kingdom", countrySlug: "uk", visaType: "business visa", category: "Travel checklists" },
+];
+
+const generatedStories: BlogStory[] = programmaticGuides.map((guide) => ({
+  slug: `${guide.countrySlug}-${guide.visaType.replace(/\s+/g, "-")}-checklist`,
+  title: `${guide.country} ${guide.visaType} checklist from Ghana`,
+  category: guide.category,
+  blurb: `A practical step-by-step checklist for ${guide.country} ${guide.visaType} applicants preparing from Ghana.`,
+  readTime: "4-min read",
+  image: "/images/study.jpg",
+  relatedGuides: ["Proof of funds checklist", "Cover letter structure", "Interview readiness notes"],
+  sections: [
+    {
+      heading: "Document checklist by stage",
+      paragraphs: [
+        "Start with identity and travel records, then gather purpose-specific documents and financial evidence.",
+        "Group your file by sections so officers can review your application quickly and clearly.",
+      ],
+    },
+    {
+      heading: "Common refusal risks to avoid",
+      paragraphs: [
+        "Ensure dates, names, and sponsor details match across all forms and supporting files.",
+        "Add a clear travel narrative that explains why this route fits your background and timeline.",
+      ],
+    },
+  ],
+}));
+
+const editorialStories: BlogStory[] = [
   {
     slug: "stronger-visitor-visa-file",
     title: "How to prepare a stronger visitor visa file",
@@ -64,51 +120,26 @@ export const blogStories: BlogStory[] = [
     ],
   },
   {
-    slug: "germany-work-visa-document-list",
-    title: "Germany work visa document list",
-    category: "Work visa preparation",
-    blurb: "Use this practical list to avoid missed documents and delayed processing.",
+    slug: "germany-vs-canada-study-path",
+    title: "Germany vs Canada study path: costs, timelines, and outcomes",
+    category: "Student visa resources",
+    blurb: "Compare tuition, proof-of-funds expectations, processing windows, and post-study routes.",
     readTime: "5-min read",
-    image: "/images/jobs.jpg",
-    relatedGuides: ["Employment contract checklist", "Salary threshold basics"],
+    image: "/images/study.jpg",
+    relatedGuides: ["Proof of funds for student visas", "Student visa interview guide"],
     sections: [
       {
-        heading: "Prepare core employment documents",
+        heading: "Cost and funding comparison",
         paragraphs: [
-          "Include your signed employment contract, job description, and employer details exactly as required by the embassy.",
-          "Make sure names, dates, and role titles match across every document.",
+          "Germany can have lower tuition in many public institutions while Canada may offer broader co-op pathways depending on the program.",
+          "Plan for tuition, living costs, insurance, and reserve funds before selecting your route.",
         ],
       },
       {
-        heading: "Include qualification proof",
+        heading: "Post-study planning",
         paragraphs: [
-          "Attach degrees, transcripts, and translated copies where applicable.",
-          "If your profession is regulated, include licensing or recognition evidence to avoid processing delays.",
-        ],
-      },
-    ],
-  },
-  {
-    slug: "visitor-visa-checklist-first-time-applicants",
-    title: "Visitor visa checklist for first-time applicants",
-    category: "Travel checklists",
-    blurb: "Follow a timeline-based checklist that keeps your entire file application-ready.",
-    readTime: "3-min read",
-    image: "/images/WhatsApp Image 2026-01-29 at 19.52.04.jpeg",
-    relatedGuides: ["Cover letter examples", "Travel history presentation tips"],
-    sections: [
-      {
-        heading: "Organize documents by timeline",
-        paragraphs: [
-          "Start with passport and identity records, then move to travel plans, finances, and supporting evidence.",
-          "A time-based structure makes your package easier for officers to review.",
-        ],
-      },
-      {
-        heading: "Double-check consistency",
-        paragraphs: [
-          "Ensure travel dates, accommodation details, and sponsor information match across all forms.",
-          "Small mismatches can create avoidable refusal risks.",
+          "Evaluate post-study work permit options and residency pathways before you submit your first application.",
+          "A destination with a clear work transition often gives better long-term outcomes.",
         ],
       },
     ],
@@ -164,6 +195,8 @@ export const blogStories: BlogStory[] = [
     ],
   },
 ];
+
+export const blogStories: BlogStory[] = [...editorialStories, ...generatedStories];
 
 export function getBlogStoryBySlug(slug: string) {
   return blogStories.find((story) => story.slug === slug);
