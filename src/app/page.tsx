@@ -103,7 +103,7 @@ export default function Home() {
       <section className="rounded-3xl border border-white/60 bg-white/80 p-6 shadow-sm backdrop-blur md:p-12">
         <div className="relative mb-6 h-52 overflow-hidden rounded-2xl sm:h-64 md:h-72">
           <Image
-            src="https://raw.githubusercontent.com/learngermanghana/jonhrega-travel-site/main/public/images/plane.jpeg"
+            src="https://raw.githubusercontent.com/learngermanghana/mygermanypath/main/public/images/Pirus%20Consultancy%20main%20Page%20pic.gpg.png"
             alt="Airplane wing above clouds during flight"
             fill
             priority
