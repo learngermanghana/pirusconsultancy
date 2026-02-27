@@ -3,7 +3,7 @@
 import { FormEvent, KeyboardEvent, MutableRefObject, useEffect, useMemo, useRef, useState } from "react";
 
 type PipelineStage = "Enquiry" | "Qualified" | "Documents" | "Embassy" | "Visa Granted" | "Closed";
-type AdminTab = "Overview" | "Messaging" | "Billing" | "Leads";
+type AdminTab = "Dashboard" | "Email" | "Receipts" | "Clients";
 
 type ClientRecord = {
   id: string;
@@ -52,7 +52,7 @@ export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authError, setAuthError] = useState("");
   const [activityMessage, setActivityMessage] = useState("");
-  const [activeTab, setActiveTab] = useState<AdminTab>("Overview");
+  const [activeTab, setActiveTab] = useState<AdminTab>("Dashboard");
 
   const [email, setEmail] = useState("123@example.com");
   const [password, setPassword] = useState("123456");
@@ -379,469 +379,232 @@ export default function AdminPage() {
         {activityMessage ? <p className="mt-3 rounded-lg bg-emerald-50 p-2 text-sm text-emerald-700">{activityMessage}</p> : null}
       </section>
 
-      <AdminTabs
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-        stageStats={stageStats}
-        clientCount={clients.length}
-        tabButtonRefs={tabButtonRefs}
-        onTabKeyDown={handleTabKeyboardNavigation}
-      />
-
-      <DashboardTab
-        activeTab={activeTab}
-        stageStats={stageStats}
-        recentClients={recentClients}
-        onTabChange={setActiveTab}
-      />
-
-      <EmailTab
-        activeTab={activeTab}
-        emailForm={emailForm}
-        setEmailForm={setEmailForm}
-        onSubmit={submitEmail}
-        errorMessage={emailError}
-        isSubmitting={isSendingEmail}
-      />
-
-      <ReceiptsTab
-        activeTab={activeTab}
-        receiptForm={receiptForm}
-        setReceiptForm={setReceiptForm}
-        onSubmit={submitReceipt}
-        errorMessage={receiptError}
-        isSubmitting={isSavingReceipt}
-      />
-
-      <ClientsTab
-        activeTab={activeTab}
-        clientForm={clientForm}
-        setClientForm={setClientForm}
-        clients={clients}
-        onSubmit={submitClient}
-        onStageChange={updateClientStage}
-        formErrorMessage={clientError}
-        stageErrorMessage={pipelineError}
-        isSubmitting={isSavingClient}
-        updatingClientId={updatingClientId}
-      />
-    </main>
-  );
-}
-
-function AdminTabs({
-  activeTab,
-  onTabChange,
-  stageStats,
-  clientCount,
-  tabButtonRefs,
-  onTabKeyDown,
-}: {
-  activeTab: AdminTab;
-  onTabChange: (tab: AdminTab) => void;
-  stageStats: Array<{ stage: PipelineStage; total: number }>;
-  clientCount: number;
-  tabButtonRefs: MutableRefObject<Record<AdminTab, HTMLButtonElement | null>>;
-  onTabKeyDown: (event: KeyboardEvent<HTMLButtonElement>, currentTab: AdminTab) => void;
-}) {
-  const tabCounts: Record<AdminTab, number> = {
-    Overview: stageStats.reduce((sum, item) => sum + item.total, 0),
-    Messaging: 0,
-    Billing: 0,
-    Leads: clientCount,
-  };
-
-  return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-2 shadow-sm">
-      <div className="flex flex-wrap gap-2" role="tablist" aria-label="Admin sections">
-        {adminTabs.map((tab) => {
-          const tabId = `tab-${tab.toLowerCase()}`;
-          const panelId = `panel-${tab.toLowerCase()}`;
-
-          return (
+      <section className="rounded-2xl border border-slate-200 bg-white p-2 shadow-sm">
+        <div className="flex flex-wrap gap-2" role="tablist" aria-label="Admin sections">
+          {(["Dashboard", "Email", "Receipts", "Clients"] as AdminTab[]).map((tab) => (
             <button
               key={tab}
               type="button"
-              id={tabId}
               role="tab"
               aria-selected={activeTab === tab}
-              aria-controls={panelId}
-              tabIndex={activeTab === tab ? 0 : -1}
-              ref={(element) => {
-                tabButtonRefs.current[tab] = element;
-              }}
               className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${
                 activeTab === tab ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-700 hover:bg-slate-200"
               }`}
-              onClick={() => onTabChange(tab)}
-              onKeyDown={(event) => onTabKeyDown(event, tab)}
+              onClick={() => setActiveTab(tab)}
             >
-              {tabLabels[tab]}
-              <span className={`ml-2 rounded-full px-2 py-0.5 text-xs ${activeTab === tab ? "bg-slate-700" : "bg-slate-200"}`}>
-                {tabCounts[tab]}
-              </span>
+              {tab}
             </button>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
-
-function DashboardTab({
-  activeTab,
-  stageStats,
-  recentClients,
-  onTabChange,
-}: {
-  activeTab: AdminTab;
-  stageStats: Array<{ stage: PipelineStage; total: number }>;
-  recentClients: ClientRecord[];
-  onTabChange: (tab: AdminTab) => void;
-}) {
-  if (activeTab !== "Overview") {
-    return null;
-  }
-
-  return (
-    <section id="panel-overview" role="tabpanel" aria-labelledby="tab-overview" className="space-y-6">
-      <div className="grid gap-4 md:grid-cols-3">
-        {stageStats.map((item) => (
-          <article key={item.stage} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-            <p className="text-xs uppercase tracking-wide text-slate-500">{item.stage}</p>
-            <p className="mt-2 text-2xl font-bold text-slate-900">{item.total}</p>
-          </article>
-        ))}
-      </div>
-
-      <div className="grid gap-4 md:grid-cols-3">
-        <button
-          type="button"
-          onClick={() => onTabChange("Leads")}
-          className="rounded-2xl border border-slate-200 bg-white p-4 text-left shadow-sm transition hover:border-slate-300"
-        >
-          <p className="text-sm font-semibold text-slate-900">Add New Lead</p>
-          <p className="mt-1 text-sm text-slate-600">Create client intake and move prospects through your pipeline.</p>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => onTabChange("Billing")}
-          className="rounded-2xl border border-slate-200 bg-white p-4 text-left shadow-sm transition hover:border-slate-300"
-        >
-          <p className="text-sm font-semibold text-slate-900">Create Billing Record</p>
-          <p className="mt-1 text-sm text-slate-600">Build a receipt entry and send it to your finance sheet quickly.</p>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => onTabChange("Messaging")}
-          className="rounded-2xl border border-slate-200 bg-white p-4 text-left shadow-sm transition hover:border-slate-300"
-        >
-          <p className="text-sm font-semibold text-slate-900">Queue Campaign Message</p>
-          <p className="mt-1 text-sm text-slate-600">Prepare outreach emails and push them to your messaging queue.</p>
-        </button>
-      </div>
-
-      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-        <h2 className="text-lg font-bold text-slate-900">Recent Lead Activity</h2>
-        <p className="text-sm text-slate-600">Latest prospects added to your CRM.</p>
-        <div className="mt-4 space-y-2">
-          {recentClients.length === 0 ? <p className="text-sm text-slate-500">No recent leads yet.</p> : null}
-          {recentClients.map((client) => (
-            <article key={client.id} className="rounded-xl border border-slate-200 p-3">
-              <p className="font-semibold text-slate-900">{client.fullName || "Unnamed lead"}</p>
-              <p className="text-xs text-slate-500">
-                {client.id} • {client.stage} • {client.destination}
-              </p>
-            </article>
           ))}
         </div>
-      </div>
-    </section>
-  );
-}
+      </section>
 
-function EmailTab({
-  activeTab,
-  emailForm,
-  setEmailForm,
-  onSubmit,
-  errorMessage,
-  isSubmitting,
-}: {
-  activeTab: AdminTab;
-  emailForm: EmailFormState;
-  setEmailForm: (nextState: EmailFormState) => void;
-  onSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>;
-  errorMessage: string;
-  isSubmitting: boolean;
-}) {
-  if (activeTab !== "Messaging") {
-    return null;
-  }
-
-  return (
-    <section id="panel-messaging" role="tabpanel" aria-labelledby="tab-messaging">
-      <form className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm" onSubmit={onSubmit}>
-        <h2 className="text-lg font-bold text-slate-900">Campaign Messaging Queue</h2>
-        <p className="text-sm text-slate-600">Compose message and save it to a Google Sheet for Apps Script sending.</p>
-        <div className="mt-4 space-y-3">
-          {errorMessage ? <p className="rounded-lg bg-red-50 p-2 text-sm text-red-700">{errorMessage}</p> : null}
-          <input
-            className="w-full rounded-xl border border-slate-300 px-3 py-2"
-            placeholder="Recipient email"
-            value={emailForm.recipient}
-            onChange={(event) => setEmailForm({ ...emailForm, recipient: event.target.value })}
-            required
-          />
-          <input
-            className="w-full rounded-xl border border-slate-300 px-3 py-2"
-            placeholder="Subject"
-            value={emailForm.subject}
-            onChange={(event) => setEmailForm({ ...emailForm, subject: event.target.value })}
-            required
-          />
-          <textarea
-            className="h-32 w-full rounded-xl border border-slate-300 px-3 py-2"
-            placeholder="Email message"
-            value={emailForm.message}
-            onChange={(event) => setEmailForm({ ...emailForm, message: event.target.value })}
-            required
-          />
-          <input
-            className="w-full rounded-xl border border-slate-300 px-3 py-2"
-            placeholder="Campaign tag"
-            value={emailForm.campaignTag}
-            onChange={(event) => setEmailForm({ ...emailForm, campaignTag: event.target.value })}
-          />
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="rounded-xl bg-sky-600 px-4 py-2 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
-          >
-            {isSubmitting ? "Saving..." : "Save email to sheet"}
-          </button>
-        </div>
-      </form>
-    </section>
-  );
-}
-
-function ReceiptsTab({
-  activeTab,
-  receiptForm,
-  setReceiptForm,
-  onSubmit,
-  errorMessage,
-  isSubmitting,
-}: {
-  activeTab: AdminTab;
-  receiptForm: ReceiptFormState;
-  setReceiptForm: (nextState: ReceiptFormState) => void;
-  onSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>;
-  errorMessage: string;
-  isSubmitting: boolean;
-}) {
-  if (activeTab !== "Billing") {
-    return null;
-  }
-
-  return (
-    <section id="panel-billing" role="tabpanel" aria-labelledby="tab-billing">
-      <form className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm" onSubmit={onSubmit}>
-        <h2 className="text-lg font-bold text-slate-900">Billing & Receipt Builder</h2>
-        <p className="text-sm text-slate-600">Generate receipt data and sync it to your finance sheet.</p>
-        <div className="mt-4 grid gap-3 md:grid-cols-2">
-          {errorMessage ? <p className="rounded-lg bg-red-50 p-2 text-sm text-red-700 md:col-span-2">{errorMessage}</p> : null}
-          <input
-            className="rounded-xl border border-slate-300 px-3 py-2 md:col-span-2"
-            placeholder="Client name"
-            value={receiptForm.clientName}
-            onChange={(event) => setReceiptForm({ ...receiptForm, clientName: event.target.value })}
-            required
-          />
-          <input
-            className="rounded-xl border border-slate-300 px-3 py-2 md:col-span-2"
-            placeholder="Service"
-            value={receiptForm.serviceName}
-            onChange={(event) => setReceiptForm({ ...receiptForm, serviceName: event.target.value })}
-            required
-          />
-          <input
-            type="number"
-            className="rounded-xl border border-slate-300 px-3 py-2"
-            placeholder="Amount"
-            value={receiptForm.amount}
-            onChange={(event) => setReceiptForm({ ...receiptForm, amount: event.target.value })}
-            required
-          />
-          <input
-            className="rounded-xl border border-slate-300 px-3 py-2"
-            placeholder="Currency"
-            value={receiptForm.currency}
-            onChange={(event) => setReceiptForm({ ...receiptForm, currency: event.target.value.toUpperCase() })}
-            required
-          />
-          <input
-            type="date"
-            className="rounded-xl border border-slate-300 px-3 py-2"
-            value={receiptForm.issuedDate}
-            onChange={(event) => setReceiptForm({ ...receiptForm, issuedDate: event.target.value })}
-            required
-          />
-          <input
-            type="date"
-            className="rounded-xl border border-slate-300 px-3 py-2"
-            value={receiptForm.dueDate}
-            onChange={(event) => setReceiptForm({ ...receiptForm, dueDate: event.target.value })}
-          />
-          <textarea
-            className="rounded-xl border border-slate-300 px-3 py-2 md:col-span-2"
-            placeholder="Receipt notes"
-            value={receiptForm.notes}
-            onChange={(event) => setReceiptForm({ ...receiptForm, notes: event.target.value })}
-          />
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="rounded-xl bg-emerald-600 px-4 py-2 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60 md:col-span-2"
-          >
-            {isSubmitting ? "Saving..." : "Save receipt"}
-          </button>
-        </div>
-      </form>
-    </section>
-  );
-}
-
-function ClientsTab({
-  activeTab,
-  clientForm,
-  setClientForm,
-  clients,
-  onSubmit,
-  onStageChange,
-  formErrorMessage,
-  stageErrorMessage,
-  isSubmitting,
-  updatingClientId,
-}: {
-  activeTab: AdminTab;
-  clientForm: ClientRecord;
-  setClientForm: (nextState: ClientRecord) => void;
-  clients: ClientRecord[];
-  onSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>;
-  onStageChange: (id: string, stage: PipelineStage) => Promise<void>;
-  formErrorMessage: string;
-  stageErrorMessage: string;
-  isSubmitting: boolean;
-  updatingClientId: string | null;
-}) {
-  if (activeTab !== "Leads") {
-    return null;
-  }
-
-  return (
-    <section id="panel-leads" role="tabpanel" aria-labelledby="tab-leads" className="grid gap-6 lg:grid-cols-[1.2fr_1fr]">
-      <form className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm" onSubmit={onSubmit}>
-        <h2 className="text-lg font-bold text-slate-900">Leads Intake (CRM)</h2>
-        <p className="text-sm text-slate-600">Create client records and send to a dedicated sheet.</p>
-        <div className="mt-4 grid gap-3 md:grid-cols-2">
-          {formErrorMessage ? <p className="rounded-lg bg-red-50 p-2 text-sm text-red-700 md:col-span-2">{formErrorMessage}</p> : null}
-          <input
-            className="rounded-xl border border-slate-300 px-3 py-2"
-            placeholder="Full name"
-            value={clientForm.fullName}
-            onChange={(event) => setClientForm({ ...clientForm, fullName: event.target.value })}
-            required
-          />
-          <input
-            type="email"
-            className="rounded-xl border border-slate-300 px-3 py-2"
-            placeholder="Email"
-            value={clientForm.email}
-            onChange={(event) => setClientForm({ ...clientForm, email: event.target.value })}
-            required
-          />
-          <input
-            className="rounded-xl border border-slate-300 px-3 py-2"
-            placeholder="Phone"
-            value={clientForm.phone}
-            onChange={(event) => setClientForm({ ...clientForm, phone: event.target.value })}
-            required
-          />
-          <input
-            className="rounded-xl border border-slate-300 px-3 py-2"
-            placeholder="Destination"
-            value={clientForm.destination}
-            onChange={(event) => setClientForm({ ...clientForm, destination: event.target.value })}
-            required
-          />
-          <input
-            className="rounded-xl border border-slate-300 px-3 py-2"
-            placeholder="Service type"
-            value={clientForm.service}
-            onChange={(event) => setClientForm({ ...clientForm, service: event.target.value })}
-            required
-          />
-          <select
-            className="rounded-xl border border-slate-300 px-3 py-2"
-            value={clientForm.stage}
-            onChange={(event) => setClientForm({ ...clientForm, stage: event.target.value as PipelineStage })}
-          >
-            {stages.map((stage) => (
-              <option key={stage} value={stage}>
-                {stage}
-              </option>
-            ))}
-          </select>
-          <textarea
-            className="rounded-xl border border-slate-300 px-3 py-2 md:col-span-2"
-            placeholder="Notes"
-            value={clientForm.notes}
-            onChange={(event) => setClientForm({ ...clientForm, notes: event.target.value })}
-          />
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="rounded-xl bg-slate-900 px-4 py-2 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60 md:col-span-2"
-          >
-            {isSubmitting ? "Saving..." : "Save lead"}
-          </button>
-        </div>
-      </form>
-
-      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-        <h2 className="text-lg font-bold text-slate-900">Pipeline Tracker</h2>
-        <p className="text-sm text-slate-600">Move clients from enquiry to visa granted and sync status updates.</p>
-        {stageErrorMessage ? <p className="mt-3 rounded-lg bg-red-50 p-2 text-sm text-red-700">{stageErrorMessage}</p> : null}
-        <div className="mt-4 max-h-96 space-y-3 overflow-auto pr-1">
-          {clients.length === 0 ? <p className="text-sm text-slate-500">No clients yet. Add one from CRM intake.</p> : null}
-          {clients.map((client) => (
-            <article key={client.id} className="rounded-xl border border-slate-200 p-3">
-              <p className="font-semibold text-slate-900">{client.fullName}</p>
-              <p className="text-xs text-slate-500">
-                {client.id} • {client.service}
-              </p>
-              <div className="mt-2 flex items-center gap-2">
-                <select
-                  className="w-full rounded-lg border border-slate-300 px-2 py-1 text-sm"
-                  value={client.stage}
-                  disabled={updatingClientId === client.id}
-                  onChange={(event) => onStageChange(client.id, event.target.value as PipelineStage)}
-                >
-                  {stages.map((stage) => (
-                    <option key={`${client.id}-${stage}`} value={stage}>
-                      {stage}
-                    </option>
-                  ))}
-                </select>
-              </div>
+      {activeTab === "Dashboard" ? (
+        <section className="grid gap-4 md:grid-cols-3">
+          {stageStats.map((item) => (
+            <article key={item.stage} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+              <p className="text-xs uppercase tracking-wide text-slate-500">{item.stage}</p>
+              <p className="mt-2 text-2xl font-bold text-slate-900">{item.total}</p>
             </article>
           ))}
-        </div>
-      </div>
-    </section>
+        </section>
+      ) : null}
+
+      {activeTab === "Email" ? (
+        <section>
+          <form className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm" onSubmit={submitEmail}>
+            <h2 className="text-lg font-bold text-slate-900">Email Campaign Queue</h2>
+            <p className="text-sm text-slate-600">Compose message and save it to a Google Sheet for Apps Script sending.</p>
+            <div className="mt-4 space-y-3">
+              <input
+                className="w-full rounded-xl border border-slate-300 px-3 py-2"
+                placeholder="Recipient email"
+                value={emailForm.recipient}
+                onChange={(event) => setEmailForm({ ...emailForm, recipient: event.target.value })}
+                required
+              />
+              <input
+                className="w-full rounded-xl border border-slate-300 px-3 py-2"
+                placeholder="Subject"
+                value={emailForm.subject}
+                onChange={(event) => setEmailForm({ ...emailForm, subject: event.target.value })}
+                required
+              />
+              <textarea
+                className="h-32 w-full rounded-xl border border-slate-300 px-3 py-2"
+                placeholder="Email message"
+                value={emailForm.message}
+                onChange={(event) => setEmailForm({ ...emailForm, message: event.target.value })}
+                required
+              />
+              <input
+                className="w-full rounded-xl border border-slate-300 px-3 py-2"
+                placeholder="Campaign tag"
+                value={emailForm.campaignTag}
+                onChange={(event) => setEmailForm({ ...emailForm, campaignTag: event.target.value })}
+              />
+              <button type="submit" className="rounded-xl bg-sky-600 px-4 py-2 font-semibold text-white">
+                Save email to sheet
+              </button>
+            </div>
+          </form>
+        </section>
+      ) : null}
+
+      {activeTab === "Receipts" ? (
+        <section>
+          <form className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm" onSubmit={submitReceipt}>
+            <h2 className="text-lg font-bold text-slate-900">Receipt Builder</h2>
+            <p className="text-sm text-slate-600">Generate receipt data and sync it to your finance sheet.</p>
+            <div className="mt-4 grid gap-3 md:grid-cols-2">
+              <input
+                className="rounded-xl border border-slate-300 px-3 py-2 md:col-span-2"
+                placeholder="Client name"
+                value={receiptForm.clientName}
+                onChange={(event) => setReceiptForm({ ...receiptForm, clientName: event.target.value })}
+                required
+              />
+              <input
+                className="rounded-xl border border-slate-300 px-3 py-2 md:col-span-2"
+                placeholder="Service"
+                value={receiptForm.serviceName}
+                onChange={(event) => setReceiptForm({ ...receiptForm, serviceName: event.target.value })}
+                required
+              />
+              <input
+                type="number"
+                className="rounded-xl border border-slate-300 px-3 py-2"
+                placeholder="Amount"
+                value={receiptForm.amount}
+                onChange={(event) => setReceiptForm({ ...receiptForm, amount: event.target.value })}
+                required
+              />
+              <input
+                className="rounded-xl border border-slate-300 px-3 py-2"
+                placeholder="Currency"
+                value={receiptForm.currency}
+                onChange={(event) => setReceiptForm({ ...receiptForm, currency: event.target.value.toUpperCase() })}
+                required
+              />
+              <input
+                type="date"
+                className="rounded-xl border border-slate-300 px-3 py-2"
+                value={receiptForm.issuedDate}
+                onChange={(event) => setReceiptForm({ ...receiptForm, issuedDate: event.target.value })}
+                required
+              />
+              <input
+                type="date"
+                className="rounded-xl border border-slate-300 px-3 py-2"
+                value={receiptForm.dueDate}
+                onChange={(event) => setReceiptForm({ ...receiptForm, dueDate: event.target.value })}
+              />
+              <textarea
+                className="rounded-xl border border-slate-300 px-3 py-2 md:col-span-2"
+                placeholder="Receipt notes"
+                value={receiptForm.notes}
+                onChange={(event) => setReceiptForm({ ...receiptForm, notes: event.target.value })}
+              />
+              <button type="submit" className="rounded-xl bg-emerald-600 px-4 py-2 font-semibold text-white md:col-span-2">
+                Save receipt
+              </button>
+            </div>
+          </form>
+        </section>
+      ) : null}
+
+      {activeTab === "Clients" ? (
+        <section className="grid gap-6 lg:grid-cols-[1.2fr_1fr]">
+          <form className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm" onSubmit={submitClient}>
+            <h2 className="text-lg font-bold text-slate-900">Client CRM Intake</h2>
+            <p className="text-sm text-slate-600">Create client records and send to a dedicated sheet.</p>
+            <div className="mt-4 grid gap-3 md:grid-cols-2">
+              <input
+                className="rounded-xl border border-slate-300 px-3 py-2"
+                placeholder="Full name"
+                value={clientForm.fullName}
+                onChange={(event) => setClientForm({ ...clientForm, fullName: event.target.value })}
+                required
+              />
+              <input
+                type="email"
+                className="rounded-xl border border-slate-300 px-3 py-2"
+                placeholder="Email"
+                value={clientForm.email}
+                onChange={(event) => setClientForm({ ...clientForm, email: event.target.value })}
+                required
+              />
+              <input
+                className="rounded-xl border border-slate-300 px-3 py-2"
+                placeholder="Phone"
+                value={clientForm.phone}
+                onChange={(event) => setClientForm({ ...clientForm, phone: event.target.value })}
+                required
+              />
+              <input
+                className="rounded-xl border border-slate-300 px-3 py-2"
+                placeholder="Destination"
+                value={clientForm.destination}
+                onChange={(event) => setClientForm({ ...clientForm, destination: event.target.value })}
+                required
+              />
+              <input
+                className="rounded-xl border border-slate-300 px-3 py-2"
+                placeholder="Service type"
+                value={clientForm.service}
+                onChange={(event) => setClientForm({ ...clientForm, service: event.target.value })}
+                required
+              />
+              <select
+                className="rounded-xl border border-slate-300 px-3 py-2"
+                value={clientForm.stage}
+                onChange={(event) => setClientForm({ ...clientForm, stage: event.target.value as PipelineStage })}
+              >
+                {stages.map((stage) => (
+                  <option key={stage} value={stage}>
+                    {stage}
+                  </option>
+                ))}
+              </select>
+              <textarea
+                className="rounded-xl border border-slate-300 px-3 py-2 md:col-span-2"
+                placeholder="Notes"
+                value={clientForm.notes}
+                onChange={(event) => setClientForm({ ...clientForm, notes: event.target.value })}
+              />
+              <button type="submit" className="rounded-xl bg-slate-900 px-4 py-2 font-semibold text-white md:col-span-2">
+                Save client
+              </button>
+            </div>
+          </form>
+
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <h2 className="text-lg font-bold text-slate-900">Pipeline Tracker</h2>
+            <p className="text-sm text-slate-600">Move clients from enquiry to visa granted and sync status updates.</p>
+            <div className="mt-4 max-h-96 space-y-3 overflow-auto pr-1">
+              {clients.length === 0 ? <p className="text-sm text-slate-500">No clients yet. Add one from CRM intake.</p> : null}
+              {clients.map((client) => (
+                <article key={client.id} className="rounded-xl border border-slate-200 p-3">
+                  <p className="font-semibold text-slate-900">{client.fullName}</p>
+                  <p className="text-xs text-slate-500">{client.id} • {client.service}</p>
+                  <div className="mt-2 flex items-center gap-2">
+                    <select
+                      className="w-full rounded-lg border border-slate-300 px-2 py-1 text-sm"
+                      value={client.stage}
+                      onChange={(event) => updateClientStage(client.id, event.target.value as PipelineStage)}
+                    >
+                      {stages.map((stage) => (
+                        <option key={`${client.id}-${stage}`} value={stage}>
+                          {stage}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+    </main>
   );
 }
