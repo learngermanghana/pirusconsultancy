@@ -17,6 +17,7 @@ const messages = {
         { href: "/contact", label: "Contact" },
       ],
       cta: "Contact us",
+      adminLogin: "Admin login",
       languageLabel: "Language",
       openMenuLabel: "Open menu",
       closeMenuLabel: "Close menu",
@@ -36,6 +37,7 @@ const messages = {
       ],
       transparency:
         "⚠️ Transparency: We provide guidance & preparation support. We do not promise visas or guaranteed jobs.",
+      adminPortal: "Admin login",
     },
     metadata: {
       title: "Your Path to Global Travel — Travel & Visa Consultancy",
@@ -56,6 +58,7 @@ const messages = {
         { href: "/contact", label: "Kontakt" },
       ],
       cta: "Kontakt",
+      adminLogin: "Admin-Login",
       languageLabel: "Sprache",
       openMenuLabel: "Menü öffnen",
       closeMenuLabel: "Menü schließen",
@@ -75,6 +78,7 @@ const messages = {
       ],
       transparency:
         "⚠️ Transparenz: Wir bieten Beratung und Vorbereitung. Wir versprechen keine Visa oder garantierten Jobs.",
+      adminPortal: "Admin-Login",
     },
     metadata: {
       title: "Your Path to Global Travel — Reise- und Visa-Beratung",
