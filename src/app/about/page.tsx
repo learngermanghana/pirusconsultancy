@@ -145,7 +145,6 @@ export default function About() {
           <p className="mt-1 text-sm font-semibold text-gray-700">Founder, Pirus Consultancy</p>
           <ul className="mt-4 space-y-2 text-sm text-gray-600">
             <li>Travel and visa documentation specialist</li>
-            <li>Founder of the Falowen learning platform</li>
             <li>Focused on structured, realistic migration pathways</li>
           </ul>
         </div>
