@@ -9,52 +9,11 @@ import { createWhatsAppLeadUrl } from "@/lib/whatsapp";
 type ConsultationPurpose = "Tourism" | "Study" | "Work" | "Business";
 type Timeline = "Within 1 month" | "1 - 3 months" | "3 - 6 months" | "6+ months";
 
-type VisaDestination = {
-  title: string;
-  subtitle: string;
-  description: string;
-  imageUrl?: string;
-  imageAlt?: string;
-  tags: ConsultationPurpose[];
-};
-
 export default function Home() {
-  const [selectedTag, setSelectedTag] = useState<"All" | ConsultationPurpose>("All");
   const [step, setStep] = useState(1);
   const [destination, setDestination] = useState("Canada");
   const [purpose, setPurpose] = useState<ConsultationPurpose>("Study");
   const [timeline, setTimeline] = useState<Timeline>("1 - 3 months");
-
-  const visaDestinations: VisaDestination[] = [
-    {
-      title: "Canada – Study, Work Permit & PR",
-      subtitle: "Canada visa from Ghana (Study • Work • PR)",
-      description:
-        "Apply for Canada student visa, Express Entry permanent residency, visitor visa or work permit with expert documentation support.",
-      imageUrl: "https://github.com/learngermanghana/jonhrega-travel-site/blob/main/public/images/canada.jpeg?raw=1",
-      imageAlt: "Canada skyline with a red maple leaf flag",
-      tags: ["Study", "Work", "Tourism"] as ConsultationPurpose[],
-    },
-    {
-      title: "Australia – Visitor & Student Visa",
-      subtitle: "Australia visa application support",
-      description:
-        "Step-by-step guidance for Australian visitor and student visa applications, including documentation support.",
-      tags: ["Tourism", "Study"] as ConsultationPurpose[],
-    },
-    {
-      title: "New Zealand – Visitor & Study Visa",
-      subtitle: "New Zealand visa services from Ghana",
-      description:
-        "Personalized help for New Zealand visitor and study visas, from document review to submission readiness.",
-      tags: ["Tourism", "Study"] as ConsultationPurpose[],
-    },
-  ];
-
-  const filteredDestinations =
-    selectedTag === "All"
-      ? visaDestinations
-      : visaDestinations.filter((destinationOption) => destinationOption.tags.includes(selectedTag));
 
   const consultationWhatsAppUrl = createWhatsAppLeadUrl({
     page: "homepage_consultation_widget",
@@ -218,12 +177,25 @@ export default function Home() {
       <section className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-sm md:p-8">
         <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">Our Visa Services</p>
-            <h2 className="mt-2 text-2xl font-bold text-slate-900">Most requested pathways at a glance</h2>
+            <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">Plan your pathway</p>
+            <h2 className="mt-2 text-2xl font-bold text-slate-900">Start with the right tools and guides</h2>
             <p className="mt-3 text-sm leading-relaxed text-slate-600">
-              Explore our top travel and visa support routes, then open the full destinations page for complete service
-              details.
+              Use our assessment, practical tools, and in-depth guides to build a stronger visa or study-abroad file.
             </p>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <Link href="/assessment" className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white">
+                Start assessment
+              </Link>
+              <Link href="/tools" className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-800">
+                Open visa tools
+              </Link>
+              <Link href="/blog" className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-800">
+                Read guides
+              </Link>
+              <Link href="/comparisons" className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-800">
+                Compare countries
+              </Link>
+            </div>
           </div>
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
             <img
@@ -232,49 +204,6 @@ export default function Home() {
               className="h-full w-full object-cover"
             />
           </div>
-        </div>
-
-        <div className="mt-8 flex flex-wrap items-center gap-2">
-          {(["All", "Tourism", "Study", "Work", "Business"] as const).map((tag) => (
-            <button
-              key={tag}
-              type="button"
-              onClick={() => setSelectedTag(tag)}
-              className={`rounded-full border px-3 py-1 text-xs font-semibold ${
-                selectedTag === tag
-                  ? "border-sky-700 bg-sky-700 text-white"
-                  : "border-slate-300 bg-white text-slate-700 hover:border-sky-300"
-              }`}
-              aria-label={`Filter destinations by ${tag}`}
-            >
-              {tag}
-            </button>
-            ))}
-        </div>
-
-        <div className="mt-4 grid gap-4 md:grid-cols-2">
-          {filteredDestinations.slice(0, 3).map((destinationOption) => (
-            <article key={destinationOption.title} className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50/90">
-              {destinationOption.imageUrl ? (
-                <div className="h-44 w-full overflow-hidden border-b border-slate-200 bg-slate-100">
-                  <img
-                    src={destinationOption.imageUrl}
-                    alt={destinationOption.imageAlt ?? destinationOption.title}
-                    className="h-full w-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-              ) : null}
-              <div className="p-5">
-              <p className="text-xs font-semibold uppercase tracking-wide text-sky-700">{destinationOption.subtitle}</p>
-              <h3 className="mt-2 text-lg font-bold text-slate-900">{destinationOption.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-slate-600">{destinationOption.description}</p>
-              <Link href="/contact" className="mt-4 inline-block text-sm font-semibold text-sky-700 hover:text-sky-800">
-                Apply Now →
-              </Link>
-              </div>
-            </article>
-          ))}
         </div>
       </section>
 

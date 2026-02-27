@@ -9,6 +9,7 @@ const messages = {
       links: [
         { href: "/", label: "Home" },
         { href: "/blog", label: "Resources" },
+        { href: "/comparisons", label: "Comparisons" },
         { href: "/study-abroad-admissions", label: "Study Abroad" },
         { href: "/learn-german", label: "Learn German" },
         { href: "/about", label: "About & Founder" },
@@ -30,6 +31,7 @@ const messages = {
         { href: "/success", label: "Success stories" },
         { href: "/blog", label: "Resource hub" },
         { href: "/contact", label: "Contact" },
+        { href: "https://www.facebook.com/profile.php?id=61588152793007", label: "Facebook" },
         { href: "/germany-partner", label: "Germany Partner" },
       ],
       transparency:
@@ -47,6 +49,7 @@ const messages = {
       links: [
         { href: "/", label: "Startseite" },
         { href: "/blog", label: "Ressourcen" },
+        { href: "/comparisons", label: "Vergleiche" },
         { href: "/study-abroad-admissions", label: "Study Abroad" },
         { href: "/learn-german", label: "Deutsch lernen" },
         { href: "/about", label: "Über uns & Gründerin" },
@@ -68,6 +71,7 @@ const messages = {
         { href: "/success", label: "Erfolgsgeschichten" },
         { href: "/blog", label: "Ressourcen" },
         { href: "/contact", label: "Kontakt" },
+        { href: "https://www.facebook.com/profile.php?id=61588152793007", label: "Facebook" },
         { href: "/germany-partner", label: "Partner in Deutschland" },
       ],
       transparency:
