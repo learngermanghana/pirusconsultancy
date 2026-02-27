@@ -14,9 +14,9 @@ const contactMethods = [
   {
     title: "Email",
     description: "For documents or detailed inquiries",
-    value: "info@pirusconsultancy.com",
+    value: "hana@pirusconsultancy.com",
     actionLabel: "Send an email",
-    href: "mailto:info@pirusconsultancy.com",
+    href: "mailto:hana@pirusconsultancy.com",
   },
   {
     title: "Phone",
