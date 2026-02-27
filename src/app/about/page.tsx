@@ -1,8 +1,8 @@
 const values = [
-  "Honest guidance, not false promises",
-  "Clear documentation strategy",
-  "Transparent service fees",
-  "Step-by-step support",
+  "Honest guidance — realistic assessments, not false promises",
+  "Strategic documentation planning aligned with official requirements",
+  "Transparent service fees with no hidden costs",
+  "Step-by-step advisory support from eligibility assessment to final submission",
 ];
 
 const trustIndicators = [
@@ -13,10 +13,11 @@ const trustIndicators = [
 ];
 
 const differentiators = [
-  "No fake job or visa guarantees",
-  "Structured eligibility assessments before you spend",
-  "Transparent service structure from day one",
-  "Strong focus on documentation quality and submission order",
+  "No false promises or guaranteed visas — only honest, regulation-based guidance",
+  "Structured eligibility assessments before any financial commitment",
+  "Transparent service framework with clearly defined stages and expectations",
+  "Meticulous documentation strategy aligned with official visa requirements",
+  "Professional standards grounded in institutional experience",
 ];
 
 const timeline = [
@@ -54,20 +55,29 @@ export default function About() {
       </header>
 
       <section className="rounded-3xl border bg-white p-6 shadow-sm">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-teal-600">Why I started Pirus Consultancy</p>
-        <h2 className="mt-3 text-2xl font-bold text-gray-900">A personal story behind the work</h2>
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-teal-600">About the consultant</p>
+        <h2 className="mt-3 text-2xl font-bold text-gray-900">Institutional expertise with a client-first approach</h2>
         <div className="mt-4 space-y-4 text-sm text-gray-700">
           <p>
-            I started helping people with Germany pathways after seeing how many smart, qualified applicants were being
-            misled. Too many people were paying for poor advice, fake guarantees, or incomplete documentation support.
+            She is a Germany-based Global Mobility Consultant and Education Advisor with over 10 years of experience
+            working with governments, embassies, and international organizations.
           </p>
           <p>
-            I saw talented students and professionals lose opportunities, not because they were unqualified, but
-            because they lacked clear, honest guidance at the right time.
+            She holds two Bachelor of Arts (Honours) degrees in International Relations and Political Science from
+            Carleton University and the University of Toronto, and a Master of Arts in Canadian Studies. She has also
+            taught at the university level.
           </p>
           <p>
-            Pirus Consultancy was created to close that gap with structured planning, practical education, and
-            transparent support from first assessment to final submission.
+            As a former Consular Officer, Policy Analyst, and Education Advisor, she possesses in-depth knowledge of
+            visa procedures, immigration regulations, and international education systems. Her institutional background
+            provides a strong understanding of documentation standards, compliance requirements, and decision-making
+            processes.
+          </p>
+          <p>
+            She provides personalized guidance in university selection, admissions strategy, and visa advisory support,
+            offering clear, honest, and structured pathways for students seeking to study abroad. Her work is grounded
+            in professionalism, transparency, and integrity — ensuring clients and families move forward with clarity
+            and confidence.
           </p>
         </div>
       </section>
@@ -76,8 +86,8 @@ export default function About() {
         <div className="rounded-3xl border bg-gray-50 p-6">
           <h2 className="text-xl font-bold text-gray-900">Our mission and values</h2>
           <p className="mt-3 text-sm text-gray-600">
-            We help students, professionals, and founders make informed decisions with realistic strategy and ethical
-            support.
+            Our mission is to guide students, professionals, and founders toward informed international decisions
+            through structured strategy, ethical advisory support, and regulatory compliance.
           </p>
           <ul className="mt-5 space-y-3 text-sm text-gray-700">
             {values.map((item) => (
@@ -87,6 +97,9 @@ export default function About() {
               </li>
             ))}
           </ul>
+          <p className="mt-4 text-sm text-gray-600">
+            We believe that clarity, integrity, and preparation are the foundation of successful global mobility.
+          </p>
         </div>
 
         <div className="rounded-3xl border p-6">
@@ -117,7 +130,6 @@ export default function About() {
           <p className="mt-1 text-sm font-semibold text-gray-700">Founder, Pirus Consultancy</p>
           <ul className="mt-4 space-y-2 text-sm text-gray-600">
             <li>Travel and visa documentation specialist</li>
-            <li>German language educator</li>
             <li>Founder of the Falowen learning platform</li>
             <li>Focused on structured, realistic migration pathways</li>
           </ul>
@@ -138,25 +150,29 @@ export default function About() {
         </div>
 
         <div className="rounded-3xl border p-6">
-          <h2 className="text-xl font-bold text-gray-900">Our promise of transparency</h2>
+          <h2 className="text-xl font-bold text-gray-900">Our commitment to transparency</h2>
+          <p className="mt-3 text-sm text-gray-600">We uphold the highest standards of integrity and professionalism.</p>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <div className="rounded-2xl border bg-red-50 p-4">
               <p className="font-semibold text-gray-900">We do not</p>
               <ul className="mt-2 space-y-1 text-sm text-gray-700">
-                <li>Guarantee visas</li>
-                <li>Sell fake job offers</li>
-                <li>Charge hidden fees</li>
+                <li>Guarantee visas or influence decisions</li>
+                <li>Sell job offers or engage in unethical practices</li>
+                <li>Charge hidden or undisclosed fees</li>
               </ul>
             </div>
             <div className="rounded-2xl border bg-emerald-50 p-4">
               <p className="font-semibold text-gray-900">We focus on</p>
               <ul className="mt-2 space-y-1 text-sm text-gray-700">
-                <li>Clear strategy</li>
-                <li>Proper documentation</li>
-                <li>Honest expectations</li>
+                <li>Clear, structured strategy tailored to your eligibility</li>
+                <li>Proper documentation aligned with official requirements</li>
+                <li>Honest assessments and realistic expectations</li>
               </ul>
             </div>
           </div>
+          <p className="mt-4 text-sm text-gray-600">
+            Our guidance is based on compliance, accuracy, and long-term success — not shortcuts.
+          </p>
         </div>
       </section>
 
