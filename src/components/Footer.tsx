@@ -40,6 +40,7 @@ export default function Footer() {
             {messages.footer.links.map((link) => (
               <FooterLink key={`${link.href}-${link.label}`} href={link.href} label={link.label} />
             ))}
+            <FooterLink href="/admin" label={messages.footer.adminPortal} />
           </div>
         </div>
 
