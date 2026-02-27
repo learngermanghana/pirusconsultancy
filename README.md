@@ -33,6 +33,28 @@ FIREBASE_CLIENT_EMAIL=your_service_account_email
 FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
 ```
 
+Set the following variables to enable the admin dashboard and Google Sheets integrations:
+
+```bash
+ADMIN_EMAIL=123@example.com
+ADMIN_PASSWORD=123456
+
+# Single webhook for all admin actions (recommended)
+GOOGLE_SHEET_WEBHOOK_URL=https://script.google.com/macros/s/your-web-app-id/exec
+
+# Optional sheet-specific webhooks (override GOOGLE_SHEET_WEBHOOK_URL when set)
+GOOGLE_SHEET_EMAIL_WEBHOOK_URL=https://script.google.com/macros/s/email-sheet/exec
+GOOGLE_SHEET_CLIENT_WEBHOOK_URL=https://script.google.com/macros/s/client-sheet/exec
+GOOGLE_SHEET_RECEIPT_WEBHOOK_URL=https://script.google.com/macros/s/receipt-sheet/exec
+GOOGLE_SHEET_STATUS_WEBHOOK_URL=https://script.google.com/macros/s/status-sheet/exec
+```
+
+Admin dashboard route:
+
+```bash
+/admin
+```
+
 ## Maintenance & Scalability
 
 ### Automated checks
