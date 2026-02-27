@@ -211,7 +211,7 @@ export default function Contact() {
             <h3 className="text-lg font-semibold text-gray-900">Serving clients across</h3>
             <p className="mt-2 text-sm text-gray-600">Germany and international applicants.</p>
             <p className="mt-3 text-sm text-gray-600">
-              Office location: <span className="font-medium text-gray-800">Accra, Ghana (by appointment)</span>
+              Office location: <span className="font-medium text-gray-800">Osu Badu Street Accra, Greater Accra Region</span>
             </p>
           </div>
 
