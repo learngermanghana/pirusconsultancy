@@ -112,9 +112,9 @@ export default function Home() {
           />
         </div>
         <h1 className="text-3xl font-bold leading-tight text-slate-900 md:text-5xl">
-          Plan your visa journey with clarity and confidence
+          Structured Global Mobility & Education Advisory
           <span className="mt-3 block text-base font-medium text-slate-600 sm:text-lg md:text-xl">
-            Trusted support for study, work, tourism, and business travel applications
+            Strategic guidance for students, professionals, and business leaders pursuing international opportunities.
           </span>
         </h1>
         <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-base">
@@ -124,17 +124,33 @@ export default function Home() {
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <Link
-            href="/assessment"
+            href="/booking"
             className="w-full rounded-2xl bg-slate-900 px-6 py-3 text-center text-sm font-semibold text-white hover:opacity-90 sm:w-auto"
           >
-            Start visa assessment
+            Book a Consultation
           </Link>
           <Link
-            href="/blog"
+            href="/assessment"
             className="w-full rounded-2xl border border-slate-200 bg-white px-6 py-3 text-center text-sm font-semibold text-slate-900 hover:bg-slate-50 sm:w-auto"
           >
-            Book consultation
+            Start Eligibility Assessment
           </Link>
+        </div>
+      </section>
+
+      <section className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-sm">
+        <p className="text-xs font-semibold uppercase tracking-wide text-sky-700">At a Glance</p>
+        <div className="mt-3 grid gap-4 sm:grid-cols-3">
+          {[
+            { value: "2,400+", label: "Files Prepared" },
+            { value: "10+", label: "Countries Supported" },
+            { value: "4+ Years", label: "Advisory Experience" },
+          ].map((metric) => (
+            <article key={metric.label} className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
+              <p className="text-2xl font-black text-slate-900">{metric.value}</p>
+              <p className="mt-1 text-sm text-slate-600">{metric.label}</p>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -224,20 +240,6 @@ export default function Home() {
         </form>
       </section>
 
-      <section className="grid gap-4 rounded-3xl border border-white/60 bg-white/90 p-6 shadow-sm sm:grid-cols-2 lg:grid-cols-4">
-        {[
-          { value: "2,450+", label: "Visa files prepared" },
-          { value: "94%", label: "Application success support rate" },
-          { value: "18+", label: "Destination pathways covered" },
-          { value: "4.9/5", label: "Average client satisfaction" },
-        ].map((metric) => (
-          <article key={metric.label} className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
-            <p className="text-2xl font-black text-slate-900">{metric.value}</p>
-            <p className="mt-1 text-sm text-slate-600">{metric.label}</p>
-          </article>
-        ))}
-      </section>
-
       <section className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-sm md:p-8">
         <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div>
@@ -272,7 +274,7 @@ export default function Home() {
             >
               {tag}
             </button>
-          ))}
+            ))}
         </div>
 
         <div className="mt-4 grid gap-4 md:grid-cols-2">
@@ -384,7 +386,7 @@ export default function Home() {
                 {item.person} • {item.role}
               </footer>
             </blockquote>
-          ))}
+            ))}
         </div>
       </section>
 
