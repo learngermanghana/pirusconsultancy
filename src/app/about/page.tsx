@@ -47,10 +47,25 @@ export default function About() {
     <div className="space-y-10">
       <header className="space-y-3">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-teal-600">About Pirus Consultancy</p>
-        <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">Can you trust us with your visa journey?</h1>
+        <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">Why I Started Pirus Consultancy</h1>
+        <p className="text-lg font-medium text-gray-700">A strategic response to rising global education costs</p>
         <p className="max-w-3xl text-base text-gray-600">
-          That is the most important question. We built this consultancy to give people a safe, realistic alternative to
-          misinformation, scams, and empty promises.
+          I founded Pirus Consultancy after observing how many talented students and professionals were committing to
+          increasingly high international tuition costs — often without fully exploring more sustainable and strategic
+          alternatives.
+        </p>
+        <p className="max-w-3xl text-base text-gray-600">
+          In today&rsquo;s global education landscape, rising tuition fees can place long-term financial pressure on
+          families and graduates. Yet structured pathways exist that combine high-quality education, practical
+          experience, and long-term mobility — without imposing the same financial burden.
+        </p>
+        <p className="max-w-3xl text-base text-gray-600">
+          Pirus Consultancy was created to help students and professionals approach these opportunities with clarity,
+          compliance, and long-term strategy — not guesswork or unrealistic expectations.
+        </p>
+        <p className="max-w-3xl text-base text-gray-600">
+          My goal is simple: to ensure that international education decisions are financially sound, professionally
+          guided, and strategically aligned with long-term career success.
         </p>
       </header>
 
