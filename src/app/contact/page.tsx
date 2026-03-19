@@ -21,9 +21,9 @@ const contactMethods = [
   {
     title: "Phone",
     description: "Speak directly with our team",
-    value: "+233 XXX XXX XXX",
+    value: "+49 176 20721491",
     actionLabel: "Call our team",
-    href: "tel:+233000000000",
+    href: "tel:+4917620721491",
   },
 ];
 
