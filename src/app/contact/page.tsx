@@ -217,7 +217,7 @@ export default function Contact() {
 
           <div className="rounded-3xl border border-emerald-100 bg-emerald-50/60 p-6 shadow-sm">
             <h3 className="text-lg font-semibold text-gray-900">Not sure where to start?</h3>
-            <p className="mt-2 text-sm text-gray-700">Begin with a quick eligibility assessment.</p>
+            <p className="mt-2 text-sm text-gray-700">Begin with a quick <Link href="/assessment" className="font-semibold text-sky-700 hover:underline">eligibility assessment</Link>.</p>
             <Link href="/assessment" className="mt-3 inline-flex text-sm font-semibold text-sky-700 hover:underline">
               Start visa assessment
             </Link>

@@ -91,7 +91,7 @@ export default function Home() {
       <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h2 className="text-xl font-bold text-slate-900">Get a quick eligibility review in 60 seconds</h2>
+            <h2 className="text-xl font-bold text-slate-900"><Link href="/assessment" className="hover:text-sky-700 hover:underline">Get a quick eligibility review in 60 seconds</Link></h2>
             <p className="mt-1 text-sm text-slate-600">Complete the steps below and continue directly on WhatsApp.</p>
           </div>
           <p className="rounded-full bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700">Step {step} of 3</p>
@@ -214,7 +214,7 @@ export default function Home() {
             <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">Travel Eligibility Review</p>
             <h2 className="mt-2 text-2xl font-bold">Travel &amp; Visa Assessment (Recommended First Step)</h2>
             <p className="mt-3 text-sm leading-relaxed text-slate-600">
-              Start with an assessment so we can match your purpose of travel with the right pathway before you apply.
+              Start with an <Link href="/assessment" className="font-semibold text-sky-700 hover:underline">eligibility assessment</Link> so we can match your purpose of travel with the right pathway before you apply.
             </p>
             <details className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4" open>
               <summary className="cursor-pointer text-sm font-semibold text-slate-800">See what the assessment covers</summary>

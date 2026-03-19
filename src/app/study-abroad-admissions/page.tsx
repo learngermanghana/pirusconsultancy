@@ -127,7 +127,7 @@ export default function StudyAbroadAdmissions() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-2xl font-bold">Basic eligibility: Who qualifies?</h2>
+        <h2 className="text-2xl font-bold"><Link href="/assessment" className="hover:text-sky-700 hover:underline">Basic eligibility: Who qualifies?</Link></h2>
         <p className="text-sm text-slate-600">You likely qualify if you:</p>
         <ul className="grid gap-3 text-sm text-slate-700 sm:grid-cols-2">
           {eligibilityChecklist.map((item) => (
@@ -226,7 +226,7 @@ export default function StudyAbroadAdmissions() {
       <section className="rounded-3xl border border-slate-800 bg-slate-900 p-6 text-white md:p-8">
         <h2 className="text-2xl font-bold">Ready to start your study journey?</h2>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/85">
-          Start with a clear eligibility assessment, then book a consultation for personalized
+          Start with a clear <Link href="/assessment" className="font-semibold text-sky-700 hover:underline">eligibility assessment</Link>, then book a consultation for personalized
           next steps.
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
