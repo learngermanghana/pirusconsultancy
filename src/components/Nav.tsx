@@ -81,18 +81,6 @@ export default function Nav() {
               </option>
             ))}
           </select>
-          <Link
-            href="/admin"
-            className="rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-400 hover:text-slate-900"
-          >
-            {messages.nav.adminLogin}
-          </Link>
-          <Link
-            href="/contact"
-            className="rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-700"
-          >
-            {messages.nav.cta}
-          </Link>
         </div>
 
         <button
@@ -145,20 +133,6 @@ export default function Nav() {
                 </option>
               ))}
             </select>
-            <Link
-              href="/admin"
-              className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-center text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-400 hover:text-slate-900"
-              onClick={() => setIsOpen(false)}
-            >
-              {messages.nav.adminLogin}
-            </Link>
-            <Link
-              href="/contact"
-              className="rounded-xl bg-slate-900 px-4 py-2 text-center text-sm font-semibold text-white shadow-sm transition hover:bg-slate-700"
-              onClick={() => setIsOpen(false)}
-            >
-              {messages.nav.cta}
-            </Link>
           </div>
         </div>
       ) : null}
