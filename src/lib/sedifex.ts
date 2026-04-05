@@ -112,7 +112,7 @@ function normalizeProducts(payload: unknown): SedifexProduct[] {
   }
 
   const mapped = payload
-    .map((item, index) => {
+    .map<SedifexProduct | null>((item, index) => {
       if (!item || typeof item !== "object") return null;
       const record = item as Record<string, unknown>;
       const id = String(record.id ?? record._id ?? record.productId ?? `product-${index}`);
@@ -126,11 +126,11 @@ function normalizeProducts(payload: unknown): SedifexProduct[] {
         id,
         title,
         description,
-        price,
+        ...(price ? { price } : {}),
         ctaLabel: "Book Consultation",
-      } satisfies SedifexProduct;
+      };
     })
-    .filter((product): product is SedifexProduct => Boolean(product));
+    .filter((product): product is SedifexProduct => product !== null);
 
   const deduped = new Map<string, SedifexProduct>();
 
