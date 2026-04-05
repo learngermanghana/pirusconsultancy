@@ -1,370 +1,224 @@
-"use client";
-
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { FormEvent, useState } from "react";
-import CaseStudiesSection from "@/components/CaseStudiesSection";
+import PrimaryCta from "@/components/PrimaryCta";
+import SectionHeader from "@/components/SectionHeader";
+import { getSedifexGallery, getSedifexProducts, getSedifexPromo } from "@/lib/sedifex";
 import { createWhatsAppLeadUrl } from "@/lib/whatsapp";
 
-type ConsultationPurpose = "Tourism" | "Study" | "Work" | "Business";
-type Timeline = "Within 1 month" | "1 - 3 months" | "3 - 6 months" | "6+ months";
+export const metadata: Metadata = {
+  title: "Relocate to Germany with Structured Support",
+  description:
+    "Get honest guidance for admissions, Germany pathways, and visa preparation. Chat on WhatsApp or book a consultation.",
+  openGraph: {
+    title: "Relocate to Germany with Structured Support",
+    description:
+      "Pirus Consultancy helps students and young professionals move to Europe with Germany as the main pathway.",
+    images: ["/images/Pirus Consultancy main Page pic.gpg.png"],
+  },
+};
 
-export default function Home() {
-  const [step, setStep] = useState(1);
-  const [destination, setDestination] = useState("Canada");
-  const [purpose, setPurpose] = useState<ConsultationPurpose>("Study");
-  const [timeline, setTimeline] = useState<Timeline>("1 - 3 months");
+const pathways = [
+  {
+    title: "Study in Germany",
+    description: "University admissions support, SOP/CV review, and application strategy.",
+    href: "/study-in-germany",
+  },
+  {
+    title: "Ausbildung Route",
+    description: "Vocational pathway guidance, profile positioning, and document readiness.",
+    href: "/study-in-germany",
+  },
+  {
+    title: "Work Relocation Support",
+    description: "Professional profile optimization, opportunity mapping, and relocation planning.",
+    href: "/europe-pathways",
+  },
+  {
+    title: "Other Europe Study Options",
+    description: "Alternative destinations across Europe when Germany is not the perfect fit.",
+    href: "/europe-pathways",
+  },
+];
 
-  const consultationWhatsAppUrl = createWhatsAppLeadUrl({
-    page: "homepage_consultation_widget",
-    intent: `${purpose} consultation for ${destination} (${timeline})`,
-    pathway: purpose === "Study" ? "study" : purpose === "Work" ? "work" : "general",
+const services = [
+  "CV review",
+  "German CV support",
+  "Admission guidance",
+  "Visa document review",
+  "Interview prep",
+  "Consultation packages",
+];
+
+const processSteps = [
+  "Profile review",
+  "Pathway selection",
+  "Document preparation",
+  "Application support",
+  "Visa preparation",
+  "Travel readiness",
+];
+
+const faqs = [
+  {
+    q: "Do you guarantee admission or visa approval?",
+    a: "No. We do not make false promises. We provide structured support to improve your preparedness and decision quality.",
+  },
+  {
+    q: "Is Germany your main focus?",
+    a: "Yes. Germany is our primary pathway, while we also support selected Europe alternatives based on your profile.",
+  },
+  {
+    q: "How do I start quickly?",
+    a: "Start with WhatsApp for a quick screening, then book a consultation for a personalized action plan.",
+  },
+];
+
+export default async function HomePage() {
+  const [products, promo, gallery] = await Promise.all([getSedifexProducts(), getSedifexPromo(), getSedifexGallery()]);
+
+  const whatsappUrl = createWhatsAppLeadUrl({
+    page: "homepage",
+    pathway: "study",
+    intent: "Relocate to Germany with consultation support",
   });
 
-  const onSubmitStep = (event: FormEvent) => {
-    event.preventDefault();
-    if (step < 3) {
-      setStep((currentStep) => currentStep + 1);
-      return;
-    }
-
-    window.open(consultationWhatsAppUrl, "_blank", "noopener,noreferrer");
-  };
-
   return (
-    <div className="space-y-8 md:space-y-10">
-      {/* HERO */}
-      <section className="rounded-3xl border border-white/60 bg-white/80 p-6 shadow-sm backdrop-blur md:p-12">
-        <div className="relative mb-6 h-52 overflow-hidden rounded-2xl sm:h-64 md:h-72">
+    <div className="space-y-16 pb-8">
+      <section className="grid gap-8 rounded-3xl bg-slate-950 px-6 py-10 text-white md:grid-cols-2 md:items-center md:px-10">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-300">Germany-first relocation guidance</p>
+          <h1 className="mt-3 text-3xl font-bold leading-tight md:text-5xl">
+            Move to Europe with clarity.
+            <span className="block text-amber-200">Start with Germany, backed by structured support.</span>
+          </h1>
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-slate-200 md:text-base">
+            Pirus Consultancy helps students and young professionals plan admissions, prepare documents, and navigate visa readiness with honest guidance.
+          </p>
+          <div className="mt-6">
+            <PrimaryCta whatsappHref={whatsappUrl} consultationHref="/contact" />
+          </div>
+        </div>
+        <div className="relative h-72 overflow-hidden rounded-2xl border border-slate-700 md:h-96">
           <Image
-            src="https://raw.githubusercontent.com/learngermanghana/mygermanypath/main/public/images/Pirus%20Consultancy%20main%20Page%20pic.gpg.png"
-            alt="Airplane wing above clouds during flight"
+            src="/images/Pirus Consultancy main Page pic.gpg.png"
+            alt="Student relocation and consultation support"
             fill
             priority
-            unoptimized
             className="object-cover"
           />
         </div>
-        <h1 className="text-3xl font-bold leading-tight text-slate-900 md:text-5xl">
-          Structured Global Mobility & Education Advisory
-          <span className="mt-3 block text-base font-medium text-slate-600 sm:text-lg md:text-xl">
-            Strategic guidance for students, professionals, and business leaders pursuing international opportunities.
-          </span>
-        </h1>
-        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-base">
-          Start with a quick assessment and receive a practical roadmap tailored to your destination, timeline, and
-          travel purpose.
-        </p>
-
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <Link
-            href="/booking"
-            className="w-full rounded-2xl bg-slate-900 px-6 py-3 text-center text-sm font-semibold text-white hover:opacity-90 sm:w-auto"
-          >
-            Book a Consultation
-          </Link>
-          <Link
-            href="/assessment"
-            className="w-full rounded-2xl border border-slate-200 bg-white px-6 py-3 text-center text-sm font-semibold text-slate-900 hover:bg-slate-50 sm:w-auto"
-          >
-            Start Eligibility Assessment
-          </Link>
-        </div>
       </section>
 
-      <section className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-sm">
-        <p className="text-xs font-semibold uppercase tracking-wide text-sky-700">At a Glance</p>
-        <div className="mt-3 grid gap-4 sm:grid-cols-3">
-          {[
-            { value: "2,400+", label: "Files Prepared" },
-            { value: "10+", label: "Countries Supported" },
-            { value: "4+ Years", label: "Advisory Experience" },
-          ].map((metric) => (
-            <article key={metric.label} className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
-              <p className="text-2xl font-black text-slate-900">{metric.value}</p>
-              <p className="mt-1 text-sm text-slate-600">{metric.label}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <h2 className="text-xl font-bold text-slate-900"><Link href="/assessment" className="hover:text-sky-700 hover:underline">Get a quick eligibility review in 60 seconds</Link></h2>
-            <p className="mt-1 text-sm text-slate-600">Complete the steps below and continue directly on WhatsApp.</p>
-          </div>
-          <p className="rounded-full bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700">Step {step} of 3</p>
-        </div>
-
-        <form className="mt-5 space-y-4" onSubmit={onSubmitStep}>
-          {step === 1 ? (
-            <label className="block text-sm font-medium text-slate-700">
-              Preferred destination
-              <select
-                aria-label="Select destination"
-                className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm"
-                value={destination}
-                onChange={(event) => setDestination(event.target.value)}
-              >
-                {["Canada", "Australia", "New Zealand"].map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-            </label>
-          ) : null}
-
-          {step === 2 ? (
-            <label className="block text-sm font-medium text-slate-700">
-              Purpose of travel
-              <select
-                aria-label="Select purpose"
-                className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm"
-                value={purpose}
-                onChange={(event) => setPurpose(event.target.value as ConsultationPurpose)}
-              >
-                {["Tourism", "Study", "Work", "Business"].map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-            </label>
-          ) : null}
-
-          {step === 3 ? (
-            <label className="block text-sm font-medium text-slate-700">
-              Planned travel timeline
-              <select
-                aria-label="Select timeline"
-                className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm"
-                value={timeline}
-                onChange={(event) => setTimeline(event.target.value as Timeline)}
-              >
-                {["Within 1 month", "1 - 3 months", "3 - 6 months", "6+ months"].map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-            </label>
-          ) : null}
-
-          <div className="flex flex-wrap gap-3">
-            {step > 1 ? (
-              <button
-                type="button"
-                className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700"
-                onClick={() => setStep((currentStep) => currentStep - 1)}
-                aria-label="Go back to previous step"
-              >
-                Back
-              </button>
-            ) : null}
-            <button
-              type="submit"
-              className="rounded-xl bg-green-600 px-5 py-2 text-sm font-semibold text-white hover:bg-green-700"
-              aria-label={step === 3 ? "Continue to WhatsApp" : "Go to next step"}
-            >
-              {step === 3 ? "Continue on WhatsApp" : "Next"}
-            </button>
-          </div>
-        </form>
-      </section>
-
-      <section className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-sm md:p-8">
-        <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">Plan your pathway</p>
-            <h2 className="mt-2 text-2xl font-bold text-slate-900">Start with the right tools and guides</h2>
-            <p className="mt-3 text-sm leading-relaxed text-slate-600">
-              Use our assessment, practical tools, and in-depth guides to build a stronger visa or study-abroad file.
-            </p>
-            <div className="mt-5 flex flex-wrap gap-3">
-              <Link href="/assessment" className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white">
-                Start assessment
-              </Link>
-              <Link href="/tools" className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-800">
-                Open visa tools
-              </Link>
-              <Link href="/blog" className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-800">
-                Read guides
-              </Link>
-              <Link href="/comparisons" className="rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-800">
-                Compare countries
-              </Link>
+      <section className="space-y-6">
+        <SectionHeader
+          eyebrow="Why Pirus Consultancy"
+          title="Trust-first guidance for real relocation decisions"
+          description="Our process is transparent, student-friendly, and focused on practical next steps rather than hype."
+          align="center"
+        />
+        <div className="grid gap-4 md:grid-cols-4">
+          {["Honest guidance", "Structured process", "Germany + Europe pathways", "Transparent support"].map((item) => (
+            <div key={item} className="rounded-2xl border border-slate-200 bg-white p-5 text-sm font-semibold text-slate-700 shadow-sm">
+              {item}
             </div>
-          </div>
-          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
-            <img
-              src="/images/study.jpg"
-              alt="Client reviewing study and visa documents with a consultant"
-              className="h-full w-full object-cover"
-            />
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* CREDENTIALS ASSESSMENT */}
-      <section className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-sm md:p-8">
-        <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">Travel Eligibility Review</p>
-            <h2 className="mt-2 text-2xl font-bold">Travel &amp; Visa Assessment (Recommended First Step)</h2>
-            <p className="mt-3 text-sm leading-relaxed text-slate-600">
-              Start with an <Link href="/assessment" className="font-semibold text-sky-700 hover:underline">eligibility assessment</Link> so we can match your purpose of travel with the right pathway before you apply.
-            </p>
-            <details className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4" open>
-              <summary className="cursor-pointer text-sm font-semibold text-slate-800">See what the assessment covers</summary>
-              <ul className="mt-3 space-y-3 text-sm text-slate-700">
-                <li>
-                  <span className="font-semibold">Visa options analysis:</span> Compare relevant travel and visa options
-                  against your background, timeline, and goals
-                </li>
-                <li>
-                  <span className="font-semibold">Approval strategy:</span> Identify gaps and quick ways to strengthen
-                  your case
-                </li>
-                <li>
-                  <span className="font-semibold">Step-by-step roadmap:</span> Clear stages, timelines, and requirements
-                </li>
-                <li>
-                  <span className="font-semibold">Transparent costs:</span> Breakdown of service fees, embassy fees, and
-                  travel-related costs
-                </li>
-              </ul>
-            </details>
-            <p className="mt-4 text-sm leading-relaxed text-slate-600">
-              This gives you clarity and a practical foundation to travel with confidence.
-            </p>
-            <Link
-              href="/assessment"
-              className="mt-6 inline-flex rounded-2xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white hover:opacity-90"
-            >
-              Book travel assessment
-            </Link>
-          </div>
-          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
-            <img
-              src="/images/pexels-tima-miroshnichenko-7010095.jpg"
-              alt="Consultant reviewing documents with a client"
-              className="h-full w-full object-cover"
-            />
-          </div>
-        </div>
-      </section>
-
-      <section className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-sm md:p-8">
-        <div className="flex flex-wrap items-start justify-between gap-3">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">Success Stories</p>
-            <h2 className="text-2xl font-bold text-slate-900">Real outcomes from recent clients</h2>
-          </div>
-          <Link href="/success" className="text-sm font-semibold text-sky-700 hover:text-sky-800">
-            Read all success stories →
-          </Link>
-        </div>
-        <div className="mt-4 grid gap-3 md:grid-cols-3">
-          {[
-            {
-              quote: "Our visa checklist was perfectly organized and approved quickly.",
-              person: "Sofia R.",
-              role: "Germany family traveler",
-            },
-            {
-              quote: "Clear and honest support from assessment to interview prep.",
-              person: "Daniel K.",
-              role: "UK student applicant",
-            },
-            {
-              quote: "Excellent planning for our business trip and documentation.",
-              person: "Isabella T.",
-              role: "France SME founder",
-            },
-          ].map((item) => (
-            <blockquote key={item.person} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
-              <p>&ldquo;{item.quote}&rdquo;</p>
-              <footer className="mt-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
-                {item.person} • {item.role}
-              </footer>
-            </blockquote>
-            ))}
-        </div>
-      </section>
-
-      <section className="rounded-3xl border border-white/60 bg-white/90 p-6 shadow-sm md:p-8">
-        <div className="flex flex-wrap items-start justify-between gap-3">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-sky-700">Latest Insights</p>
-            <h2 className="mt-1 text-2xl font-bold text-slate-900">Visa guides, checklists &amp; travel updates</h2>
-          </div>
-          <Link href="/blog" className="text-sm font-semibold text-sky-700 hover:text-sky-800">
-            Visit blog →
-          </Link>
-        </div>
-        <div className="mt-4 grid gap-3 md:grid-cols-3">
-          {[
-            {
-              title: "How to prepare a stronger visitor visa file",
-              description: "Avoid common refusal triggers and present your travel purpose clearly.",
-              href: "/blog",
-            },
-            {
-              title: "Student visa interview prep checklist",
-              description: "Structure your story, funding evidence, and timelines before interview day.",
-              href: "/blog",
-            },
-            {
-              title: "Business travel documentation essentials",
-              description: "Keep invitation letters, bookings, and financial documents submission-ready.",
-              href: "/blog",
-            },
-          ].map((resource) => (
-            <article key={resource.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-              <h3 className="text-sm font-bold text-slate-900">{resource.title}</h3>
-              <p className="mt-2 text-sm text-slate-600">{resource.description}</p>
-              <Link href={resource.href} className="mt-3 inline-block text-sm font-semibold text-sky-700 hover:text-sky-800">
-                Read guide →
+      <section className="space-y-6">
+        <SectionHeader eyebrow="Main Pathways" title="Choose the route that fits your profile" />
+        <div className="grid gap-4 md:grid-cols-2">
+          {pathways.map((pathway) => (
+            <article key={pathway.title} className="rounded-2xl border border-slate-200 p-6 shadow-sm">
+              <h3 className="text-lg font-semibold text-slate-900">{pathway.title}</h3>
+              <p className="mt-2 text-sm text-slate-600">{pathway.description}</p>
+              <Link href={pathway.href} className="mt-4 inline-block text-sm font-semibold text-slate-900 underline-offset-4 hover:underline">
+                Explore pathway
               </Link>
             </article>
           ))}
         </div>
       </section>
 
-      <CaseStudiesSection />
+      <section className="space-y-6">
+        <SectionHeader eyebrow="Services" title="What we support you with" />
+        <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+          {services.map((service) => (
+            <div key={service} className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm font-medium text-slate-700">
+              {service}
+            </div>
+          ))}
+        </div>
+      </section>
 
-      {/* HELP */}
-      <section className="rounded-3xl border border-slate-800 bg-slate-900 p-6 text-white shadow-sm md:p-8">
-        <h2 className="text-2xl font-bold">Need quick answers?</h2>
-        <p className="mt-2 text-sm leading-relaxed text-white/80">
-          Visit our resource hub for visa procedures, travel checklists, and official resource links before your trip.
-        </p>
-        <Link
-          href="/blog"
-          className="mt-5 inline-block rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-slate-900 hover:opacity-90"
-        >
-          Go to Resource Hub
+      <section className="space-y-6">
+        <SectionHeader eyebrow="How It Works" title="A simple, step-by-step process" />
+        <div className="grid gap-3 md:grid-cols-3">
+          {processSteps.map((step, index) => (
+            <div key={step} className="rounded-xl border border-slate-200 p-4">
+              <p className="text-xs font-bold uppercase tracking-wide text-amber-600">Step {index + 1}</p>
+              <p className="mt-2 text-sm font-medium text-slate-800">{step}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="space-y-6">
+        <SectionHeader eyebrow="Success Stories" title="Social proof from guided applicants" />
+        <div className="grid gap-4 md:grid-cols-3">
+          {gallery.slice(0, 3).map((item) => (
+            <blockquote key={item.id} className="rounded-2xl border border-slate-200 bg-white p-5 text-sm text-slate-700 shadow-sm">
+              <p className="font-semibold text-slate-900">{item.title}</p>
+              <p className="mt-2">{item.caption}</p>
+            </blockquote>
+          ))}
+        </div>
+      </section>
+
+      <section className="rounded-3xl border border-amber-200 bg-amber-50 p-6 md:p-8">
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-700">{promo.badge}</p>
+        <h2 className="mt-2 text-2xl font-bold text-slate-900">{promo.title}</h2>
+        <p className="mt-2 max-w-3xl text-sm text-slate-700">{promo.description}</p>
+        <Link href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white">
+          {promo.ctaLabel ?? "Claim Offer"}
         </Link>
       </section>
 
-      {/* CTA */}
-      <section className="rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-black p-6 text-white shadow-sm md:p-8">
-        <h2 className="text-2xl font-bold">Start your next journey with confidence</h2>
-        <p className="mt-2 text-sm leading-relaxed text-white/80">
-          Begin with a focused assessment, then book a consultation when you are ready for document-level support.
-        </p>
-        <div className="mt-5 flex flex-wrap gap-3">
-          <Link
-            href="/assessment"
-            className="inline-block rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-black hover:opacity-90"
-          >
-            Start visa assessment
-          </Link>
-          <Link href="/help" className="inline-block px-2 py-3 text-sm font-semibold text-white/90 hover:text-white">
-            Explore FAQs &amp; resources
-          </Link>
+      <section className="space-y-6">
+        <SectionHeader eyebrow="Featured Services" title="Updated from Sedifex" description="These cards are synced from Sedifex products to make admin updates easy." />
+        <div className="grid gap-4 md:grid-cols-3">
+          {products.slice(0, 3).map((product) => (
+            <article key={product.id} className="rounded-2xl border border-slate-200 p-5 shadow-sm">
+              <h3 className="text-lg font-semibold text-slate-900">{product.title}</h3>
+              <p className="mt-2 text-sm text-slate-600">{product.description}</p>
+              {product.price ? <p className="mt-2 text-sm font-semibold text-slate-900">{product.price}</p> : null}
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="space-y-4">
+        <SectionHeader eyebrow="FAQs" title="Quick answers before you start" />
+        <div className="space-y-3">
+          {faqs.map((faq) => (
+            <details key={faq.q} className="rounded-xl border border-slate-200 p-4">
+              <summary className="cursor-pointer text-sm font-semibold text-slate-900">{faq.q}</summary>
+              <p className="mt-2 text-sm text-slate-600">{faq.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section className="rounded-3xl bg-slate-900 p-8 text-white">
+        <SectionHeader
+          eyebrow="Ready to Start?"
+          title="Get clear next steps in one conversation"
+          description="Message us on WhatsApp or book a consultation today."
+          align="center"
+        />
+        <div className="mt-6">
+          <PrimaryCta whatsappHref={whatsappUrl} consultationHref="/contact" center />
         </div>
       </section>
     </div>
