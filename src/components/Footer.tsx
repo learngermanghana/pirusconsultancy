@@ -1,49 +1,75 @@
-"use client";
-
 import Link from "next/link";
-import { site } from "@/lib/site";
-import { useLocale } from "@/components/LocaleProvider";
-import { getMessages } from "@/lib/i18n";
 
-function FooterLink({ href, label }: { href: string; label: string }) {
-  const isExternal = href.startsWith("http://") || href.startsWith("https://");
+const quickLinks = [
+  { href: "/study-in-germany", label: "Study in Germany" },
+  { href: "/europe-pathways", label: "Europe Pathways" },
+  { href: "/services", label: "Services" },
+  { href: "/contact", label: "Contact" },
+];
 
-  if (isExternal) {
-    return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className="transition hover:text-slate-900">
-        {label}
-      </a>
-    );
-  }
-
-  return (
-    <Link href={href} className="transition hover:text-slate-900">
-      {label}
-    </Link>
-  );
-}
+const resources = [
+  { href: "/blog", label: "Articles & Resources" },
+  { href: "/assessment", label: "Free Assessment" },
+  { href: "/learn-german", label: "Learn German (Falowen)" },
+];
 
 export default function Footer() {
-  const { locale } = useLocale();
-  const messages = getMessages(locale);
-  const tagline = site.tagline[locale] ?? site.tagline.en;
-
   return (
-    <footer className="border-t border-slate-200/80">
-      <div className="mx-auto max-w-6xl px-4 py-10">
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="font-semibold text-slate-900">{site.name}</p>
-            <p className="text-sm text-slate-600">{tagline}</p>
-          </div>
-          <div className="flex flex-wrap gap-4 text-sm text-slate-600">
-            {messages.footer.links.map((link) => (
-              <FooterLink key={`${link.href}-${link.label}`} href={link.href} label={link.label} />
-            ))}
-          </div>
+    <footer className="border-t border-slate-200 bg-slate-950 text-slate-200">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-4">
+        <div>
+          <p className="text-lg font-bold text-white">Pirus Consultancy</p>
+          <p className="mt-2 text-sm text-slate-300">
+            Honest, structured relocation support for students and young professionals moving to Germany and Europe.
+          </p>
         </div>
 
-        <div className="mt-6 text-xs text-slate-500">{messages.footer.transparency}</div>
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-white">Quick Links</p>
+          <ul className="mt-3 space-y-2 text-sm">
+            {quickLinks.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="text-slate-300 transition hover:text-white">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-white">Resources</p>
+          <ul className="mt-3 space-y-2 text-sm">
+            {resources.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="text-slate-300 transition hover:text-white">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-wide text-white">Connect</p>
+          <ul className="mt-3 space-y-2 text-sm text-slate-300">
+            <li>
+              <a href="https://wa.me/4917620721491" target="_blank" rel="noopener noreferrer" className="hover:text-white">
+                WhatsApp
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/pirusconsultancy/" target="_blank" rel="noopener noreferrer" className="hover:text-white">
+                Instagram
+              </a>
+            </li>
+            <li>
+              <a href="https://web.facebook.com/pursueconsultancy/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer" className="hover:text-white">
+                Facebook
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </footer>
   );

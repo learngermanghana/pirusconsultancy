@@ -1,140 +1,50 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { useLocale } from "@/components/LocaleProvider";
-import { getMessages, Locale } from "@/lib/i18n";
-import { site } from "@/lib/site";
+import { useState } from "react";
 
-function NavLink({ href, label, onClick }: { href: string; label: string; onClick?: () => void }) {
-  const isExternal = href.startsWith("http://") || href.startsWith("https://");
-
-  const sharedClassName =
-    "rounded-full border border-transparent px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-sky-200 hover:bg-sky-50 hover:text-sky-700";
-
-  if (isExternal) {
-    return (
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={sharedClassName}
-        onClick={onClick}
-      >
-        {label}
-      </a>
-    );
-  }
-
-  return (
-    <Link href={href} className={sharedClassName} onClick={onClick}>
-      {label}
-    </Link>
-  );
-}
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/study-in-germany", label: "Study in Germany" },
+  { href: "/europe-pathways", label: "Europe Pathways" },
+  { href: "/services", label: "Services" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+];
 
 export default function Nav() {
-  const { locale, setLocale } = useLocale();
-  const messages = getMessages(locale);
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    if (typeof document !== "undefined") {
-      document.body.style.overflow = isOpen ? "hidden" : "";
-    }
-    return () => {
-      if (typeof document !== "undefined") {
-        document.body.style.overflow = "";
-      }
-    };
-  }, [isOpen]);
+  const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3">
-        <Link href="/" className="shrink-0 text-lg font-black tracking-tight text-slate-900">
-          {site.name}
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+        <Link href="/" className="text-lg font-extrabold tracking-tight text-slate-900">
+          Pirus Consultancy
         </Link>
-
-        <nav
-          className="hidden flex-1 items-center justify-center gap-1 rounded-full border border-slate-200 bg-slate-50/70 p-1 md:flex"
-          aria-label="Primary"
-        >
-          {messages.nav.links.map((l) => (
-            <NavLink key={`${l.href}-${l.label}`} href={l.href} label={l.label} />
-          ))}
-        </nav>
-
-        <div className="hidden shrink-0 items-center gap-2 md:flex">
-          <label className="sr-only" htmlFor="locale-select">
-            {messages.nav.languageLabel}
-          </label>
-          <select
-            id="locale-select"
-            className="rounded-full border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm"
-            value={locale}
-            onChange={(event) => setLocale(event.target.value as Locale)}
-          >
-            {messages.nav.languageOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
-
         <button
           type="button"
-          className="ml-auto inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white/80 p-2 text-slate-700 shadow-sm transition hover:text-slate-900 md:hidden"
-          aria-expanded={isOpen}
-          aria-controls="mobile-menu"
-          onClick={() => setIsOpen((open) => !open)}
+          className="rounded-md border border-slate-300 px-3 py-1 text-sm md:hidden"
+          onClick={() => setOpen((value) => !value)}
         >
-          <span className="sr-only">{isOpen ? messages.nav.closeMenuLabel : messages.nav.openMenuLabel}</span>
-          <div className="flex h-5 w-5 flex-col items-center justify-center gap-1">
-            <span
-              className={`block h-0.5 w-5 rounded-full bg-current transition ${
-                isOpen ? "translate-y-1.5 rotate-45" : ""
-              }`}
-            />
-            <span className={`block h-0.5 w-5 rounded-full bg-current transition ${isOpen ? "opacity-0" : ""}`} />
-            <span
-              className={`block h-0.5 w-5 rounded-full bg-current transition ${
-                isOpen ? "-translate-y-1.5 -rotate-45" : ""
-              }`}
-            />
-          </div>
+          Menu
         </button>
+        <nav className="hidden items-center gap-6 md:flex">
+          {navLinks.map((link) => (
+            <Link key={link.href} href={link.href} className="text-sm font-medium text-slate-700 hover:text-slate-950">
+              {link.label}
+            </Link>
+          ))}
+        </nav>
       </div>
 
-      {isOpen ? (
-        <div
-          id="mobile-menu"
-          className="absolute left-0 right-0 top-full z-40 border-t border-slate-200/80 bg-white/95 px-4 py-4 md:hidden"
-        >
-          <nav className="flex flex-col gap-2">
-            {messages.nav.links.map((l) => (
-              <NavLink key={`${l.href}-${l.label}`} href={l.href} label={l.label} onClick={() => setIsOpen(false)} />
-            ))}
-          </nav>
-          <div className="mt-4 flex flex-col gap-3">
-            <label className="text-xs font-semibold uppercase tracking-wide text-slate-500" htmlFor="mobile-locale-select">
-              {messages.nav.languageLabel}
-            </label>
-            <select
-              id="mobile-locale-select"
-              className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 shadow-sm"
-              value={locale}
-              onChange={(event) => setLocale(event.target.value as Locale)}
-            >
-              {messages.nav.languageOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
+      {open ? (
+        <nav className="space-y-2 border-t border-slate-200 px-4 py-3 md:hidden">
+          {navLinks.map((link) => (
+            <Link key={link.href} href={link.href} className="block text-sm font-medium text-slate-700" onClick={() => setOpen(false)}>
+              {link.label}
+            </Link>
+          ))}
+        </nav>
       ) : null}
     </header>
   );
