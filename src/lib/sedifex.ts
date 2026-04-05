@@ -111,26 +111,27 @@ function normalizeProducts(payload: unknown): SedifexProduct[] {
     return [];
   }
 
-  const mapped = payload
-    .map<SedifexProduct | null>((item, index) => {
-      if (!item || typeof item !== "object") return null;
-      const record = item as Record<string, unknown>;
-      const id = String(record.id ?? record._id ?? record.productId ?? `product-${index}`);
-      const title = String(record.title ?? record.name ?? record.productName ?? "Consultation Package");
-      const description = String(
-        record.description ?? record.summary ?? record.details ?? "Structured relocation support package.",
-      );
-      const price = record.price ? String(record.price) : undefined;
+  const mapped: SedifexProduct[] = payload.flatMap((item, index) => {
+    if (!item || typeof item !== "object") return [];
 
-      return {
+    const record = item as Record<string, unknown>;
+    const id = String(record.id ?? record._id ?? record.productId ?? `product-${index}`);
+    const title = String(record.title ?? record.name ?? record.productName ?? "Consultation Package");
+    const description = String(
+      record.description ?? record.summary ?? record.details ?? "Structured relocation support package.",
+    );
+    const price = record.price ? String(record.price) : undefined;
+
+    return [
+      {
         id,
         title,
         description,
         ...(price ? { price } : {}),
         ctaLabel: "Book Consultation",
-      };
-    })
-    .filter((product): product is SedifexProduct => product !== null);
+      } satisfies SedifexProduct,
+    ];
+  });
 
   const deduped = new Map<string, SedifexProduct>();
 
@@ -163,18 +164,20 @@ function normalizePromo(payload: unknown): SedifexPromo | null {
 function normalizeGallery(payload: unknown): SedifexGalleryItem[] {
   if (!Array.isArray(payload)) return [];
 
-  return payload
-    .map((item, index) => {
-      if (!item || typeof item !== "object") return null;
-      const record = item as Record<string, unknown>;
-      return {
+  return payload.flatMap((item, index) => {
+    if (!item || typeof item !== "object") return [];
+
+    const record = item as Record<string, unknown>;
+
+    return [
+      {
         id: String(record.id ?? record._id ?? `gallery-${index}`),
         title: String(record.title ?? record.name ?? "Student Journey"),
         caption: String(record.caption ?? record.description ?? "Real feedback from guided applicants."),
         imageUrl: record.imageUrl ? String(record.imageUrl) : undefined,
-      } satisfies SedifexGalleryItem;
-    })
-    .filter((item): item is SedifexGalleryItem => Boolean(item));
+      } satisfies SedifexGalleryItem,
+    ];
+  });
 }
 
 export async function getSedifexProducts() {
