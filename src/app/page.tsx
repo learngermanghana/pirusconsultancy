@@ -7,20 +7,13 @@ import { getSedifexGallery, getSedifexProducts, getSedifexPromo } from "@/lib/se
 import { createWhatsAppLeadUrl } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
-  title: "Relocate to Germany with Structured Support",
+  title: "Relocate to Europe from Africa with Structured Support",
   description:
-    "Get honest Ghana-to-Germany and Europe travel guidance for admissions, pathways, and visa preparation. Chat on WhatsApp or book a consultation.",
-  keywords: [
-    "travel to Europe from Ghana",
-    "Ghana Germany travel consultant",
-    "move to Germany from Ghana",
-    "study in Europe from Ghana",
-    "Germany relocation support",
-  ],
+    "Get honest guidance for admissions, Europe pathways, and visa preparation for Ghanaians, Nigerians, and Africans. Chat on WhatsApp or book a consultation.",
   openGraph: {
-    title: "Relocate to Germany with Structured Support",
+    title: "Relocate to Europe from Africa with Structured Support",
     description:
-      "Pirus Consultancy helps Ghanaian students and young professionals move to Europe with Germany as the main pathway.",
+      "Pirus Consultancy helps Ghanaians, Nigerians, and other Africans move to Europe with Germany as a main pathway.",
     images: ["/images/Pirus Consultancy main Page pic.gpg.png"],
   },
 };
@@ -87,20 +80,20 @@ export default async function HomePage() {
   const whatsappUrl = createWhatsAppLeadUrl({
     page: "homepage",
     pathway: "study",
-    intent: "Relocate to Germany with consultation support",
+    intent: "Relocate to Europe from Africa with consultation support",
   });
 
   return (
     <div className="space-y-16 pb-8">
       <section className="grid gap-8 rounded-3xl bg-slate-950 px-6 py-10 text-white md:grid-cols-2 md:items-center md:px-10">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-300">Germany-first relocation guidance</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-300">Africa-to-Europe relocation guidance</p>
           <h1 className="mt-3 text-3xl font-bold leading-tight md:text-5xl">
             Move to Europe with clarity.
-            <span className="block text-amber-200">Start with Germany, backed by structured support.</span>
+            <span className="block text-amber-200">For Ghanaians, Nigerians, and Africans ready to relocate.</span>
           </h1>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-slate-200 md:text-base">
-            Pirus Consultancy helps students and young professionals plan admissions, prepare documents, and navigate visa readiness with honest guidance.
+            Pirus Consultancy helps African students and young professionals plan admissions, prepare documents, and navigate visa readiness with honest guidance.
           </p>
           <div className="mt-6">
             <PrimaryCta whatsappHref={whatsappUrl} consultationHref="/contact" />
@@ -121,7 +114,7 @@ export default async function HomePage() {
         <SectionHeader
           eyebrow="Why Pirus Consultancy"
           title="Trust-first guidance for real relocation decisions"
-          description="Our process is transparent, student-friendly, and focused on practical next steps rather than hype."
+          description="Our process is transparent, student-friendly, and focused on practical next steps for Africans relocating to Europe."
           align="center"
         />
         <div className="grid gap-4 md:grid-cols-4">
