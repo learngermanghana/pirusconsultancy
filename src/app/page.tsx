@@ -216,6 +216,7 @@ export default async function HomePage() {
           title="Get clear next steps in one conversation"
           description="Message us on WhatsApp or book a consultation today."
           align="center"
+          tone="inverse"
         />
         <div className="mt-6">
           <PrimaryCta whatsappHref={whatsappUrl} consultationHref="/contact" center />
