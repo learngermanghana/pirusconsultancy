@@ -9,11 +9,18 @@ import { createWhatsAppLeadUrl } from "@/lib/whatsapp";
 export const metadata: Metadata = {
   title: "Relocate to Germany with Structured Support",
   description:
-    "Get honest guidance for admissions, Germany pathways, and visa preparation. Chat on WhatsApp or book a consultation.",
+    "Get honest Ghana-to-Germany and Europe travel guidance for admissions, pathways, and visa preparation. Chat on WhatsApp or book a consultation.",
+  keywords: [
+    "travel to Europe from Ghana",
+    "Ghana Germany travel consultant",
+    "move to Germany from Ghana",
+    "study in Europe from Ghana",
+    "Germany relocation support",
+  ],
   openGraph: {
     title: "Relocate to Germany with Structured Support",
     description:
-      "Pirus Consultancy helps students and young professionals move to Europe with Germany as the main pathway.",
+      "Pirus Consultancy helps Ghanaian students and young professionals move to Europe with Germany as the main pathway.",
     images: ["/images/Pirus Consultancy main Page pic.gpg.png"],
   },
 };
