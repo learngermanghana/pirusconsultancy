@@ -9,7 +9,7 @@ import { createWhatsAppLeadUrl } from "@/lib/whatsapp";
 export const metadata: Metadata = {
   title: "Relocate to Europe from Africa with Structured Support",
   description:
-    "Get honest guidance for admissions, Europe pathways, and visa preparation for Ghanaians, Nigerians, and Africans. Chat on WhatsApp or book a consultation.",
+    "Get honest guidance for admissions, Europe pathways, and visa preparation for Ghanaians, Nigerians, and other Africans. Chat on WhatsApp or book a consultation.",
   openGraph: {
     title: "Relocate to Europe from Africa with Structured Support",
     description:
@@ -30,14 +30,14 @@ const pathways = [
     href: "/study-in-germany",
   },
   {
-    title: "Work Relocation Support",
-    description: "Professional profile optimization, opportunity mapping, and relocation planning.",
+    title: "Visa Pathways by Profile",
+    description: "Get practical options based on your profile: student, graduate, or working professional.",
     href: "/europe-pathways",
   },
   {
-    title: "Other Europe Study Options",
-    description: "Alternative destinations across Europe when Germany is not the perfect fit.",
-    href: "/europe-pathways",
+    title: "EU Alternatives for West Africans",
+    description: "Explore practical alternatives across Europe when Germany is not your best first option.",
+    href: "/relocate-to-europe-from-ghana",
   },
 ];
 
@@ -69,8 +69,16 @@ const faqs = [
     a: "Yes. Germany is our primary pathway, while we also support selected Europe alternatives based on your profile.",
   },
   {
-    q: "How do I start quickly?",
-    a: "Start with WhatsApp for a quick screening, then book a consultation for a personalized action plan.",
+    q: "Can I apply with HND?",
+    a: "Yes, in many pathways. HND holders can qualify for selected study, vocational, and work-track options depending on credentials and experience.",
+  },
+  {
+    q: "Do I need IELTS for Germany?",
+    a: "Not always. Some programs accept alternatives or waive English tests in specific cases, while others still require IELTS or equivalent proof.",
+  },
+  {
+    q: "How much should I budget before visa appointment?",
+    a: "Budget for application fees, document legalization or translations, insurance, and financial proof requirements such as blocked account funding where applicable.",
   },
 ];
 
@@ -90,7 +98,7 @@ export default async function HomePage() {
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-300">Africa-to-Europe relocation guidance</p>
           <h1 className="mt-3 text-3xl font-bold leading-tight md:text-5xl">
             Move to Europe with clarity.
-            <span className="block text-amber-200">For Ghanaians, Nigerians, and Africans ready to relocate.</span>
+            <span className="block text-amber-200">For Ghanaians, Nigerians, and other Africans ready to relocate.</span>
           </h1>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-slate-200 md:text-base">
             Pirus Consultancy helps African students and young professionals plan admissions, prepare documents, and navigate visa readiness with honest guidance.
@@ -118,7 +126,12 @@ export default async function HomePage() {
           align="center"
         />
         <div className="grid gap-4 md:grid-cols-4">
-          {["Honest guidance", "Structured process", "Germany + Europe pathways", "Transparent support"].map((item) => (
+          {[
+            "Guidance for WAEC/NECO + transcripts",
+            "German blocked account prep",
+            "Visa interview readiness for West African applicants",
+            "Clear timeline and document support",
+          ].map((item) => (
             <div key={item} className="rounded-2xl border border-slate-200 bg-white p-5 text-sm font-semibold text-slate-700 shadow-sm">
               {item}
             </div>
@@ -128,6 +141,21 @@ export default async function HomePage() {
 
       <section className="space-y-6">
         <SectionHeader eyebrow="Main Pathways" title="Choose the route that fits your profile" />
+        <div className="grid gap-3 md:grid-cols-3">
+          {[
+            { label: "From Nigeria", href: "/relocate-to-europe-from-nigeria" },
+            { label: "From Ghana", href: "/relocate-to-europe-from-ghana" },
+            { label: "Study in Germany from Africa", href: "/study-in-germany-from-africa" },
+          ].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm font-semibold text-amber-900 transition hover:bg-amber-100"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
         <div className="grid gap-4 md:grid-cols-2">
           {pathways.map((pathway) => (
             <article key={pathway.title} className="rounded-2xl border border-slate-200 p-6 shadow-sm">
@@ -213,7 +241,7 @@ export default async function HomePage() {
       <section className="rounded-3xl bg-slate-900 p-8 text-white">
         <SectionHeader
           eyebrow="Ready to Start?"
-          title="Get clear next steps in one conversation"
+          title="Get your Africa-to-Europe relocation plan in one call"
           description="Message us on WhatsApp or book a consultation today."
           align="center"
           tone="inverse"
