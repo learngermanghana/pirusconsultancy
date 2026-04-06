@@ -10,11 +10,21 @@ export const metadata: Metadata = {
     template: "%s | Pirus Consultancy",
   },
   description:
-    "Pirus Consultancy supports students and young professionals relocating to Europe, with Germany as the primary pathway.",
+    "Pirus Consultancy supports Ghanaian students and young professionals relocating to Germany and wider Europe, with Germany as the primary pathway.",
+  keywords: [
+    "Ghana to Germany travel support",
+    "Ghana to Europe relocation",
+    "travel to Europe from Ghana",
+    "Germany visa guidance Ghana",
+    "study in Germany from Ghana",
+    "Europe relocation consultancy",
+    "Ghanaian students in Germany",
+    "Pirus Consultancy",
+  ],
   openGraph: {
     title: "Pirus Consultancy",
     description:
-      "Structured support for study admissions, Germany pathways, and visa preparation with honest guidance.",
+      "Structured support for Ghanaian applicants pursuing study admissions, Germany pathways, and Europe travel preparation with honest guidance.",
     url: "https://pirusconsultancy.com",
     siteName: "Pirus Consultancy",
     type: "website",
