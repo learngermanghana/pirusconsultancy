@@ -21,6 +21,14 @@ export const metadata: Metadata = {
     "Ghanaian students in Germany",
     "Pirus Consultancy",
   ],
+  icons: {
+    icon: [
+      { url: "/images/pirus-logo.svg", type: "image/svg+xml", sizes: "32x32" },
+      { url: "/images/pirus-logo.svg", type: "image/svg+xml", sizes: "192x192" },
+    ],
+    apple: [{ url: "/images/pirus-logo.svg", sizes: "180x180", type: "image/svg+xml" }],
+    shortcut: ["/images/pirus-logo.svg"],
+  },
   openGraph: {
     title: "Pirus Consultancy",
     description:

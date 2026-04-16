@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
@@ -29,8 +30,16 @@ export default function Nav() {
         Skip to main content
       </a>
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-        <Link href="/" className="text-lg font-extrabold tracking-tight text-slate-900">
-          Pirus Consultancy
+        <Link href="/" className="flex items-center gap-2 text-lg font-extrabold tracking-tight text-slate-900">
+          <Image
+            src="/images/pirus-logo.svg"
+            alt="Pirus Consultancy logo"
+            width={36}
+            height={36}
+            className="h-9 w-9 rounded object-cover"
+            priority
+          />
+          <span>Pirus Consultancy</span>
         </Link>
         <button
           type="button"
