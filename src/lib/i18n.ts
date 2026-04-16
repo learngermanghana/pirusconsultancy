@@ -30,7 +30,7 @@ const messages = {
         { href: "/success", label: "Success stories" },
         { href: "/blog", label: "Resource hub" },
         { href: "/contact", label: "Contact" },
-        { href: "https://www.facebook.com/profile.php?id=61588152793007", label: "Facebook" },
+        { href: "https://www.facebook.com/profile.php?id=61588442788460", label: "Facebook" },
         { href: "/germany-partner", label: "Germany Partner" },
       ],
       transparency:
@@ -68,7 +68,7 @@ const messages = {
         { href: "/success", label: "Erfolgsgeschichten" },
         { href: "/blog", label: "Ressourcen" },
         { href: "/contact", label: "Kontakt" },
-        { href: "https://www.facebook.com/profile.php?id=61588152793007", label: "Facebook" },
+        { href: "https://www.facebook.com/profile.php?id=61588442788460", label: "Facebook" },
         { href: "/germany-partner", label: "Partner in Deutschland" },
       ],
       transparency:

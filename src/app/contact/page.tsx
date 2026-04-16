@@ -35,7 +35,7 @@ export default function ContactPage() {
           <Link href="https://www.instagram.com/pirusconsultancy/" target="_blank" rel="noopener noreferrer" className="rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-800">
             Instagram
           </Link>
-          <Link href="https://web.facebook.com/pursueconsultancy/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer" className="rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-800">
+          <Link href="https://www.facebook.com/profile.php?id=61588442788460" target="_blank" rel="noopener noreferrer" className="rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-800">
             Facebook
           </Link>
         </div>

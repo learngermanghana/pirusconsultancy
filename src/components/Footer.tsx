@@ -64,7 +64,7 @@ export default function Footer() {
               </a>
             </li>
             <li>
-              <a href="https://web.facebook.com/pursueconsultancy/?_rdc=1&_rdr" target="_blank" rel="noopener noreferrer" className="hover:text-white">
+              <a href="https://www.facebook.com/profile.php?id=61588442788460" target="_blank" rel="noopener noreferrer" className="hover:text-white">
                 Facebook
               </a>
             </li>
