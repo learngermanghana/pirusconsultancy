@@ -2,7 +2,7 @@ const WHATSAPP_NUMBER = "4917620721491";
 
 type WhatsAppLeadParams = {
   page: string;
-  pathway?: "study" | "ausbildung" | "work" | "general";
+  pathway?: "study" | "ausbildung" | "work" | "europe" | "general";
   intent: string;
 };
 
