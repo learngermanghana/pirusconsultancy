@@ -20,7 +20,7 @@ const checklist = [
 export default function StudyInGermanyFromAfricaPage() {
   const whatsappHref = createWhatsAppLeadUrl({
     page: "study-in-germany-from-africa",
-    pathway: "study-germany",
+    pathway: "study",
     intent: "Study in Germany from Africa",
   });
 
