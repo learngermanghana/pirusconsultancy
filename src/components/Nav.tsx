@@ -11,7 +11,7 @@ const navLinks = [
   { href: "/europe-pathways", label: "Europe Pathways" },
   { href: "/tools", label: "Tools" },
   { href: "/services", label: "Services" },
-  { href: "/pricing", label: "Pricing" },
+  { href: "/assessment", label: "Assessment" },
   { href: "/booking", label: "Book a Call" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
