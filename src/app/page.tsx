@@ -104,7 +104,7 @@ export default async function HomePage() {
             Pirus Consultancy helps African students and young professionals plan admissions, prepare documents, and navigate visa readiness with honest guidance.
           </p>
           <div className="mt-6">
-            <PrimaryCta whatsappHref={whatsappUrl} consultationHref="/contact" />
+            <PrimaryCta whatsappHref={whatsappUrl} consultationHref="/booking" />
           </div>
         </div>
         <div className="relative h-72 overflow-hidden rounded-2xl border border-slate-700 md:h-96">
@@ -247,7 +247,7 @@ export default async function HomePage() {
           tone="inverse"
         />
         <div className="mt-6">
-          <PrimaryCta whatsappHref={whatsappUrl} consultationHref="/contact" center />
+          <PrimaryCta whatsappHref={whatsappUrl} consultationHref="/booking" center />
         </div>
       </section>
     </div>

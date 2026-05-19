@@ -9,6 +9,7 @@ const navLinks = [
   { href: "/", label: "Home" },
   { href: "/study-in-germany", label: "Study in Germany" },
   { href: "/services", label: "Services" },
+  { href: "/booking", label: "Booking" },
   { href: "/assessment", label: "Assessment" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
