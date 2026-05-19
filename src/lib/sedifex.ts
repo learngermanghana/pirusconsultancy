@@ -20,6 +20,16 @@ export type SedifexGalleryItem = {
   imageUrl?: string;
 };
 
+export type SedifexPublicBlogPost = {
+  id: string;
+  title: string;
+  slug: string;
+  content: string;
+  linkUrl?: string;
+  imageUrl?: string;
+  publishedAt: string;
+};
+
 const fallbackProducts: SedifexProduct[] = [
   {
     id: "consult-1",
@@ -84,6 +94,17 @@ function baseConfig() {
   };
 }
 
+function publicBlogConfig() {
+  const baseUrl = (process.env.SEDIFEX_SITE_BASE_URL ?? "https://www.sedifex.com").replace(/\/$/, "");
+  const storeId = process.env.SEDIFEX_STORE_ID;
+
+  if (!storeId) {
+    return null;
+  }
+
+  return { baseUrl, storeId };
+}
+
 async function fetchSedifex<T>(path: string): Promise<T | null> {
   const config = baseConfig();
   if (!config) return null;
@@ -106,59 +127,69 @@ async function fetchSedifex<T>(path: string): Promise<T | null> {
   }
 }
 
-function normalizeProducts(payload: unknown): SedifexProduct[] {
-  if (!Array.isArray(payload)) {
+async function fetchPublicBlog(slug?: string): Promise<SedifexPublicBlogPost[]> {
+  const config = publicBlogConfig();
+  if (!config) return [];
+
+  const params = new URLSearchParams({ storeId: config.storeId });
+  if (slug) params.set("slug", slug);
+
+  try {
+    const response = await fetch(`${config.baseUrl}/api/public-blog?${params.toString()}`, {
+      next: { revalidate: REVALIDATE_SECONDS },
+    });
+
+    if (!response.ok) return [];
+
+    const payload = (await response.json()) as { items?: unknown };
+    if (!Array.isArray(payload.items)) return [];
+
+    return payload.items.flatMap((item) => {
+      if (!item || typeof item !== "object") return [];
+      const row = item as Record<string, unknown>;
+      if (!row.id || !row.title || !row.slug || !row.content || !row.publishedAt) return [];
+
+      return [{
+        id: String(row.id),
+        title: String(row.title),
+        slug: String(row.slug),
+        content: String(row.content),
+        linkUrl: row.linkUrl ? String(row.linkUrl) : undefined,
+        imageUrl: row.imageUrl ? String(row.imageUrl) : undefined,
+        publishedAt: String(row.publishedAt),
+      } satisfies SedifexPublicBlogPost];
+    });
+  } catch {
     return [];
   }
+}
 
+function normalizeProducts(payload: unknown): SedifexProduct[] { /* unchanged */
+  if (!Array.isArray(payload)) return [];
   const mapped: SedifexProduct[] = payload.flatMap((item, index) => {
     if (!item || typeof item !== "object") return [];
-
     const record = item as Record<string, unknown>;
     const itemType = String(record.itemType ?? record.type ?? record.productType ?? "").toLowerCase();
-
-    if (itemType && itemType !== "service") {
-      return [];
-    }
-
+    if (itemType && itemType !== "service") return [];
     const id = String(record.id ?? record._id ?? record.productId ?? `product-${index}`);
     const title = String(record.title ?? record.name ?? record.productName ?? "Consultation Package");
-    const description = String(
-      record.description ?? record.summary ?? record.details ?? "Structured relocation support package.",
-    );
+    const description = String(record.description ?? record.summary ?? record.details ?? "Structured relocation support package.");
     const price = record.price ? String(record.price) : undefined;
-
-    return [
-      {
-        id,
-        title,
-        description,
-        ...(price ? { price } : {}),
-        ctaLabel: String(record.ctaLabel ?? record.buttonText ?? "Book Consultation"),
-      } satisfies SedifexProduct,
-    ];
+    return [{ id, title, description, ...(price ? { price } : {}), ctaLabel: String(record.ctaLabel ?? record.buttonText ?? "Book Consultation") }];
   });
-
   const deduped = new Map<string, SedifexProduct>();
-
   for (const product of mapped) {
     const dedupeKey = `${product.id.toLowerCase()}::${product.title.toLowerCase()}`;
-    if (!deduped.has(dedupeKey)) {
-      deduped.set(dedupeKey, product);
-    }
+    if (!deduped.has(dedupeKey)) deduped.set(dedupeKey, product);
   }
-
   return Array.from(deduped.values());
 }
 
 function normalizePromo(payload: unknown): SedifexPromo | null {
   if (!payload) return null;
-
   const record = Array.isArray(payload) ? payload[0] : payload;
   if (!record || typeof record !== "object") return null;
-
   const data = record as Record<string, unknown>;
-
   return {
     badge: String(data.badge ?? data.tag ?? "Featured by Sedifex"),
     title: String(data.title ?? data.name ?? "Featured Offer"),
@@ -169,38 +200,22 @@ function normalizePromo(payload: unknown): SedifexPromo | null {
 
 function normalizeGallery(payload: unknown): SedifexGalleryItem[] {
   if (!Array.isArray(payload)) return [];
-
   return payload.flatMap((item, index) => {
     if (!item || typeof item !== "object") return [];
-
     const record = item as Record<string, unknown>;
-
-    return [
-      {
-        id: String(record.id ?? record._id ?? `gallery-${index}`),
-        title: String(record.title ?? record.name ?? "Student Journey"),
-        caption: String(record.caption ?? record.description ?? "Real feedback from guided applicants."),
-        imageUrl: record.imageUrl ? String(record.imageUrl) : undefined,
-      } satisfies SedifexGalleryItem,
-    ];
+    return [{ id: String(record.id ?? record._id ?? `gallery-${index}`), title: String(record.title ?? record.name ?? "Student Journey"), caption: String(record.caption ?? record.description ?? "Real feedback from guided applicants."), imageUrl: record.imageUrl ? String(record.imageUrl) : undefined }];
   });
 }
 
-export async function getSedifexProducts() {
-  const payload = await fetchSedifex<unknown>("/integrationProducts");
-  const products = normalizeProducts(payload);
+export async function getSedifexProducts() { const payload = await fetchSedifex<unknown>("/integrationProducts"); const products = normalizeProducts(payload); return products.length > 0 ? products : fallbackProducts; }
+export async function getSedifexPromo() { const payload = await fetchSedifex<unknown>("/integrationPromo"); return normalizePromo(payload) ?? fallbackPromo; }
+export async function getSedifexGallery() { const payload = await fetchSedifex<unknown>("/integrationGallery"); const gallery = normalizeGallery(payload); return gallery.length > 0 ? gallery : fallbackGallery; }
 
-  return products.length > 0 ? products : fallbackProducts;
+export async function getSedifexPublicBlogPosts() {
+  return fetchPublicBlog();
 }
 
-export async function getSedifexPromo() {
-  const payload = await fetchSedifex<unknown>("/integrationPromo");
-  return normalizePromo(payload) ?? fallbackPromo;
-}
-
-export async function getSedifexGallery() {
-  const payload = await fetchSedifex<unknown>("/integrationGallery");
-  const gallery = normalizeGallery(payload);
-
-  return gallery.length > 0 ? gallery : fallbackGallery;
+export async function getSedifexPublicBlogPostBySlug(slug: string) {
+  const posts = await fetchPublicBlog(slug);
+  return posts[0] ?? null;
 }
