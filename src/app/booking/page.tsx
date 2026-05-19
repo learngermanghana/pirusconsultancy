@@ -1,7 +1,11 @@
-import { redirect } from "next/navigation";
+import type { Metadata } from "next";
+import BookingClient from "./BookingClient";
 
-const WHATSAPP_BOOKING_URL = "https://wa.me/4917620721491";
+export const metadata: Metadata = {
+  title: "Book a Service",
+  description: "Book Sedifex services and pay online securely.",
+};
 
 export default function BookingPage() {
-  redirect(WHATSAPP_BOOKING_URL);
+  return <BookingClient />;
 }
