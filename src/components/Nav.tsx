@@ -10,7 +10,6 @@ const navLinks = [
   { href: "/study-in-germany", label: "Study in Germany" },
   { href: "/services", label: "Services" },
   { href: "/assessment", label: "Assessment" },
-  { href: "/booking", label: "Book a Call" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];

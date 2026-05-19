@@ -115,6 +115,12 @@ function normalizeProducts(payload: unknown): SedifexProduct[] {
     if (!item || typeof item !== "object") return [];
 
     const record = item as Record<string, unknown>;
+    const itemType = String(record.itemType ?? record.type ?? record.productType ?? "").toLowerCase();
+
+    if (itemType && itemType !== "service") {
+      return [];
+    }
+
     const id = String(record.id ?? record._id ?? record.productId ?? `product-${index}`);
     const title = String(record.title ?? record.name ?? record.productName ?? "Consultation Package");
     const description = String(
@@ -128,7 +134,7 @@ function normalizeProducts(payload: unknown): SedifexProduct[] {
         title,
         description,
         ...(price ? { price } : {}),
-        ctaLabel: "Book Consultation",
+        ctaLabel: String(record.ctaLabel ?? record.buttonText ?? "Book Consultation"),
       } satisfies SedifexProduct,
     ];
   });
