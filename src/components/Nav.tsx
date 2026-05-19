@@ -8,8 +8,6 @@ import { usePathname } from "next/navigation";
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/study-in-germany", label: "Study in Germany" },
-  { href: "/europe-pathways", label: "Europe Pathways" },
-  { href: "/tools", label: "Tools" },
   { href: "/services", label: "Services" },
   { href: "/assessment", label: "Assessment" },
   { href: "/booking", label: "Book a Call" },
