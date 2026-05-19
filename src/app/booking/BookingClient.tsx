@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 type Service = {
   id: string;
@@ -16,6 +17,8 @@ function parsePrice(value?: string) {
 }
 
 export default function BookingClient() {
+  const searchParams = useSearchParams();
+  const requestedService = searchParams.get("service") || "";
   const [services, setServices] = useState<Service[]>([]);
   const [loadingServices, setLoadingServices] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -40,9 +43,11 @@ export default function BookingClient() {
         const res = await fetch("/api/integration/bookings/services");
         const data = await res.json();
         if (data?.ok) {
-          setServices(data.services || []);
-          if (data.services?.[0]?.id) {
-            setForm((prev) => ({ ...prev, serviceId: data.services[0].id }));
+          const loadedServices = data.services || [];
+          setServices(loadedServices);
+          const requested = loadedServices.find((service: Service) => service.id === requestedService || service.title === requestedService);
+          if (requested?.id || loadedServices?.[0]?.id) {
+            setForm((prev) => ({ ...prev, serviceId: requested?.id || loadedServices[0].id }));
           }
         }
       } finally {
@@ -51,7 +56,7 @@ export default function BookingClient() {
     };
 
     load();
-  }, []);
+  }, [requestedService]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -80,14 +85,8 @@ export default function BookingClient() {
           notes: form.notes,
           paymentAmount: selectedAmount,
           paymentMethod: "paystack",
-          customer: {
-            name: form.name,
-            phone: form.phone,
-            email: form.email,
-          },
-          attributes: {
-            source: "website_booking_form",
-          },
+          customer: { name: form.name, phone: form.phone, email: form.email },
+          attributes: { source: "website_booking_form" },
         }),
       });
 
@@ -109,11 +108,7 @@ export default function BookingClient() {
           serviceName: selectedService.title,
           amount: selectedAmount,
           clientOrderId,
-          customer: {
-            name: form.name,
-            phone: form.phone,
-            email: form.email,
-          },
+          customer: { name: form.name, phone: form.phone, email: form.email },
         }),
       });
 
@@ -140,18 +135,8 @@ export default function BookingClient() {
       <form onSubmit={handleSubmit} className="space-y-4 rounded-2xl border border-slate-200 p-6 shadow-sm">
         <div>
           <label className="mb-1 block text-sm font-medium">Service</label>
-          <select
-            className="w-full rounded-lg border border-slate-300 px-3 py-2"
-            value={form.serviceId}
-            onChange={(e) => setForm((prev) => ({ ...prev, serviceId: e.target.value }))}
-            disabled={loadingServices}
-            required
-          >
-            {services.map((service) => (
-              <option key={service.id} value={service.id}>
-                {service.title}{service.price ? ` — ${service.price}` : ""}
-              </option>
-            ))}
+          <select className="w-full rounded-lg border border-slate-300 px-3 py-2" value={form.serviceId} onChange={(e) => setForm((prev) => ({ ...prev, serviceId: e.target.value }))} disabled={loadingServices} required>
+            {services.map((service) => <option key={service.id} value={service.id}>{service.title}{service.price ? ` — ${service.price}` : ""}</option>)}
           </select>
           {selectedService ? <p className="mt-2 text-sm text-slate-600">Price from Sedifex: <strong>{selectedService.price || "Not set"}</strong></p> : null}
         </div>
@@ -169,7 +154,6 @@ export default function BookingClient() {
         <button type="submit" disabled={submitting || loadingServices} className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50">
           {submitting ? "Processing..." : "Book & Pay Online"}
         </button>
-
         {message ? <p className="text-sm text-red-600">{message}</p> : null}
       </form>
     </section>
