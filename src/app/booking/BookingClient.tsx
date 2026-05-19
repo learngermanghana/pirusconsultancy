@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type Service = {
   id: string;
@@ -8,6 +8,12 @@ type Service = {
   description: string;
   price?: string;
 };
+
+function parsePrice(value?: string) {
+  if (!value) return 0;
+  const parsed = Number(String(value).replace(/[^0-9.]/g, ""));
+  return Number.isFinite(parsed) ? parsed : 0;
+}
 
 export default function BookingClient() {
   const [services, setServices] = useState<Service[]>([]);
@@ -23,8 +29,10 @@ export default function BookingClient() {
     bookingDate: "",
     bookingTime: "",
     notes: "",
-    paymentAmount: "",
   });
+
+  const selectedService = useMemo(() => services.find((service) => service.id === form.serviceId), [services, form.serviceId]);
+  const selectedAmount = useMemo(() => parsePrice(selectedService?.price), [selectedService]);
 
   useEffect(() => {
     const load = async () => {
@@ -48,6 +56,16 @@ export default function BookingClient() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setMessage("");
+
+    if (!selectedService) {
+      setMessage("Please select a service.");
+      return;
+    }
+    if (!selectedAmount || selectedAmount <= 0) {
+      setMessage("Selected service has no valid Sedifex price. Please contact support.");
+      return;
+    }
+
     setSubmitting(true);
 
     try {
@@ -56,10 +74,11 @@ export default function BookingClient() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           serviceId: form.serviceId,
+          serviceName: selectedService.title,
           bookingDate: form.bookingDate,
           bookingTime: form.bookingTime,
           notes: form.notes,
-          paymentAmount: Number(form.paymentAmount),
+          paymentAmount: selectedAmount,
           paymentMethod: "paystack",
           customer: {
             name: form.name,
@@ -79,14 +98,16 @@ export default function BookingClient() {
       }
 
       const bookingId = bookingData.bookingId;
-      const clientOrderId = `BOOKING-${bookingId}`;
+      const clientOrderId = `BOOKING-${bookingId || Date.now()}`;
 
       const checkoutRes = await fetch("/api/integration/bookings/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           bookingId,
-          amount: Number(form.paymentAmount),
+          serviceId: form.serviceId,
+          serviceName: selectedService.title,
+          amount: selectedAmount,
           clientOrderId,
           customer: {
             name: form.name,
@@ -128,10 +149,11 @@ export default function BookingClient() {
           >
             {services.map((service) => (
               <option key={service.id} value={service.id}>
-                {service.title}
+                {service.title}{service.price ? ` — ${service.price}` : ""}
               </option>
             ))}
           </select>
+          {selectedService ? <p className="mt-2 text-sm text-slate-600">Price from Sedifex: <strong>{selectedService.price || "Not set"}</strong></p> : null}
         </div>
 
         <div className="grid gap-4 md:grid-cols-2">
@@ -140,7 +162,6 @@ export default function BookingClient() {
           <input className="rounded-lg border border-slate-300 px-3 py-2 md:col-span-2" type="email" placeholder="Email" required value={form.email} onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))} />
           <input className="rounded-lg border border-slate-300 px-3 py-2" type="date" required value={form.bookingDate} onChange={(e) => setForm((p) => ({ ...p, bookingDate: e.target.value }))} />
           <input className="rounded-lg border border-slate-300 px-3 py-2" placeholder="Time (e.g. 10:00 AM)" required value={form.bookingTime} onChange={(e) => setForm((p) => ({ ...p, bookingTime: e.target.value }))} />
-          <input className="rounded-lg border border-slate-300 px-3 py-2 md:col-span-2" type="number" min="1" placeholder="Amount (GHS)" required value={form.paymentAmount} onChange={(e) => setForm((p) => ({ ...p, paymentAmount: e.target.value }))} />
         </div>
 
         <textarea className="w-full rounded-lg border border-slate-300 px-3 py-2" placeholder="Notes (optional)" value={form.notes} onChange={(e) => setForm((p) => ({ ...p, notes: e.target.value }))} rows={4} />
