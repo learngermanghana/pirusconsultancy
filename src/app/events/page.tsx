@@ -3,6 +3,8 @@ import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
 import { getSedifexAvailabilitySlots, type SedifexAvailabilitySlot } from "@/lib/sedifexAvailability";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Upcoming Events",
   description: "Upcoming seminars, short courses, intakes, and relocation events from Pirus Consultancy.",

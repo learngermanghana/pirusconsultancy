@@ -95,7 +95,7 @@ export async function getSedifexAvailabilitySlots(): Promise<SedifexAvailability
     headers["x-api-key"] = key;
   }
   try {
-    const response = await fetch(url.toString(), { headers, next: { revalidate: 60 } });
+    const response = await fetch(url.toString(), { headers, cache: "no-store" });
     if (!response.ok) return [];
     const data = (await response.json()) as AvailabilityResponse;
     const rows: unknown[] = Array.isArray(data.slots) ? data.slots : [];
