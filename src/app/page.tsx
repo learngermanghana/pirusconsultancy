@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import PrimaryCta from "@/components/PrimaryCta";
 import SectionHeader from "@/components/SectionHeader";
-import { getSedifexGallery, getSedifexProducts, getSedifexPromo } from "@/lib/sedifex";
+import { getSedifexGallery, getSedifexProducts, getSedifexPromo, getSedifexPublicBlogPosts } from "@/lib/sedifex";
 import { createWhatsAppLeadUrl } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
@@ -17,6 +17,21 @@ export const metadata: Metadata = {
     images: ["/images/Pirus Consultancy main Page pic.gpg.png"],
   },
 };
+
+const countryCards = [
+  {
+    title: "For Ghanaian Applicants",
+    text: "Review WASSCE/WAEC, HND, diploma, degree, transcripts, blocked account planning, and the best Germany or Europe route for your profile.",
+    href: "/relocate-to-europe-from-ghana",
+    cta: "Explore Ghana route",
+  },
+  {
+    title: "For Nigerian Applicants",
+    text: "Check NECO/WAEC, OND/HND, university documents, admission strategy, visa readiness, and practical alternatives when Germany is not immediate.",
+    href: "/relocate-to-europe-from-nigeria",
+    cta: "Explore Nigeria route",
+  },
+];
 
 const pathways = [
   { title: "Study in Germany", description: "University admission support, SOP/CV review, Studienkolleg checks, and application strategy.", href: "/study-in-germany" },
@@ -39,10 +54,28 @@ function serviceBookingHref(id: string) {
   return `/booking?service=${encodeURIComponent(id)}`;
 }
 
+function extractExcerpt(html: string, maxLength = 135) {
+  const text = html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  if (!text) return "Read the full post for practical relocation guidance.";
+  return text.length > maxLength ? `${text.slice(0, maxLength).trimEnd()}...` : text;
+}
+
+function formatDate(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "Latest update";
+  return date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+}
+
 export default async function HomePage() {
-  const [products, promo, gallery] = await Promise.all([getSedifexProducts(), getSedifexPromo(), getSedifexGallery()]);
+  const [products, promo, gallery, posts] = await Promise.all([
+    getSedifexProducts(),
+    getSedifexPromo(),
+    getSedifexGallery(),
+    getSedifexPublicBlogPosts(),
+  ]);
   const whatsappUrl = createWhatsAppLeadUrl({ page: "homepage", pathway: "study", intent: "Relocate to Germany or Europe from Ghana or Nigeria" });
   const featuredServices = products.slice(0, 3);
+  const latestPosts = posts.slice(0, 3);
 
   return (
     <div className="space-y-14 pb-8">
@@ -83,7 +116,7 @@ export default async function HomePage() {
         <SectionHeader
           eyebrow="Start here"
           title="Choose your consultation package"
-          description="These packages come from Sedifex. Pick the one that matches where you are now and continue to secure booking."
+          description="Choose the support you need now. Each package is linked to online booking and secure checkout."
         />
         <div className="grid gap-4 md:grid-cols-3">
           {featuredServices.map((product) => (
@@ -103,6 +136,25 @@ export default async function HomePage() {
       </section>
 
       <section className="space-y-6">
+        <SectionHeader
+          eyebrow="Country-specific guidance"
+          title="Built for applicants from Ghana and Nigeria"
+          description="Your country, certificate, budget, and document history affect the right route. Start with the guidance closest to your background."
+        />
+        <div className="grid gap-4 md:grid-cols-2">
+          {countryCards.map((card) => (
+            <article key={card.title} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h2 className="text-xl font-bold text-slate-900">{card.title}</h2>
+              <p className="mt-3 text-sm leading-6 text-slate-600">{card.text}</p>
+              <Link href={card.href} className="mt-5 inline-flex rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-50">
+                {card.cta}
+              </Link>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="space-y-6">
         <SectionHeader eyebrow="Why Pirus Consultancy" title="Trust-first guidance for real relocation decisions" description="Our process is transparent, student-friendly, and focused on practical next steps for Africans relocating to Europe." align="center" />
         <div className="grid gap-4 md:grid-cols-4">
           {["Guidance for WAEC/NECO + transcripts", "German blocked account prep", "Visa interview readiness for West African applicants", "Clear timeline and document support"].map((item) => (
@@ -113,11 +165,6 @@ export default async function HomePage() {
 
       <section className="space-y-6">
         <SectionHeader eyebrow="Main Pathways" title="Choose the route that fits your profile" />
-        <div className="grid gap-3 md:grid-cols-3">
-          {[{ label: "From Nigeria", href: "/relocate-to-europe-from-nigeria" }, { label: "From Ghana", href: "/relocate-to-europe-from-ghana" }, { label: "Study in Germany from Africa", href: "/study-in-germany" }].map((item) => (
-            <Link key={item.href} href={item.href} className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm font-semibold text-amber-900 transition hover:bg-amber-100">{item.label}</Link>
-          ))}
-        </div>
         <div className="grid gap-4 md:grid-cols-2">
           {pathways.map((pathway) => (
             <article key={pathway.title} className="rounded-2xl border border-slate-200 p-6 shadow-sm">
@@ -134,7 +181,7 @@ export default async function HomePage() {
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-300">What we support</p>
           <h2 className="mt-2 text-2xl font-bold">One process: profile, pathway, documents, and payment-backed booking.</h2>
           <p className="mt-3 text-sm leading-6 text-slate-200">
-            We have combined the old services and featured services sections into one clearer action flow: choose a package, book online, and let us review your next step.
+            Choose a package, book online, and let us review your next step with practical guidance instead of vague promises.
           </p>
           <Link href="/booking" className="mt-5 inline-flex rounded-xl bg-amber-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-amber-200">
             Book Now
@@ -157,6 +204,40 @@ export default async function HomePage() {
             </div>
           ))}
         </div>
+      </section>
+
+      <section className="space-y-6">
+        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <SectionHeader eyebrow="Latest blog posts" title="Fresh relocation guidance" description="New posts from the Pirus blog, pulled directly into the homepage." />
+          <Link href="/blog" className="text-sm font-semibold text-slate-900 underline-offset-4 hover:underline">
+            View all posts →
+          </Link>
+        </div>
+        {latestPosts.length ? (
+          <div className="grid gap-4 md:grid-cols-3">
+            {latestPosts.map((post) => (
+              <article key={post.id} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                {post.imageUrl ? (
+                  <div className="relative h-40 w-full bg-slate-100">
+                    <Image src={post.imageUrl} alt={post.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+                  </div>
+                ) : null}
+                <div className="p-5">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-amber-700">{formatDate(post.publishedAt)}</p>
+                  <h3 className="mt-2 text-base font-bold text-slate-900">{post.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{extractExcerpt(post.content)}</p>
+                  <Link href={`/blog/${post.slug}`} className="mt-4 inline-flex text-sm font-semibold text-slate-900 underline-offset-4 hover:underline">
+                    Read post →
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm text-slate-600">
+            Blog posts will appear here when published from Sedifex.
+          </div>
+        )}
       </section>
 
       <section className="space-y-6">
