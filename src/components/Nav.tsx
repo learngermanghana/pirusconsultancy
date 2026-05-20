@@ -9,6 +9,7 @@ const navLinks = [
   { href: "/", label: "Home" },
   { href: "/study-in-germany", label: "Pathways" },
   { href: "/services", label: "Services" },
+  { href: "/events", label: "Events" },
   { href: "/assessment", label: "Assessment" },
   { href: "/blog", label: "Blog" },
 ];
@@ -47,7 +48,7 @@ export default function Nav() {
           {open ? "Close" : "Menu"}
         </button>
 
-        <nav className="hidden items-center gap-2 md:flex" aria-label="Main navigation">
+        <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">
           {navLinks.map((link) => {
             const active = isActive(pathname, link.href);
             if (link.href === "/study-in-germany") {
@@ -73,7 +74,7 @@ export default function Nav() {
             );
           })}
           <Link href="/booking" className="ml-2 rounded-full bg-amber-300 px-4 py-2 text-sm font-bold text-slate-950 shadow-sm transition hover:bg-amber-200">
-            Book Consultation
+            Book
           </Link>
         </nav>
       </div>
