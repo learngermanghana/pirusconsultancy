@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import PrimaryCta from "@/components/PrimaryCta";
 import SectionHeader from "@/components/SectionHeader";
-import { getSedifexGallery, getSedifexProducts, getSedifexPromo, getSedifexPublicBlogPosts } from "@/lib/sedifex";
+import { getSedifexGallery, getSedifexPromo, getSedifexPublicBlogPosts, getSedifexServices } from "@/lib/sedifex";
 import { createWhatsAppLeadUrl } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
@@ -67,14 +67,14 @@ function formatDate(value: string) {
 }
 
 export default async function HomePage() {
-  const [products, promo, gallery, posts] = await Promise.all([
-    getSedifexProducts(),
+  const [services, promo, gallery, posts] = await Promise.all([
+    getSedifexServices(),
     getSedifexPromo(),
     getSedifexGallery(),
     getSedifexPublicBlogPosts(),
   ]);
   const whatsappUrl = createWhatsAppLeadUrl({ page: "homepage", pathway: "study", intent: "Relocate to Germany or Europe from Ghana or Nigeria" });
-  const featuredServices = products.slice(0, 3);
+  const featuredServices = services.slice(0, 3);
   const latestPosts = posts.slice(0, 3);
 
   return (
@@ -218,8 +218,8 @@ export default async function HomePage() {
             {latestPosts.map((post) => (
               <article key={post.id} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                 {post.imageUrl ? (
-                  <div className="relative h-40 w-full bg-slate-100">
-                    <Image src={post.imageUrl} alt={post.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+                  <div className="h-40 w-full bg-slate-100">
+                    <img src={post.imageUrl} alt={post.title} className="h-full w-full object-cover" loading="lazy" />
                   </div>
                 ) : null}
                 <div className="p-5">

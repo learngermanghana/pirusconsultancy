@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSedifexPublicBlogPostBySlug, getSedifexPublicBlogPosts } from "@/lib/sedifex";
@@ -7,6 +6,40 @@ type StoryPageProps = {
   params: Promise<{ slug: string }>;
 };
 
+
+function formatStoryContent(content: string) {
+  if (/<[a-z][\s\S]*>/i.test(content)) {
+    return content;
+  }
+
+  const escaped = content
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
+  const withStrong = escaped.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  const paragraphs = withStrong
+    .split(/\n{2,}/)
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .map((part) => {
+      const normalized = part.replace(/\s+/g, " ").trim();
+
+      if (normalized.includes(" - ")) {
+        const [lead, ...items] = normalized.split(/\s+-\s+/).map((entry) => entry.trim()).filter(Boolean);
+
+        if (items.length > 0) {
+          const list = `<ul>${items.map((item) => `<li>${item}</li>`).join("")}</ul>`;
+          return lead ? `<p>${lead}</p>${list}` : list;
+        }
+      }
+
+      return `<p>${normalized}</p>`;
+    })
+    .join("");
+
+  return paragraphs;
+}
 export async function generateStaticParams() {
   const posts = await getSedifexPublicBlogPosts();
   return posts.map((story) => ({ slug: story.slug }));
@@ -54,12 +87,17 @@ export default async function StoryPage({ params }: StoryPageProps) {
       </header>
 
       {story.imageUrl ? (
-        <div className="relative h-64 w-full overflow-hidden rounded-2xl">
-          <Image src={story.imageUrl} alt={story.title} fill className="object-cover" sizes="100vw" priority />
+        <div className="w-full overflow-hidden rounded-2xl bg-slate-100 p-2">
+          <img
+            src={story.imageUrl}
+            alt={story.title}
+            className="h-auto max-h-[36rem] w-full object-contain"
+            loading="eager"
+          />
         </div>
       ) : null}
 
-      <section className="prose prose-slate max-w-none" dangerouslySetInnerHTML={{ __html: story.content }} />
+      <section className="prose prose-slate max-w-none leading-relaxed" dangerouslySetInnerHTML={{ __html: formatStoryContent(story.content) }} />
     </article>
   );
 }
