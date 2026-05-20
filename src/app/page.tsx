@@ -33,15 +33,6 @@ const countryCards = [
   },
 ];
 
-const pathways = [
-  { title: "Study in Germany", description: "University admission support, SOP/CV review, Studienkolleg checks, and application strategy.", href: "/study-in-germany" },
-  { title: "Ausbildung Route", description: "Vocational pathway guidance, German level planning, CV positioning, and document readiness.", href: "/study-in-germany" },
-  { title: "Visa Pathways by Profile", description: "Get practical options based on your profile: student, graduate, professional, or family route.", href: "/europe-pathways" },
-  { title: "Europe Alternatives", description: "Explore realistic European alternatives when Germany is not the best first step for your budget or documents.", href: "/relocate-to-europe-from-ghana" },
-];
-
-const processSteps = ["Profile review", "Pathway selection", "Document preparation", "Application support", "Visa preparation", "Travel readiness"];
-const supportAreas = ["CV review", "German CV support", "Admission guidance", "Visa document review", "Interview prep", "Consultation packages"];
 const faqs = [
   { q: "Do you guarantee admission or visa approval?", a: "No. We do not make false promises. We provide structured support to improve your preparedness and decision quality." },
   { q: "Is Germany your main focus?", a: "Yes. Germany is our primary pathway, while we also support selected Europe alternatives based on your profile." },
@@ -159,49 +150,6 @@ export default async function HomePage() {
         <div className="grid gap-4 md:grid-cols-4">
           {["Guidance for WAEC/NECO + transcripts", "German blocked account prep", "Visa interview readiness for West African applicants", "Clear timeline and document support"].map((item) => (
             <div key={item} className="rounded-2xl border border-slate-200 bg-white p-5 text-sm font-semibold text-slate-700 shadow-sm">{item}</div>
-          ))}
-        </div>
-      </section>
-
-      <section className="space-y-6">
-        <SectionHeader eyebrow="Main Pathways" title="Choose the route that fits your profile" />
-        <div className="grid gap-4 md:grid-cols-2">
-          {pathways.map((pathway) => (
-            <article key={pathway.title} className="rounded-2xl border border-slate-200 p-6 shadow-sm">
-              <h3 className="text-lg font-semibold text-slate-900">{pathway.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">{pathway.description}</p>
-              <Link href={pathway.href} className="mt-4 inline-block text-sm font-semibold text-slate-900 underline-offset-4 hover:underline">Explore pathway</Link>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-        <div className="rounded-3xl bg-slate-900 p-6 text-white md:p-8">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-300">What we support</p>
-          <h2 className="mt-2 text-2xl font-bold">One process: profile, pathway, documents, and payment-backed booking.</h2>
-          <p className="mt-3 text-sm leading-6 text-slate-200">
-            Choose a package, book online, and let us review your next step with practical guidance instead of vague promises.
-          </p>
-          <Link href="/booking" className="mt-5 inline-flex rounded-xl bg-amber-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-amber-200">
-            Book Now
-          </Link>
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {supportAreas.map((service) => (
-            <div key={service} className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm font-medium text-slate-700">{service}</div>
-          ))}
-        </div>
-      </section>
-
-      <section className="space-y-6">
-        <SectionHeader eyebrow="How It Works" title="A simple, step-by-step process" />
-        <div className="grid gap-3 md:grid-cols-3">
-          {processSteps.map((step, index) => (
-            <div key={step} className="rounded-xl border border-slate-200 p-4">
-              <p className="text-xs font-bold uppercase tracking-wide text-amber-600">Step {index + 1}</p>
-              <p className="mt-2 text-sm font-medium text-slate-800">{step}</p>
-            </div>
           ))}
         </div>
       </section>
