@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { getSedifexPublicBlogPosts } from "@/lib/sedifex";
 
@@ -23,8 +22,8 @@ export default async function BlogPage() {
         {posts.map((post) => (
           <article key={post.id} className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
             {post.imageUrl ? (
-              <div className="relative h-44 w-full">
-                <Image src={post.imageUrl} alt={post.title} fill className="object-cover" sizes="(min-width: 768px) 50vw, 100vw" />
+              <div className="h-44 w-full">
+                <img src={post.imageUrl} alt={post.title} className="h-full w-full object-cover" loading="lazy" />
               </div>
             ) : null}
             <div className="space-y-3 p-4">
