@@ -1,46 +1,35 @@
 import Link from "next/link";
 
 const quickLinks = [
-  { href: "/study-in-germany", label: "Study in Germany" },
-  { href: "/europe-pathways", label: "Europe Pathways" },
+  { href: "/study-in-germany", label: "Pathways" },
   { href: "/services", label: "Services" },
-  { href: "/contact", label: "Contact" },
+  { href: "/booking", label: "Book Consultation" },
+  { href: "/blog", label: "Blog" },
 ];
 
-const resources = [
-  { href: "/blog", label: "Articles & Resources" },
+const legalLinks = [
+  { href: "/privacy", label: "Privacy Policy" },
   { href: "/assessment", label: "Free Assessment" },
-  { href: "/learn-german", label: "Learn German (Falowen)" },
 ];
 
 export default function Footer() {
   return (
     <footer className="border-t border-slate-200 bg-slate-950 text-slate-200">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-3">
         <div>
           <p className="text-lg font-bold text-white">Pirus Consultancy</p>
-          <p className="mt-2 text-sm text-slate-300">
-            Honest, structured relocation support for students and young professionals moving to Germany and Europe.
+          <p className="mt-2 text-sm leading-6 text-slate-300">
+            Honest, structured relocation support for Ghanaians, Nigerians, and Africans planning Germany or Europe pathways.
+          </p>
+          <p className="mt-4 text-xs leading-5 text-slate-400">
+            We do not guarantee admission, scholarship, visa approval, or relocation success. We provide practical guidance and document support.
           </p>
         </div>
 
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wide text-white">Quick Links</p>
+          <p className="text-sm font-semibold uppercase tracking-wide text-white">Main Links</p>
           <ul className="mt-3 space-y-2 text-sm">
             {quickLinks.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="text-slate-300 transition hover:text-white">
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-wide text-white">Resources</p>
-          <ul className="mt-3 space-y-2 text-sm">
-            {resources.map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="text-slate-300 transition hover:text-white">
                   {item.label}
@@ -68,6 +57,15 @@ export default function Footer() {
                 Facebook
               </a>
             </li>
+          </ul>
+          <ul className="mt-5 flex flex-wrap gap-3 text-xs text-slate-400">
+            {legalLinks.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="hover:text-white">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
