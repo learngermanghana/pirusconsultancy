@@ -2,6 +2,7 @@ export type SedifexProduct = {
   id: string;
   title: string;
   description: string;
+  imageUrl?: string;
   price?: string;
   ctaLabel?: string;
   itemType?: "product" | "service";
@@ -155,7 +156,8 @@ function normalizeCatalogItems(payload: unknown, onlyType?: "product" | "service
     const id = String(record.id ?? record._id ?? record.productId ?? record.serviceId ?? record.item_id ?? `catalog-${index}`);
     const title = String(record.title ?? record.name ?? record.productName ?? record.serviceName ?? "Consultation Package");
     const description = String(record.description ?? record.summary ?? record.details ?? "Structured relocation support package.");
-    return [{ id, title, description, price: normalizePrice(record.price ?? record.unitPrice ?? record.amount), ctaLabel: String(record.ctaLabel ?? record.buttonText ?? "Book Consultation"), itemType }];
+    const imageUrl = record.imageUrl ?? record.image ?? record.photoUrl ?? record.photo ?? record.thumbnailUrl ?? record.thumbnail;
+    return [{ id, title, description, imageUrl: imageUrl ? String(imageUrl) : undefined, price: normalizePrice(record.price ?? record.unitPrice ?? record.amount), ctaLabel: String(record.ctaLabel ?? record.buttonText ?? "Book Consultation"), itemType }];
   });
 
   const deduped = new Map<string, SedifexProduct>();

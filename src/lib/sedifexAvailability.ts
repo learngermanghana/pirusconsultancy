@@ -44,6 +44,13 @@ function text(value: unknown) {
   return typeof value === "string" ? value : undefined;
 }
 
+function firstText(...values: unknown[]) {
+  for (const value of values) {
+    if (typeof value === "string" && value.trim()) return value;
+  }
+  return undefined;
+}
+
 function numberValue(value: unknown) {
   return typeof value === "number" && Number.isFinite(value) ? value : null;
 }
@@ -64,7 +71,16 @@ function toSlot(value: unknown): SedifexAvailabilitySlot | null {
     price: numberValue(row.price),
     depositAmount: numberValue(row.depositAmount),
     currency: text(row.currency) || null,
-    location: text(row.location) || null,
+    location: firstText(
+      row.location,
+      row.venue,
+      row.place,
+      row.eventLocation,
+      row.eventPlace,
+      row.address,
+      row.city,
+      row.meetingLink,
+    ) || null,
     description: text(row.description) || null,
     registrationDeadline: text(row.registrationDeadline) || null,
     category: text(row.category) || null,
