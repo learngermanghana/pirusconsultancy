@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSedifexPublicBlogPostBySlug, getSedifexPublicBlogPosts } from "@/lib/sedifex";
@@ -54,8 +53,13 @@ export default async function StoryPage({ params }: StoryPageProps) {
       </header>
 
       {story.imageUrl ? (
-        <div className="relative h-64 w-full overflow-hidden rounded-2xl">
-          <Image src={story.imageUrl} alt={story.title} fill className="object-cover" sizes="100vw" priority />
+        <div className="w-full overflow-hidden rounded-2xl bg-slate-100 p-2">
+          <img
+            src={story.imageUrl}
+            alt={story.title}
+            className="h-auto max-h-[36rem] w-full object-contain"
+            loading="eager"
+          />
         </div>
       ) : null}
 
