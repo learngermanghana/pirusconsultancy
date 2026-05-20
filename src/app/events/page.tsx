@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
-import { getSedifexAvailabilitySlots } from "@/lib/sedifexAvailability";
+import { getSedifexAvailabilitySlots, type SedifexAvailabilitySlot } from "@/lib/sedifexAvailability";
 
 export const metadata: Metadata = {
   title: "Upcoming Events",
@@ -42,7 +42,7 @@ export default async function EventsPage() {
         <SectionHeader eyebrow="Schedule" title="Available upcoming sessions" description="Choose a session and continue to booking. Seats and dates are managed from Sedifex." />
         {slots.length ? (
           <div className="grid gap-4 md:grid-cols-2">
-            {slots.map((slot) => (
+            {slots.map((slot: SedifexAvailabilitySlot) => (
               <article key={slot.id} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                 <p className="inline-flex rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-amber-800">
                   {slot.eventKind || "event"}
