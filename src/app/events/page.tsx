@@ -69,6 +69,20 @@ export default async function EventsPage() {
           </div>
         )}
       </section>
+
+      <section className="rounded-3xl border border-amber-200 bg-amber-50 p-6 md:p-8">
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-700">Useful add-on</p>
+        <h2 className="mt-2 text-2xl font-bold text-slate-900">Blocked account guidance for Germany</h2>
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-700">
+          For German student visa preparation, many applicants need to understand the blocked account process. We can guide you on the steps and point you toward trusted official or recognized providers, so you avoid random agents and unsafe payment routes.
+        </p>
+        <p className="mt-3 text-xs leading-5 text-slate-600">
+          Pirus Consultancy is not a bank and does not guarantee visa approval. This is guidance to help you prepare safely and understand the process.
+        </p>
+        <Link href="/booking?service=Blocked%20Account%20Guidance" className="mt-5 inline-flex rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white">
+          Ask about blocked account setup
+        </Link>
+      </section>
     </div>
   );
 }
