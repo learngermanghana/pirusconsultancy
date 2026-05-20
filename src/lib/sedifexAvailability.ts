@@ -20,6 +20,10 @@ export type SedifexAvailabilitySlot = {
   status?: string;
 };
 
+type AvailabilityResponse = {
+  slots?: unknown[];
+};
+
 function baseUrl() {
   return (process.env.SEDIFEX_INTEGRATION_API_BASE_URL || process.env.SEDIFEX_API_BASE_URL || "https://us-central1-sedifex-web.cloudfunctions.net").replace(/\/$/, "");
 }
@@ -74,7 +78,11 @@ function toSlot(value: unknown): SedifexAvailabilitySlot | null {
   };
 }
 
-export async function getSedifexAvailabilitySlots() {
+function isAvailabilitySlot(slot: SedifexAvailabilitySlot | null): slot is SedifexAvailabilitySlot {
+  return slot !== null;
+}
+
+export async function getSedifexAvailabilitySlots(): Promise<SedifexAvailabilitySlot[]> {
   const selectedStoreId = storeId();
   if (!selectedStoreId) return [];
   const url = new URL(availabilityUrl());
@@ -89,9 +97,9 @@ export async function getSedifexAvailabilitySlots() {
   try {
     const response = await fetch(url.toString(), { headers, next: { revalidate: 60 } });
     if (!response.ok) return [];
-    const data = await response.json();
-    const rows = Array.isArray(data?.slots) ? data.slots : [];
-    return rows.map(toSlot).filter((slot): slot is SedifexAvailabilitySlot => Boolean(slot));
+    const data = (await response.json()) as AvailabilityResponse;
+    const rows: unknown[] = Array.isArray(data.slots) ? data.slots : [];
+    return rows.map(toSlot).filter(isAvailabilitySlot);
   } catch {
     return [];
   }
