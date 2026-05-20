@@ -4,6 +4,7 @@ export type SedifexProduct = {
   description: string;
   price?: string;
   ctaLabel?: string;
+  itemType?: "product" | "service";
 };
 
 export type SedifexPromo = {
@@ -31,9 +32,9 @@ export type SedifexPublicBlogPost = {
 };
 
 const fallbackProducts: SedifexProduct[] = [
-  { id: "consult-1", title: "Pathway Clarity Session", description: "One-on-one consultation to map your Germany or Europe relocation route.", price: "GHS 250", ctaLabel: "Book Consultation" },
-  { id: "consult-2", title: "Admission & Document Review", description: "Structured support for SOP, CV, school choices, and application checks.", price: "GHS 450", ctaLabel: "Get Started" },
-  { id: "consult-3", title: "Visa Readiness Package", description: "Document quality checks, interview prep, and pre-departure guidance.", price: "GHS 600", ctaLabel: "Book Package" },
+  { id: "consult-1", title: "Pathway Clarity Session", description: "One-on-one consultation to map your Germany or Europe relocation route.", price: "GHS 250", ctaLabel: "Book Consultation", itemType: "service" },
+  { id: "consult-2", title: "Admission & Document Review", description: "Structured support for SOP, CV, school choices, and application checks.", price: "GHS 450", ctaLabel: "Get Started", itemType: "service" },
+  { id: "consult-3", title: "Visa Readiness Package", description: "Document quality checks, interview prep, and pre-departure guidance.", price: "GHS 600", ctaLabel: "Book Package", itemType: "service" },
 ];
 
 const fallbackPromo: SedifexPromo = {
@@ -120,24 +121,41 @@ function normalizePrice(value: unknown) {
   return raw;
 }
 
-function normalizeProducts(payload: unknown): SedifexProduct[] {
-  const source = Array.isArray(payload)
-    ? payload
-    : Array.isArray((payload as { products?: unknown[] })?.products)
-      ? (payload as { products: unknown[] }).products
-      : Array.isArray((payload as { publicProducts?: unknown[] })?.publicProducts)
-        ? (payload as { publicProducts: unknown[] }).publicProducts
-        : [];
+function catalogArrays(payload: unknown) {
+  if (Array.isArray(payload)) return payload;
+  if (!payload || typeof payload !== "object") return [];
+  const record = payload as Record<string, unknown>;
+  return [
+    ...(Array.isArray(record.publicServices) ? record.publicServices : []),
+    ...(Array.isArray(record.services) ? record.services : []),
+    ...(Array.isArray(record.publicProducts) ? record.publicProducts : []),
+    ...(Array.isArray(record.products) ? record.products : []),
+    ...(Array.isArray(record.items) ? record.items : []),
+  ];
+}
+
+function readItemType(record: Record<string, unknown>): "product" | "service" {
+  const rawType = String(record.itemType ?? record.item_type ?? record.type ?? record.productType ?? record.kind ?? "").toLowerCase();
+  if (rawType === "service" || rawType === "services") return "service";
+  if (rawType === "product" || rawType === "products") return "product";
+  const category = String(record.category ?? record.categoryName ?? "").toLowerCase();
+  if (category.includes("consult") || category.includes("visa") || category.includes("admission") || category.includes("service")) return "service";
+  return "product";
+}
+
+function normalizeCatalogItems(payload: unknown, onlyType?: "product" | "service"): SedifexProduct[] {
+  const source = catalogArrays(payload);
 
   const mapped: SedifexProduct[] = source.flatMap((item, index) => {
     if (!item || typeof item !== "object") return [];
     const record = item as Record<string, unknown>;
-    const itemType = String(record.itemType ?? record.item_type ?? record.type ?? record.productType ?? "").toLowerCase();
-    if (itemType && itemType !== "service" && itemType !== "product") return [];
-    const id = String(record.id ?? record._id ?? record.productId ?? record.item_id ?? `product-${index}`);
-    const title = String(record.title ?? record.name ?? record.productName ?? "Consultation Package");
+    const itemType = readItemType(record);
+    if (onlyType && itemType !== onlyType) return [];
+
+    const id = String(record.id ?? record._id ?? record.productId ?? record.serviceId ?? record.item_id ?? `catalog-${index}`);
+    const title = String(record.title ?? record.name ?? record.productName ?? record.serviceName ?? "Consultation Package");
     const description = String(record.description ?? record.summary ?? record.details ?? "Structured relocation support package.");
-    return [{ id, title, description, price: normalizePrice(record.price ?? record.unitPrice ?? record.amount), ctaLabel: String(record.ctaLabel ?? record.buttonText ?? "Book Consultation") }];
+    return [{ id, title, description, price: normalizePrice(record.price ?? record.unitPrice ?? record.amount), ctaLabel: String(record.ctaLabel ?? record.buttonText ?? "Book Consultation"), itemType }];
   });
 
   const deduped = new Map<string, SedifexProduct>();
@@ -169,7 +187,8 @@ function normalizeGallery(payload: unknown): SedifexGalleryItem[] {
   });
 }
 
-export async function getSedifexProducts() { const payload = await fetchSedifex<unknown>("/integrationProducts"); const products = normalizeProducts(payload); return products.length > 0 ? products : fallbackProducts; }
+export async function getSedifexProducts() { const payload = await fetchSedifex<unknown>("/integrationProducts"); const products = normalizeCatalogItems(payload, "product"); return products.length > 0 ? products : fallbackProducts; }
+export async function getSedifexServices() { const payload = await fetchSedifex<unknown>("/integrationProducts"); const services = normalizeCatalogItems(payload, "service"); return services.length > 0 ? services : fallbackProducts; }
 export async function getSedifexPromo() { const payload = await fetchSedifex<unknown>("/integrationPromo"); return normalizePromo(payload) ?? fallbackPromo; }
 export async function getSedifexGallery() { const payload = await fetchSedifex<unknown>("/integrationGallery"); const gallery = normalizeGallery(payload); return gallery.length > 0 ? gallery : fallbackGallery; }
 export async function getSedifexPublicBlogPosts() { return fetchPublicBlog(); }
