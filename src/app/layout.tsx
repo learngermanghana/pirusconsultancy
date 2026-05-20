@@ -48,6 +48,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <main id="main-content" className="mx-auto max-w-6xl px-4 py-8 md:py-10">
           {children}
         </main>
+        <a
+          href="https://sedifex.com/join-customers/f2e11386cba94eeeb11fe525"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-5 right-5 z-50 rounded-full bg-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-indigo-700"
+        >
+          Join our mailing list
+        </a>
         <Footer />
       </body>
     </html>
