@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import BookingClient from "./BookingClient";
 
 export const metadata: Metadata = {
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function BookingPage() {
-  return <BookingClient />;
+  return (
+    <Suspense fallback={<p className="text-sm text-slate-600">Loading booking form...</p>}>
+      <BookingClient />
+    </Suspense>
+  );
 }
