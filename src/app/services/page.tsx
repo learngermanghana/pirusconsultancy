@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
 import { getSedifexServices } from "@/lib/sedifex";
@@ -26,6 +27,11 @@ export default async function ServicesPage() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {services.map((service) => (
           <article key={service.id} className="rounded-2xl border border-slate-200 p-6 shadow-sm">
+            {service.imageUrl ? (
+              <div className="relative mb-4 h-40 w-full overflow-hidden rounded-xl bg-slate-100">
+                <Image src={service.imageUrl} alt={service.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" unoptimized />
+              </div>
+            ) : null}
             <h2 className="text-lg font-semibold text-slate-900">{service.title}</h2>
             <p className="mt-2 text-sm text-slate-600">{service.description}</p>
             {service.price ? <p className="mt-3 text-sm font-semibold text-slate-900">{service.price}</p> : null}

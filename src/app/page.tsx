@@ -112,6 +112,11 @@ export default async function HomePage() {
         <div className="grid gap-4 md:grid-cols-3">
           {featuredServices.map((product) => (
             <article key={product.id} className="rounded-2xl border border-amber-200 bg-white p-5 shadow-sm">
+              {product.imageUrl ? (
+                <div className="relative mb-4 h-36 w-full overflow-hidden rounded-xl bg-slate-100">
+                  <Image src={product.imageUrl} alt={product.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" unoptimized />
+                </div>
+              ) : null}
               <h3 className="text-lg font-semibold text-slate-900">{product.title}</h3>
               <p className="mt-2 text-sm leading-6 text-slate-600">{product.description}</p>
               {product.price ? <p className="mt-3 text-sm font-bold text-slate-950">{product.price}</p> : null}
