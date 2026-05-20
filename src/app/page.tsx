@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import PrimaryCta from "@/components/PrimaryCta";
 import SectionHeader from "@/components/SectionHeader";
-import { getSedifexGallery, getSedifexPromo, getSedifexPublicBlogPosts, getSedifexServices } from "@/lib/sedifex";
+import { getSedifexPublicBlogPosts, getSedifexServices } from "@/lib/sedifex";
 import { createWhatsAppLeadUrl } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
@@ -41,6 +41,29 @@ const faqs = [
   { q: "How much should I budget before visa appointment?", a: "Budget for application fees, document legalization or translations, insurance, and financial proof requirements such as blocked account funding where applicable." },
 ];
 
+const featuredReviews = [
+  {
+    name: "Fred",
+    story: "Fred joined Learn Language Education Academy, passed the Goethe German exams, and Pirus helped him secure school admission and application direction.",
+  },
+  {
+    name: "Abigail",
+    story: "Abigail followed a similar German-language-to-admission path and moved from confusion to a clear school placement process with our guidance.",
+  },
+  {
+    name: "Michael",
+    story: "Michael needed blocked account support and document checks. We guided him through safe steps, proof preparation, and visa-readiness planning.",
+  },
+  {
+    name: "Sonia",
+    story: "Sonia switched to a realistic alternative pathway when her first route stalled, then rebuilt her timeline with stronger documents and better school targeting.",
+  },
+  {
+    name: "Daniel",
+    story: "Daniel booked a consultation for admissions and interview preparation, improved his application quality, and proceeded with more confidence and structure.",
+  },
+];
+
 function serviceBookingHref(id: string) {
   return `/booking?service=${encodeURIComponent(id)}`;
 }
@@ -58,10 +81,8 @@ function formatDate(value: string) {
 }
 
 export default async function HomePage() {
-  const [services, promo, gallery, posts] = await Promise.all([
+  const [services, posts] = await Promise.all([
     getSedifexServices(),
-    getSedifexPromo(),
-    getSedifexGallery(),
     getSedifexPublicBlogPosts(),
   ]);
   const whatsappUrl = createWhatsAppLeadUrl({ page: "homepage", pathway: "study", intent: "Relocate to Germany or Europe from Ghana or Nigeria" });
@@ -112,6 +133,11 @@ export default async function HomePage() {
         <div className="grid gap-4 md:grid-cols-3">
           {featuredServices.map((product) => (
             <article key={product.id} className="rounded-2xl border border-amber-200 bg-white p-5 shadow-sm">
+              {product.imageUrl ? (
+                <div className="relative mb-4 aspect-[4/3] w-full overflow-hidden rounded-xl border border-slate-200 bg-white p-2">
+                  <Image src={product.imageUrl} alt={product.title} fill className="object-contain p-1" sizes="(max-width: 768px) 100vw, 33vw" unoptimized />
+                </div>
+              ) : null}
               <h3 className="text-lg font-semibold text-slate-900">{product.title}</h3>
               <p className="mt-2 text-sm leading-6 text-slate-600">{product.description}</p>
               {product.price ? <p className="mt-3 text-sm font-bold text-slate-950">{product.price}</p> : null}
@@ -190,21 +216,14 @@ export default async function HomePage() {
 
       <section className="space-y-6">
         <SectionHeader eyebrow="Success Stories" title="Social proof from guided applicants" />
-        <div className="grid gap-4 md:grid-cols-3">
-          {gallery.slice(0, 3).map((item) => (
-            <blockquote key={item.id} className="rounded-2xl border border-slate-200 bg-white p-5 text-sm text-slate-700 shadow-sm">
-              <p className="font-semibold text-slate-900">{item.title}</p>
-              <p className="mt-2">{item.caption}</p>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {featuredReviews.map((review) => (
+            <blockquote key={review.name} className="rounded-2xl border border-slate-200 bg-white p-5 text-sm text-slate-700 shadow-sm">
+              <p className="font-semibold text-slate-900">{review.name}</p>
+              <p className="mt-2">{review.story}</p>
             </blockquote>
           ))}
         </div>
-      </section>
-
-      <section className="rounded-3xl border border-amber-200 bg-amber-50 p-6 md:p-8">
-        <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-700">{promo.badge}</p>
-        <h2 className="mt-2 text-2xl font-bold text-slate-900">{promo.title}</h2>
-        <p className="mt-2 max-w-3xl text-sm text-slate-700">{promo.description}</p>
-        <Link href="/booking" className="mt-5 inline-flex rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white">{promo.ctaLabel ?? "Book Offer"}</Link>
       </section>
 
       <section className="space-y-4">
