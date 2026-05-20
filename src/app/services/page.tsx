@@ -28,8 +28,8 @@ export default async function ServicesPage() {
         {services.map((service) => (
           <article key={service.id} className="rounded-2xl border border-slate-200 p-6 shadow-sm">
             {service.imageUrl ? (
-              <div className="relative mb-4 aspect-[4/3] w-full overflow-hidden rounded-xl border border-slate-200 bg-white p-2">
-                <Image src={service.imageUrl} alt={service.title} fill className="object-contain p-1" sizes="(max-width: 768px) 100vw, 33vw" unoptimized />
+              <div className="relative mb-4 h-40 w-full overflow-hidden rounded-xl bg-slate-100">
+                <Image src={service.imageUrl} alt={service.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" unoptimized />
               </div>
             ) : null}
             <h2 className="text-lg font-semibold text-slate-900">{service.title}</h2>

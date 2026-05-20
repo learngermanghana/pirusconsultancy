@@ -134,8 +134,8 @@ export default async function HomePage() {
           {featuredServices.map((product) => (
             <article key={product.id} className="rounded-2xl border border-amber-200 bg-white p-5 shadow-sm">
               {product.imageUrl ? (
-                <div className="relative mb-4 aspect-[4/3] w-full overflow-hidden rounded-xl border border-slate-200 bg-white p-2">
-                  <Image src={product.imageUrl} alt={product.title} fill className="object-contain p-1" sizes="(max-width: 768px) 100vw, 33vw" unoptimized />
+                <div className="relative mb-4 h-36 w-full overflow-hidden rounded-xl bg-slate-100">
+                  <Image src={product.imageUrl} alt={product.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" unoptimized />
                 </div>
               ) : null}
               <h3 className="text-lg font-semibold text-slate-900">{product.title}</h3>
