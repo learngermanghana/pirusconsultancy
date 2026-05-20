@@ -56,7 +56,7 @@ const REVALIDATE_SECONDS = 60;
 function baseConfig() {
   const baseUrl = process.env.SEDIFEX_INTEGRATION_API_BASE_URL || process.env.SEDIFEX_API_BASE_URL;
   const storeId = process.env.SEDIFEX_BOOKING_TARGET_STORE_ID || process.env.SEDIFEX_STORE_ID;
-  const key = process.env.SEDIFEX_CHECKOUT_API_KEY || process.env.SEDIFEX_INTEGRATION_API_KEY || process.env.SEDIFEX_INTEGRATION_KEY;
+  const key = process.env.SEDIFEX_BOOKING_API_KEY || process.env.SEDIFEX_CHECKOUT_API_KEY || process.env.SEDIFEX_INTEGRATION_API_KEY || process.env.SEDIFEX_INTEGRATION_KEY;
 
   if (!baseUrl || !storeId || !key) return null;
 
