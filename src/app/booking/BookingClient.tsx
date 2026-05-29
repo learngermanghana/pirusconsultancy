@@ -10,6 +10,26 @@ type Service = {
   price?: string;
 };
 
+const bookingTimeOptions = [
+  "09:00 AM",
+  "09:30 AM",
+  "10:00 AM",
+  "10:30 AM",
+  "11:00 AM",
+  "11:30 AM",
+  "12:00 PM",
+  "12:30 PM",
+  "01:00 PM",
+  "01:30 PM",
+  "02:00 PM",
+  "02:30 PM",
+  "03:00 PM",
+  "03:30 PM",
+  "04:00 PM",
+  "04:30 PM",
+  "05:00 PM",
+];
+
 function parsePrice(value?: string) {
   if (!value) return 0;
   const parsed = Number(String(value).replace(/[^0-9.]/g, ""));
@@ -146,7 +166,20 @@ export default function BookingClient() {
           <input className="rounded-lg border border-slate-300 px-3 py-2" placeholder="Phone" required value={form.phone} onChange={(e) => setForm((p) => ({ ...p, phone: e.target.value }))} />
           <input className="rounded-lg border border-slate-300 px-3 py-2 md:col-span-2" type="email" placeholder="Email" required value={form.email} onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))} />
           <input className="rounded-lg border border-slate-300 px-3 py-2" type="date" required value={form.bookingDate} onChange={(e) => setForm((p) => ({ ...p, bookingDate: e.target.value }))} />
-          <input className="rounded-lg border border-slate-300 px-3 py-2" placeholder="Time (e.g. 10:00 AM)" required value={form.bookingTime} onChange={(e) => setForm((p) => ({ ...p, bookingTime: e.target.value }))} />
+          <select
+            className="rounded-lg border border-slate-300 px-3 py-2"
+            required
+            value={form.bookingTime}
+            onChange={(e) => setForm((p) => ({ ...p, bookingTime: e.target.value }))}
+            aria-label="Select appointment time"
+          >
+            <option value="">Select a time</option>
+            {bookingTimeOptions.map((time) => (
+              <option key={time} value={time}>
+                {time}
+              </option>
+            ))}
+          </select>
         </div>
 
         <textarea className="w-full rounded-lg border border-slate-300 px-3 py-2" placeholder="Notes (optional)" value={form.notes} onChange={(e) => setForm((p) => ({ ...p, notes: e.target.value }))} rows={4} />
