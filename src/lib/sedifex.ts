@@ -52,13 +52,12 @@ const fallbackGallery: SedifexGalleryItem[] = [
 ];
 
 const REVALIDATE_SECONDS = 60;
+const DEFAULT_INTEGRATION_BASE_URL = "https://us-central1-sedifex-web.cloudfunctions.net";
 
 function baseConfig() {
-  const baseUrl = process.env.SEDIFEX_INTEGRATION_API_BASE_URL || process.env.SEDIFEX_API_BASE_URL;
+  const baseUrl = process.env.SEDIFEX_INTEGRATION_API_BASE_URL || process.env.SEDIFEX_API_BASE_URL || DEFAULT_INTEGRATION_BASE_URL;
   const storeId = process.env.SEDIFEX_BOOKING_TARGET_STORE_ID || process.env.SEDIFEX_STORE_ID;
   const key = process.env.SEDIFEX_BOOKING_API_KEY || process.env.SEDIFEX_CHECKOUT_API_KEY || process.env.SEDIFEX_INTEGRATION_API_KEY || process.env.SEDIFEX_INTEGRATION_KEY;
-
-  if (!baseUrl || !storeId || !key) return null;
 
   return { baseUrl: baseUrl.replace(/\/$/, ""), storeId, key };
 }
@@ -70,18 +69,34 @@ function publicBlogConfig() {
   return { baseUrl, storeId };
 }
 
+function buildIntegrationUrl(endpoint: string) {
+  const config = baseConfig();
+  const url = endpoint.startsWith("http://") || endpoint.startsWith("https://")
+    ? new URL(endpoint)
+    : new URL(`${config.baseUrl}${endpoint.startsWith("/") ? endpoint : `/${endpoint}`}`);
+
+  if (config.storeId && !url.searchParams.has("storeId")) {
+    url.searchParams.set("storeId", config.storeId);
+  }
+
+  return url.toString();
+}
+
 async function fetchSedifex<T>(path: string): Promise<T | null> {
   const config = baseConfig();
-  if (!config) return null;
+  const headers: Record<string, string> = {
+    "X-Sedifex-Contract-Version": process.env.SEDIFEX_CONTRACT_VERSION || "2026-04-13",
+    Accept: "application/json",
+  };
+
+  if (config.key) {
+    headers.Authorization = `Bearer ${config.key}`;
+    headers["x-api-key"] = config.key;
+  }
 
   try {
-    const response = await fetch(`${config.baseUrl}${path}?storeId=${config.storeId}`, {
-      headers: {
-        Authorization: `Bearer ${config.key}`,
-        "x-api-key": config.key,
-        "X-Sedifex-Contract-Version": process.env.SEDIFEX_CONTRACT_VERSION || "2026-04-13",
-        Accept: "application/json",
-      },
+    const response = await fetch(buildIntegrationUrl(path), {
+      headers,
       next: { revalidate: REVALIDATE_SECONDS },
     });
     if (!response.ok) return null;
@@ -135,22 +150,49 @@ function catalogArrays(payload: unknown) {
   ];
 }
 
-function readItemType(record: Record<string, unknown>): "product" | "service" {
-  const rawType = String(record.itemType ?? record.item_type ?? record.type ?? record.productType ?? record.kind ?? "").toLowerCase();
-  if (rawType === "service" || rawType === "services") return "service";
-  if (rawType === "product" || rawType === "products") return "product";
-  const category = String(record.category ?? record.categoryName ?? "").toLowerCase();
-  if (category.includes("consult") || category.includes("visa") || category.includes("admission") || category.includes("service")) return "service";
-  return "product";
+const SERVICE_KEYWORDS = [
+  "service",
+  "consultation",
+  "consult",
+  "visa",
+  "admission",
+  "relocation",
+  "pathway",
+  "document review",
+  "package",
+  "session",
+  "training",
+  "course",
+  "class",
+  "program",
+  "event",
+  "seminar",
+  "workshop",
+  "appointment",
+];
+
+function suggestsService(value: unknown) {
+  const text = String(value ?? "").toLowerCase();
+  return SERVICE_KEYWORDS.some((keyword) => text.includes(keyword));
 }
 
-function normalizeCatalogItems(payload: unknown, onlyType?: "product" | "service"): SedifexProduct[] {
+function readItemType(record: Record<string, unknown>, defaultType: "product" | "service" = "product"): "product" | "service" {
+  const typeFields = [record.itemType, record.item_type, record.type, record.productType, record.kind, record.category, record.categoryName];
+  if (typeFields.some(suggestsService)) return "service";
+
+  const rawType = String(record.itemType ?? record.item_type ?? record.type ?? record.productType ?? record.kind ?? "").toLowerCase();
+  if (rawType === "product" || rawType === "products") return "product";
+
+  return defaultType;
+}
+
+function normalizeCatalogItems(payload: unknown, onlyType?: "product" | "service", defaultType: "product" | "service" = "product"): SedifexProduct[] {
   const source = catalogArrays(payload);
 
   const mapped: SedifexProduct[] = source.flatMap((item, index) => {
     if (!item || typeof item !== "object") return [];
     const record = item as Record<string, unknown>;
-    const itemType = readItemType(record);
+    const itemType = readItemType(record, defaultType);
     if (onlyType && itemType !== onlyType) return [];
 
     const id = String(record.id ?? record._id ?? record.productId ?? record.serviceId ?? record.item_id ?? `catalog-${index}`);
@@ -190,7 +232,27 @@ function normalizeGallery(payload: unknown): SedifexGalleryItem[] {
 }
 
 export async function getSedifexProducts() { const payload = await fetchSedifex<unknown>("/integrationProducts"); const products = normalizeCatalogItems(payload, "product"); return products.length > 0 ? products : fallbackProducts; }
-export async function getSedifexServices() { const payload = await fetchSedifex<unknown>("/integrationProducts"); const services = normalizeCatalogItems(payload, "service"); return services.length > 0 ? services : fallbackProducts; }
+export async function getSedifexServices() {
+  const serviceEndpoints = [
+    process.env.SEDIFEX_INTEGRATION_SERVICES_URL,
+    "/v1IntegrationServices",
+    "/integrationServices",
+  ].filter((endpoint): endpoint is string => Boolean(endpoint));
+
+  for (const endpoint of serviceEndpoints) {
+    const payload = await fetchSedifex<unknown>(endpoint);
+    const services = normalizeCatalogItems(payload, "service", "service");
+    if (services.length > 0) return services;
+  }
+
+  for (const endpoint of ["/v1IntegrationProducts", "/integrationProducts"]) {
+    const payload = await fetchSedifex<unknown>(endpoint);
+    const services = normalizeCatalogItems(payload, "service");
+    if (services.length > 0) return services;
+  }
+
+  return fallbackProducts;
+}
 export async function getSedifexPromo() { const payload = await fetchSedifex<unknown>("/integrationPromo"); return normalizePromo(payload) ?? fallbackPromo; }
 export async function getSedifexGallery() { const payload = await fetchSedifex<unknown>("/integrationGallery"); const gallery = normalizeGallery(payload); return gallery.length > 0 ? gallery : fallbackGallery; }
 export async function getSedifexPublicBlogPosts() { return fetchPublicBlog(); }
