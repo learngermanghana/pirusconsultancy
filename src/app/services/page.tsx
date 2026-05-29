@@ -4,6 +4,8 @@ import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
 import { getSedifexServices } from "@/lib/sedifex";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Services",
   description: "Consultation packages and relocation support services updated from Sedifex.",
