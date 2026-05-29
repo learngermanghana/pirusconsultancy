@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 type PaymentReturnPageProps = {
   searchParams?: Promise<Record<string, string | string[] | undefined>> | Record<string, string | string[] | undefined>;
@@ -20,6 +21,11 @@ export default async function PaymentReturnPage({ searchParams }: PaymentReturnP
   const reference = readParam(params, "reference") || readParam(params, "trxref") || readParam(params, "clientOrderId");
   const status = readParam(params, "status").toLowerCase();
   const failed = status === "cancelled" || status === "failed";
+
+  if (!failed) {
+    const successPath = reference ? `/booking/success?reference=${encodeURIComponent(reference)}` : "/booking/success";
+    redirect(successPath);
+  }
 
   return (
     <section className="mx-auto max-w-2xl rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-sm">

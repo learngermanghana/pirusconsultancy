@@ -34,7 +34,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     const clientOrderId = String(body.clientOrderId || `BOOKING-${Date.now()}`);
     const origin = new URL(req.url).origin;
-    const returnUrl = process.env.SEDIFEX_CHECKOUT_RETURN_URL || `${origin}/payment/return?reference=${encodeURIComponent(clientOrderId)}`;
+    const returnUrl = process.env.SEDIFEX_CHECKOUT_RETURN_URL || `${origin}/booking/success?reference=${encodeURIComponent(clientOrderId)}`;
 
     const payload = {
       storeId,
